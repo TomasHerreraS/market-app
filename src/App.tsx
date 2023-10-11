@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      {/* Uncomment when a route has been create */}
-      {/* <RouteByComponent/> */}
+      <RouteByComponent/>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-// import Mainpage from 'pages/...'
+import NavigationBar from './components/navigation-bar/navigation-bar';
+import SignUp from './pages/signup-page';
 
 const RouteByComponent = () => {
-//   TODO: INSERT BELOW ROUTE BY CALLING COMPONENT FROM PAGE
-//   Example:
-//   return (
-//     <Routes>
-//       <Route path='/' element={<MainPage/>} />
-//     </Routes>
-//   )
+  return (
+    <Routes>
+      <Route path='/' element={<NavigationBar/>} />
+      <Route path='/sign-up' element={<SignUp/>} />
+    </Routes>
+  )
 }
 
 export default RouteByComponent;
