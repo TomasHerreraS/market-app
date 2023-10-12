@@ -8,7 +8,7 @@ interface CarouselButtonProps {
  function CarouselButton({ buttonText }: CarouselButtonProps ) {
     // The function to purchase product displayed, this should be modified later for versatility
     const handleClick = () => {
-        console.log("No product bitch")
+        console.log("No product")
     }
 
     // We need to make this also more versatile
