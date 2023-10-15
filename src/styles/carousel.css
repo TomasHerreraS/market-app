@@ -7,5 +7,42 @@
 }
 
 .slideshow-text {
-    text-align: left !important;
+  text-align: left !important;
+}
+
+.carousel-indicators button {
+  width: 160px !important;
+  margin-right: 8px !important;
+}
+
+.carousel-button {
+  width: 180px;
+  margin-bottom: 10px;
+}
+
+.carousel-products-img {
+  width: 250px;
+  height: 250px;
+  margin-right: 15px;
+  padding-bottom: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-product {
+
+}
+
+.carousel-product-back {
+  background: url("../assets/carousel-img/carousel-back.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-product-back h2 {
+  color: white;
+  padding-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
 }

@@ -13,7 +13,7 @@ interface CarouselButtonProps {
 
     // We need to make this also more versatile
   return (
-    <Button variant="info"><strong>{ buttonText }</strong></Button>
+    <Button className='carousel-button' onClick={handleClick} variant="info"><strong>{ buttonText }</strong></Button>
   )
 }
 

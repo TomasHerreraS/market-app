@@ -1,6 +1,5 @@
-// import { Carousel } from "react-bootstrap";
-import CarouselFadeExample from "../components/carousel/carousel";
-import Slideshow from "../components/carousel/carousel";
+import Slideshow from "../components/carousel/main-carousel";
+import ProductSlideshow from "../components/carousel/explore-product-carousel";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
 
 const MainPage = () => {
@@ -8,6 +7,7 @@ const MainPage = () => {
     <>
       <NavigationBar />
       <Slideshow />
+      <ProductSlideshow/>
     </>
   );
 };
