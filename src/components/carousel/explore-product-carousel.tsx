@@ -1,52 +1,42 @@
-import Carousel from "react-bootstrap/Carousel";
-import { Col, Image, Row } from "react-bootstrap";
-import firstImage from "../../assets/carousel-img/monitor-product.png";
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
+import { Card } from "react-bootstrap";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import cardProducts from "./card-products";
 
-// Move this somewhere else to change data easier
-const arrayOfProducts = [
-  { id: 1, name: "Object 1", description: "Description for Object 1", image: firstImage },
-  { id: 2, name: "Object 2", description: "Description for Object 2", image: firstImage },
-  { id: 3, name: "Object 3", description: "Description for Object 3", image: firstImage },
-];
+const ProductCarousel = () => {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
 
-// This will be to display a few products below the main carousel
-function ProductSlideshow() {
   return (
-    <>
-      <div className="carousel-product-back">
-        <h2>Find Products</h2>
-        <Carousel className="carousel-product" interval={null}>
-          <Carousel.Item>
-            <div className="align-items-center">
-              <Row>
-                <Col lg={3} md={4} xs={12}>
-                  <Image className="carousel-products-img" src={firstImage} />
-                </Col>
-                <Col lg={3} md={4} xs={12}>
-                  <Image className="carousel-products-img" src={firstImage} />
-                </Col>
-                <Col lg={3} md={4} xs={12}>
-                  <Image className="carousel-products-img" src={firstImage} />
-                </Col>
-                <Col lg={3} md={4} xs={12}>
-                  <Image className="carousel-products-img" src={firstImage} />
-                </Col>
-              </Row>
-            </div>
-            <Carousel.Caption></Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <Carousel.Caption></Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <Carousel.Caption></Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
-      </div>
-    </>
+    <div className="carousel-back">
+    <h2>Explore Products</h2>
+      <Carousel className="carousel-product" responsive={responsive}>
+        {cardProducts.map((cardProducts) => (
+          <Card key={cardProducts.id} className="carousel-product-card">
+            <Card.Img src={cardProducts.image} />
+            <h3>{cardProducts.name}</h3>
+          </Card>
+        ))}
+      </Carousel>
+    </div>
   );
-}
+};
 
-export default ProductSlideshow;
+export default ProductCarousel;

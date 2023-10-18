@@ -29,20 +29,43 @@
   margin: 0 auto;
 }
 
-.carousel-product {
-
+.carousel-product-card {
+  background: rgba(99, 99, 99, 0.37) !important;
+  margin: 50px 12px;
+  transition: ease 2ms; /* This line should be corrected to define the easing function */
 }
 
-.carousel-product-back {
+.carousel-product-card:hover {
+  box-shadow: inset 0 0 0 2.5px rgb(139, 67, 255);
+  cursor: pointer;
+}
+
+.carousel-product-card img {
+  width: 220px;
+  height: 220px;
+  padding: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-product {
+  align-items: center;
+}
+
+.carousel-back {
   background: url("../assets/carousel-img/carousel-back.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
-.carousel-product-back h2 {
-  color: white;
-  padding-top: 20px;
-  margin-bottom: 30px;
+.carousel-product-card h3 {
   text-align: center;
+  color:white;
+}
+
+.carousel-back h2 {
+  color: white;
+  text-align: center;
+  padding-top: 34px;
 }

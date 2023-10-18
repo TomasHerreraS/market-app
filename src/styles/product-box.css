@@ -1,0 +1,15 @@
+.product-box-container {
+    height: 500px;
+    max-width: 100%;
+    width: 100%;
+    margin: 10px 0px;
+    background-image: url( "../assets/carousel-img/pc.webp");
+    display: block;
+    position: relative;
+    box-sizing: inherit;
+}
+
+.product-box-row {
+    display: flex;
+    width: 100%;
+}
