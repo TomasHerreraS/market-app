@@ -12,9 +12,23 @@
   padding-bottom: 3px;
 }
 
+input{
+  border-radius: 8px;
+  border-style: solid;
+  border-color: rgb(27, 27, 27);
+}
+
+input:focus{
+  outline: none;
+}
+
 .text-decoration{
   text-decoration: none;
   color: rgb(218, 218, 218);
+}
+
+.cursor-pointer:hover{
+  cursor: pointer;
 }
 
 .sign-in-margin{
