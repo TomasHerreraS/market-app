@@ -1,16 +1,16 @@
 import Slideshow from "../components/carousel/main-carousel";
-import NavigationBar from "../components/navigation-bar/navigation-bar";
 import ProductCarousel from "../components/carousel/explore-product-carousel";
-import ProductBox from "../components/product-box/product-box";
+import ProductBoxRow from "../components/product-box/product-box-row";
+
 
 const MainPage = () => {
   return (
     <>
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <Slideshow />
       <ProductCarousel />
-      <ProductBox />
-    </> 
+      <ProductBoxRow />
+    </>
   );
 };
 

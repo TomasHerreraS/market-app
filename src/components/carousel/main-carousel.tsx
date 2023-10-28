@@ -11,56 +11,44 @@ function Slideshow() {
   return (
     <Carousel className="slideshow-image" fade>
       <Carousel.Item className="slideshow-image">
-        <div className="d-flex justify-content-center align-items-center">
           <Image
             className="d-block w-100"
-            fluid
             src={firstImage}
             alt="First slide"
           />
-        </div>
         <Carousel.Caption className="slideshow-text">
           <CarouselButton buttonText="Shop Now" />
           <h3>Components</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item className="slideshow-image">
-        <div className="d-flex justify-content-center align-items-center">
           <Image
-            className="d-block w-100"
-            fluid
+            className="w-100"
             src={secondImage}
             alt="Second slide"
           />
-        </div>
         <Carousel.Caption className="slideshow-text">
           <CarouselButton buttonText="Shop Now" />
           <h3>Monitors</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item className="slideshow-image">
-        <div className="d-flex justify-content-center align-items-center">
           <Image
-            className="d-block w-100"
-            fluid
+            className="w-100"
             src={thirdImage}
             alt="Third slide"
           />
-        </div>
         <Carousel.Caption className="slideshow-text">
           <CarouselButton buttonText="Shop Now" />
           <h3>Peripherals</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item className="slideshow-image">
-        <div className="d-flex justify-content-center align-items-center">
           <Image
-            className="d-block w-100"
-            fluid
+            className="w-100"
             src={fourthImage}
             alt="Third slide"
           />
-        </div>
         <Carousel.Caption className="slideshow-text">
           <CarouselButton buttonText="Learn More" />
           <h3>Unlock Your Potential</h3>
