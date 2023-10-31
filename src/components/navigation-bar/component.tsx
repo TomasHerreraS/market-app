@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Image } from "react-bootstrap";
 import firstImage from "../../assets/carousel-img/pc.webp";
-import PeripheralJson from '../../data/peripheral.json';
-import '../../styles/peripheral.css';
+import ComponentJson from '../../data/component.json';
+import '../../styles/component.css';
 
-const Peripheral = () => {
-  const [show, setShow] = useState<boolean>(false);
+const Component = () => {
+  const [show, setShow] = useState<boolean>(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const showDropdown = ()=>{
-      setShow(!show);
+    setShow(!show);
   }
 
   const hideDropdown = () => {
-      setShow(!show);
+    setShow(!show);
   }
 
   useEffect(() => {
@@ -32,26 +32,26 @@ const Peripheral = () => {
       onMouseEnter={showDropdown} 
       onMouseLeave={hideDropdown} className='main-dropdown'>
       <Dropdown.Toggle className={ show ? 'dropdown-button picked' : 'dropdown-button'} id="dropdown-basic">
-        Peripherals
+        PC Components
       </Dropdown.Toggle>
       <Dropdown.Menu className="dropdown-size font-color">
         <Row>
-          {PeripheralJson.map((obj, index)=>{
+          {ComponentJson.map((obj, index)=>{
             return (
               <Col key={index} md={2}>
                 <Row>
-                  <Col className="text-center" md={windowWidth > 1360 ? 6 : 12}>
+                  <Col className="text-center" md={windowWidth > 1360 ? 5 : 12}>
                     <Image
                     roundedCircle 
-                    className={windowWidth > 1360 ? 'image-style' : 'image-style-responsive'}
+                    className='image-style'
                     src={firstImage}
                     alt="First slide"/>
                   </Col>
-                  <Col className={windowWidth > 1360 ? 'col-submenu margin-submenu' : 'col-submenu-responsive'} md={windowWidth > 1360 ? 1 : 12}>
-                    <a href="/" className={windowWidth > 1360 ? 'submenu-title text-center' : 'submenu-title-responsive text-center'}>{obj.title}</a>
+                  <Col className='col-submenu' md={windowWidth > 1360 ? 7 : 12}>
+                    <a href="/" className='submenu-title'>{obj.title}</a>
                     {obj.sub.map((subData, number)=>{
                       return(
-                        <a key={number} href="/" className={windowWidth > 1360 ? 'submenu-p text-center' : 'submenu-p-responsive text-center'}>{subData}</a>
+                        <a key={number} href="/" className={subData.length < 5 ? 'submenu-p-size' : 'submenu-p'}>{subData}</a>
                       )
                     })}
                   </Col>
@@ -65,4 +65,4 @@ const Peripheral = () => {
   )
 }
 
-export default Peripheral;
+export default Component;

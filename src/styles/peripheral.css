@@ -8,6 +8,10 @@
   color: white;
 }
 
+.picked{
+  color: rgb(255, 255, 118) !important;
+}
+
 .dropdown-toggle::after{
   content: none !important;
 }
