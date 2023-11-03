@@ -1,0 +1,19 @@
+.subscription-form-btn {
+    border: 5px solid transparent !important;
+}
+
+.subscription-form-btn:active{
+    border-color: rgb(47, 255, 40) !important;
+    outline: 2px;
+}
+
+.subscription-input-group {
+    border: none !important;
+    z-index: 4;
+}
+
+.subscription-input-group:focus {
+  box-shadow: none !important;
+}
+
+

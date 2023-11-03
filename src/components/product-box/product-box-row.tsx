@@ -10,7 +10,7 @@ import "../../styles/product-box.css";
 function ProductBoxRow() {
   return (
     <>
-      <Row className="product-box-row g-0">
+      <Row className="g-0">
         <Col sm={6} md={6}>
           <div className="product-box-top-left">
             <a href="#">
@@ -44,7 +44,7 @@ function ProductBoxRow() {
           </div>
         </Col>
       </Row>
-      <Row className="product-box-row g-0">
+      <Row className="g-0">
         <Col sm={6} md={6}>
           <div className="row2-top-left">
             <a href="#">
