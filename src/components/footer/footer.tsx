@@ -1,5 +1,5 @@
 import { Col, Row } from "react-bootstrap";
-import "../../styles/footer.css"
+import "../../styles/footer.css";
 import SubscriptionForm from "../forms/subscription-form";
 
 function Footer() {
