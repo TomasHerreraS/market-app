@@ -5,7 +5,7 @@ import ComponentJson from '../../data/component.json';
 import '../../styles/component.css';
 
 const Component = () => {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const showDropdown = ()=>{
