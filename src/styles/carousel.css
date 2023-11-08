@@ -1,11 +1,69 @@
 .slideshow-image {
-  height: 35vw !important;
+  height: 50vw !important;
   max-height: 80vh;
-  min-height: 500px;
   overflow: hidden;
-  position: relative;
 }
 
 .slideshow-text {
-    text-align: left !important;
+  text-align: left !important;
+}
+
+.carousel-indicators button {
+  width: 160px !important;
+  margin-right: 8px !important;
+}
+
+.carousel-button {
+  width: 180px;
+  margin-bottom: 10px;
+}
+
+.carousel-products-img {
+  width: 250px;
+  height: 250px;
+  margin-right: 15px;
+  padding-bottom: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-product-card {
+  background: rgba(99, 99, 99, 0.37) !important;
+  margin: 50px 20px;
+  transition: ease 2ms;
+}
+
+.carousel-product-card:hover {
+  box-shadow: inset 0 0 0 2.5px rgb(139, 67, 255);
+  cursor: pointer;
+}
+
+.carousel-product-card img {
+  width: 220px;
+  height: 220px;
+  padding: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-product {
+  align-items: center;
+}
+
+.carousel-back {
+  background: url("../assets/carousel-img/carousel-back.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-product-card h3 {
+  text-align: center;
+  color:white;
+}
+
+.carousel-back h2 {
+  color: white;
+  text-align: center;
+  padding-top: 34px;
 }
