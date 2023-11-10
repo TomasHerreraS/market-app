@@ -12,11 +12,39 @@
   padding-bottom: 3px;
 }
 
+.col-input{
+  margin-top: 4px !important;
+}
+
+.search-icon{
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+input{
+  border-radius: 3px;
+  border-style: solid;
+  border-color: rgb(27, 27, 27);
+  background-color: rgb(164, 164, 164);
+  padding-left: 30px;
+}
+
+input:focus{
+  outline: none;
+}
+
 .text-decoration{
   text-decoration: none;
   color: rgb(218, 218, 218);
 }
 
-.sign-in-margin{
-  margin-top: 3px;
+.cursor-pointer:hover{
+  cursor: pointer;
+}
+
+.h6-margin{
+  margin-top: 6px;
 }

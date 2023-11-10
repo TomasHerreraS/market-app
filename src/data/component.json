@@ -1,0 +1,21 @@
+[{
+  "title":"Pc Cases",
+  "sub": []
+},
+{
+  "title":"Fans",
+  "sub": ["RGB", "120 mm", "140 mm"]
+},
+{
+  "title":"Memory",
+  "sub":[]
+},
+{
+  "title":"Storage",
+  "sub":["SSD","External SSD", "USB Flash Drives"]
+},
+{
+  "title":"Accesories",
+  "sub":["Hubs & Docks"]
+}
+]

@@ -1,7 +1,13 @@
-const SignUp = () => {
+import NavigationBar from "../components/navigation-bar/navigation-bar";
+import SignUp from "../components/sign-up/sign-up";
+
+const SignUpPage = () => {
   return (
-    <h1>Working on it</h1>
+    <>
+      <NavigationBar/>
+      <SignUp/>
+    </>
   )
 }
 
-export default SignUp;
+export default SignUpPage;
