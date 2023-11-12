@@ -48,7 +48,7 @@ function ProductBoxRow() {
         <Col sm={6} md={6}>
           <div className="row2-top-left">
             <a href="#">
-              <div className="product-box-image-text row2-left-image-text">
+              <div className="product-box-image-text row2-top-left-image-text">
                 <h2>Hello</h2>
                 <h3>
                   Shop Now
@@ -62,7 +62,7 @@ function ProductBoxRow() {
           </div>
           <div className="row2-bottom-left">
             <a href="#">
-              <div className="product-box-image-text row2-left-image-text">
+              <div className="product-box-image-text row2-bottom-left-image-text">
                 <h2>Hello</h2>
                 <h3>
                   Shop Now

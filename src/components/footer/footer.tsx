@@ -4,7 +4,7 @@ import SubscriptionForm from "../forms/subscription-form";
 
 function Footer() {
   return (
-    <Row className="g-0">
+    <Row className="g-0" >
       <Col sm={3} md={2} className="footer-sections">
         <h4>Shop</h4>
         <h6>New Products</h6>

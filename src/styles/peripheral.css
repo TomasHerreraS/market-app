@@ -3,7 +3,7 @@
 }
 
 .dropdown-button{
-  background-color: rgb(45, 45, 45) !important;
+  background-color: rgba(215, 61, 61, 0) !important;
   border: none !important;
   color: white;
 }
@@ -23,9 +23,8 @@
   
 .dropdown-size{
   margin-top: -2px !important;
-  width: 100vw !important;
+  width: 100% !important;
   margin-left: 0 !important;
-  padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
 }
@@ -62,6 +61,7 @@
   cursor: pointer;
   margin-bottom: 5px;
   font-weight: bold;
+  transition: transform 0.5s ease;
 }
 
 .submenu-title-responsive{
@@ -73,11 +73,14 @@
   margin-left: 25% !important;
   margin-right: 25% !important;
   font-weight: bold;
+  transition: transform 0.5s ease;
 }
 
 .submenu-p{
   margin-right: 3rem !important;
   font-size: 12px;
+  transition: transform 0.5s ease;
+
 }
 
 .submenu-p-responsive{
@@ -87,14 +90,13 @@
   margin-right: 25% !important;
   margin-left: 25% !important;
   font-size: 12px;
+  transition: transform 0.5s ease;
 }
 
 .submenu-title:hover, .submenu-p:hover{
-  transition: 0.5s;
   transform: translateX(5px);
 }
 
 .submenu-title-responsive:hover, .submenu-p-responsive:hover{
-  transition: 0.5s;
   transform: translateX(5px);
 }

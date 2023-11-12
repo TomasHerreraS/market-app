@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import cardProducts from "./card-products";
+import cardProducts from "./explore-products";
 
 const ProductCarousel = () => {
   const responsive = {

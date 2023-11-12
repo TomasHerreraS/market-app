@@ -1,0 +1,17 @@
+.heart-button {
+    font-size: 40px;
+    position: relative;
+    transition: transform ease 0.5s;
+    color: rgb(228, 86, 86);
+    cursor: pointer;
+    margin-right: 5px;
+}
+.heart-button:hover {
+    transform: scale(1.2);
+    transform-origin: center;
+}
+
+.heart-button:active {
+    transform: scale(0.8);
+    transform-origin: center;
+}

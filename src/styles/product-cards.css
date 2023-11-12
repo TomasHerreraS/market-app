@@ -1,0 +1,61 @@
+@media (max-width: 787px) {
+    .card-description {
+        height: 40px;
+    }
+    
+    .space {
+        height: 45px;
+    }
+}
+
+@media (max-width: 991px) {
+    .card-description {
+        height: 50px;
+    }
+    
+    .space {
+        height: 55px;
+    }
+}
+
+.card-images {
+    height: 300px;
+    object-fit: cover;
+}
+
+.product-card {
+    cursor: pointer;
+    border: none !important;
+}
+
+.product-icon {
+    vertical-align: text-bottom !important;
+}
+
+.card-description {
+    height: 70px;
+}
+
+.card-price {
+    font-size: 24px;
+    margin: 0 ;
+}
+
+.discount {
+    text-decoration: line-through;
+    font-size: 18px;
+    color: rgb(126, 126, 126);
+}
+
+.savings {
+    color: rgb(37, 169, 28);
+    font-size: 13px;
+}
+
+.space {
+    height: 75px;
+}
+
+.card-title {
+    font-size: 28px !important;
+}

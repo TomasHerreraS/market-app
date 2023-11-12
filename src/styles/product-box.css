@@ -1,21 +1,3 @@
-/* // X-Small devices (portrait phones, less than 576px)
-// No media query for `xs` since this is the default in Bootstrap
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { ... }
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { ... }
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) { ... }
-
-// X-Large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { ... }
-
-// XX-Large devices (larger desktops, 1400px and up)
-@media (min-width: 1400px) { ... } */
-
 .product-box-top-left {
   position: relative;
   width: 100%;
@@ -80,7 +62,7 @@
 .product-box-image-text {
   position: absolute;
   left: 15%;
-  text-shadow: 1px 3px 6px rgba(0, 0, 0, 0.842);
+  text-shadow: 1px 3px 3px rgba(0, 0, 0, 0.842);
   z-index: 100;
 }
 
@@ -92,8 +74,12 @@
   top: 5%;
 }
 
-.row2-left-image-text {
-  top: 10%;
+.row2-top-left-image-text {
+  top: 8%;
+}
+
+.row2-bottom-left-image-text {
+  top: 5.5%;
 }
 
 .product-box-image-text h2 {
@@ -101,7 +87,7 @@
 }
 
 .product-box-image-text h3 {
-  color: rgb(156, 49, 255);
+  color: rgb(180, 100, 255);
 }
 
 .vignette {
@@ -134,7 +120,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 46%;
+  height: 48%;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.856) 0%,
@@ -142,4 +128,28 @@
     rgba(0, 0, 0, 0.616) 75%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+@media (max-width: 575.5px) {
+  
+  .row2-top-left, .product-box-right, .product-box-top-left {
+    padding: 10px;
+  }
+
+  .row2-bottom-left, .product-box-top-right {
+    padding: 0px 10px 0px 10px;
+}
+
+}
+
+@media (max-width: 787px) {
+  .product-box-image-text h2 {
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  .product-box-image-text h3 {
+    font-size: 20px;
+    margin: 0;
+  }
 }
