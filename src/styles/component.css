@@ -3,9 +3,11 @@
 }
 
 .dropdown-button{
-  background-color: rgb(45, 45, 45) !important;
+  background-color: rgba(228, 107, 107, 0) !important;
   border: none !important;
   color: white;
+  height: 55px;
+  padding: 0 !important;
 }
 
 .picked{
@@ -23,9 +25,8 @@
   
 .dropdown-size{
   margin-top: -2px !important;
-  width: 100vw !important;
+  width: 100% !important;
   margin-left: 0 !important;
-  padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
 }
@@ -55,8 +56,8 @@
 
 .submenu-title{
   cursor: pointer;
-
   font-weight: bold;
+  transition: transform 0.5s ease;
 }
 
 @media (min-width: 1360px) {
@@ -80,6 +81,7 @@
   margin-left: 30% !important;
   margin-right: 0px !important;
   font-size: 12px;
+  transition: transform 0.5s ease;
 }
 
 @media (min-width: 1360px) {
@@ -100,6 +102,7 @@
 .submenu-p-size{
   text-align: center;
   font-size: 12px;
+  transition: transform 0.5s ease;
 }
 
 @media (min-width: 1360px) {
