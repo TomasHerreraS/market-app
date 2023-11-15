@@ -7,7 +7,6 @@ const RouteByComponent = () => {
   return (
     <Routes>
       <Route path='/' element={<MainPage/>} />
-      <Route path='/sign-up' element={<SignUp/>} />
       <Route path='/about-us' element={<AboutPage />} />
     </Routes>
   )

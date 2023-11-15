@@ -5,7 +5,7 @@ import "../styles/html.css";
 const AboutPage = () => {
   return (
     <>
-      {/* <NavigationBar /> */}
+      <NavigationBar />
       <h1 className="text-center">About Us</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore sint

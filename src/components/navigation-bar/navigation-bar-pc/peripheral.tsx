@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Row, Col, Dropdown, Image } from "react-bootstrap";
-import firstImage from "../../assets/carousel-img/pc.webp";
-import PeripheralJson from "../../data/peripheral.json";
-import "../../styles/peripheral.css";
+import firstImage from "../../../assets/carousel-img/pc.webp";
+import PeripheralJson from "../../../data/peripheral.json";
+import useWindowDimensions from "../../../utils/screen-size";
+import "../../../styles/peripheral.css";
 
 const Peripheral = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const windowDimensions = useWindowDimensions();
 
   const showDropdown = () => {
     setShow(true);
@@ -15,17 +16,6 @@ const Peripheral = () => {
   const hideDropdown =() => {
     setShow(false);
   }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <Dropdown show={show} className="main-dropdown">
@@ -47,11 +37,11 @@ const Peripheral = () => {
             return (
               <Col key={index} md={2}>
                 <Row className="g-0">
-                  <Col className="text-center" md={windowWidth > 1360 ? 6 : 12}>
+                  <Col className="text-center" md={windowDimensions > 1360 ? 6 : 12}>
                     <Image
                       roundedCircle
                       className={
-                        windowWidth > 1360
+                        windowDimensions > 1360
                           ? "image-style"
                           : "image-style-responsive"
                       }
@@ -61,16 +51,16 @@ const Peripheral = () => {
                   </Col>
                   <Col
                     className={
-                      windowWidth > 1360
+                      windowDimensions > 1360
                         ? "col-submenu margin-submenu"
                         : "col-submenu-responsive"
                     }
-                    md={windowWidth > 1360 ? 1 : 12}
+                    md={windowDimensions > 1360 ? 1 : 12}
                   >
                     <a
                       href="/"
                       className={
-                        windowWidth > 1360
+                        windowDimensions > 1360
                           ? "submenu-title text-center"
                           : "submenu-title-responsive text-center"
                       }
@@ -83,7 +73,7 @@ const Peripheral = () => {
                           key={number}
                           href="/"
                           className={
-                            windowWidth > 1360
+                            windowDimensions > 1360
                               ? "submenu-p text-center"
                               : "submenu-p-responsive text-center"
                           }

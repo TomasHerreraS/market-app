@@ -30,6 +30,10 @@
       );
 }
 
+.cursor{
+  cursor: pointer;
+}
+
 /* Theme-Button */
 .theme-button {
     font-size: 25px;

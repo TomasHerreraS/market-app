@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Image } from "react-bootstrap";
-import firstImage from "../../assets/carousel-img/pc.webp";
-import ComponentJson from "../../data/component.json";
-import "../../styles/component.css";
+import firstImage from "../../../assets/carousel-img/pc.webp";
+import ComponentJson from "../../../data/component.json";
+import useWindowDimensions from "../../../utils/screen-size";
+import "../../../styles/component.css";
 
 const Component = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const windowDimensions = useWindowDimensions();
 
   const showDropdown = () => {
       setShow(true);
@@ -16,18 +17,6 @@ const Component = () => {
       setShow(false);
   };
   
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <Dropdown show={show} className="main-dropdown">
       <Dropdown.Toggle
@@ -48,7 +37,7 @@ const Component = () => {
             return (
               <Col key={index} md={2}>
                 <Row className="g-0">
-                  <Col className="text-center" md={windowWidth > 1360 ? 5 : 12}>
+                  <Col className="text-center" md={windowDimensions > 1360 ? 5 : 12}>
                     <Image
                       roundedCircle
                       className="image-style"
@@ -56,7 +45,7 @@ const Component = () => {
                       alt="First slide"
                     />
                   </Col>
-                  <Col className="col-submenu" md={windowWidth > 1360 ? 7 : 12}>
+                  <Col className="col-submenu" md={windowDimensions > 1360 ? 7 : 12}>
                     <a href="/" className="submenu-title">
                       {obj.title}
                     </a>
