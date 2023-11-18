@@ -12,7 +12,7 @@ import { IconContext } from 'react-icons';
 import { BsCart3 } from "react-icons/bs";
 import { SidebarData } from "./sidebar-data";
 import { Link } from 'react-router-dom';
-import useRedirectToMainPage from "../../../utils/link";
+import exportedFunctions from "../../../utils/link";
 import '../../../styles/navigation-bar-mobile.css';
 
 
@@ -21,7 +21,7 @@ const NavigationBarMobile = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const [sidebar, setSidebar] = useState(false);
-  const redirectToMainPage = useRedirectToMainPage();
+  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -88,7 +88,7 @@ const NavigationBarMobile = () => {
           <Col xs={2} md={2} className="text-center">
             <ThemeToggleButton />
           </Col>
-          <Col xs={4} md={4} className="aling-end">
+          <Col xs={4} md={4} className="align-end">
             <FaSearch className="me-1 cursor search" size={20} onClick={()=>{
               setShowInput(true);
             }}/>

@@ -16,9 +16,9 @@ const ThemeToggleButton: React.FC = () => {
     }
   };
   return theme === "light" ? (
-    <MoonStarsFill className="theme-button cursor" onClick={toggleTheme} />
+    <MoonStarsFill size={20} className="theme-button cursor" onClick={toggleTheme} />
   ) : (
-    <SunFill className="theme-button cursor" onClick={toggleTheme} />
+    <SunFill size={20} className="theme-button cursor" onClick={toggleTheme} />
   );
 };
 

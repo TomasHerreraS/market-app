@@ -10,4 +10,19 @@ const useRedirectToMainPage = () => {
   return url;
 };
 
-export default useRedirectToMainPage;
+const useRedirectToCart = () => {
+  const navigate = useNavigate()
+
+  const url = () => {
+    navigate('/cart')
+  }
+
+  return url;
+}
+
+const exportedFunctions = {
+  useRedirectToMainPage,
+  useRedirectToCart
+}
+
+export default exportedFunctions;

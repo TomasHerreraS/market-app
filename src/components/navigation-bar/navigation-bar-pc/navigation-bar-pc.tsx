@@ -7,14 +7,16 @@ import Component from "./component";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggleButton from "../../theme-button";
 import { Fan } from "react-bootstrap-icons";
-import useRedirectToMainPage from "../../../utils/link";
+import SideCart from "./side-cart";
 import "../../../styles/navigation-bar-pc.css";
+import exportedFunctions from "../../../utils/link";
 
 const NavigationBarPc = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
-  const redirectToMainPage = useRedirectToMainPage();
+  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
 
+  const loggedIn: any = '1';
   return (
     <Row className="background-color text-color padding g-0 align-items-center">
       <Col md={1}>
@@ -35,28 +37,35 @@ const NavigationBarPc = () => {
           />
         </div>
       </Col>
-      <Col md={1}>
-        <h6
-          className="cursor h6-margin"
-          onClick={() => {
-            setShowSignUp(true);
-          }}
-        >
-          Sign up
-        </h6>
-        <SignUp show={showSignUp} setShow={setShowSignUp} />
-      </Col>
-      <Col md={1}>
-        <h6
-          className="cursor h6-margin"
-          onClick={() => {
-            setShowSignIn(true);
-          }}
-        >
-          Sign in
-        </h6>
-        <SignIn show={showSignIn} setShow={setShowSignIn} />
-      </Col>
+      {loggedIn === '2' ?
+        <>
+          <Col md={1}>
+            <h6
+              className="cursor h6-margin"
+              onClick={() => {
+                setShowSignUp(true);
+              }}
+            >
+              Sign up
+            </h6>
+            <SignUp show={showSignUp} setShow={setShowSignUp} />
+          </Col>
+          <Col md={1}>
+            <h6
+              className="h6-margin cursor"
+              onClick={() => {
+                setShowSignIn(true);
+              }}
+            >
+              Sign in
+            </h6>
+            <SignIn show={showSignIn} setShow={setShowSignIn} />
+          </Col>
+        </>: 
+        <Col className="align-end" md={{ span: 1, offset: 1}}>
+          <SideCart/>
+        </Col>
+      }
       <Col className="text-center" md={1}>
         <ThemeToggleButton/>
       </Col>
