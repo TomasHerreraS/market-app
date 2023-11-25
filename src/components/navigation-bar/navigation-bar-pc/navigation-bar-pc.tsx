@@ -7,14 +7,15 @@ import Component from "./component";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggleButton from "../../theme-button";
 import { Fan } from "react-bootstrap-icons";
-import SideCart from "./side-cart";
-import "../../../styles/navigation-bar-pc.css";
+import { BsCart3 } from "react-icons/bs";
 import exportedFunctions from "../../../utils/link";
+import "../../../styles/navigation-bar-pc.css";
 
 const NavigationBarPc = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
+  const redirectToCartPage = exportedFunctions.useRedirectToCart();
 
   const loggedIn: any = '1';
   return (
@@ -63,7 +64,15 @@ const NavigationBarPc = () => {
           </Col>
         </>: 
         <Col className="align-end" md={{ span: 1, offset: 1}}>
-          <SideCart/>
+          <div className="notification">
+            <div className="notification-circle"></div>
+            <span className="notification-count">
+              1
+            </span>
+            <div className="icon-side-bar-pc">
+              <BsCart3 className="align-end cursor" size={25} onClick={redirectToCartPage}/>
+            </div>
+          </div>
         </Col>
       }
       <Col className="text-center" md={1}>

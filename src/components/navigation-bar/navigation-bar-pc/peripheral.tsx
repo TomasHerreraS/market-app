@@ -32,7 +32,7 @@ const Peripheral = () => {
         onMouseLeave={hideDropdown}
         className="dropdown-size font-color"
       >
-        <Row className="g-0 justify-content-center">
+        <Row className="g-0">
           {PeripheralJson.map((obj, index) => {
             return (
               <Col key={index} md={2}>
@@ -40,30 +40,18 @@ const Peripheral = () => {
                   <Col className="text-center" md={windowDimensions > 1360 ? 6 : 12}>
                     <Image
                       roundedCircle
-                      className={
-                        windowDimensions > 1360
-                          ? "image-style"
-                          : "image-style-responsive"
-                      }
+                      className='image-style'
                       src={firstImage}
                       alt="First slide"
                     />
                   </Col>
                   <Col
-                    className={
-                      windowDimensions > 1360
-                        ? "col-submenu margin-submenu"
-                        : "col-submenu-responsive"
-                    }
+                    className='col-submenu'
                     md={windowDimensions > 1360 ? 1 : 12}
                   >
                     <a
                       href="/"
-                      className={
-                        windowDimensions > 1360
-                          ? "submenu-title text-center"
-                          : "submenu-title-responsive text-center"
-                      }
+                      className='submenu-title text-center'
                     >
                       {obj.title}
                     </a>
@@ -72,11 +60,7 @@ const Peripheral = () => {
                         <a
                           key={number}
                           href="/"
-                          className={
-                            windowDimensions > 1360
-                              ? "submenu-p text-center"
-                              : "submenu-p-responsive text-center"
-                          }
+                          className='submenu-p text-center'
                         >
                           {subData}
                         </a>

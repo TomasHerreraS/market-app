@@ -32,7 +32,7 @@ const Component = () => {
         onMouseLeave={hideDropdown}
         className="dropdown-size font-color"
       >
-        <Row className="g-0 justify-content-center">
+        <Row className="ms-3 g-0">
           {ComponentJson.map((obj, index) => {
             return (
               <Col key={index} md={2}>
@@ -40,7 +40,7 @@ const Component = () => {
                   <Col className="text-center" md={windowDimensions > 1360 ? 5 : 12}>
                     <Image
                       roundedCircle
-                      className="image-style"
+                      className="image-style text-center"
                       src={firstImage}
                       alt="First slide"
                     />
