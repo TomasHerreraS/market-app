@@ -20,3 +20,4 @@
 ## `Cart`
 
 - Fix Cart Page (Product) add a map function & count it for make a overflow style with a max index 3.
+- Make it responsive.
