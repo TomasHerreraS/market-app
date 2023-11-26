@@ -59,11 +59,14 @@
 
 .carousel-product-card h3 {
   text-align: center;
-  /* color:white; */
 }
 
 .carousel-back h2 {
   color: white;
   text-align: center;
   padding-top: 34px;
+}
+
+.carousel h3 {
+  color: white;
 }

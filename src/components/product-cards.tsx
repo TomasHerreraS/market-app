@@ -2,14 +2,11 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
 import "../styles/product-cards.css";
 import HeartButton from "./heart-button";
+import { Product } from "./products";
 
-interface Product {
-  name: string;
-  id: number;
-  description: string;
-  image: string;
-  price: number;
-  discount: number;
+
+interface CardProps {
+  product: Product;
 }
 
 // Add this to the utils folder
@@ -25,7 +22,7 @@ const handleCardClick = (productUrl: any) => {
   console.log({ productUrl });
 };
 
-const ProductCards = (product: Product) => {
+const ProductCards: React.FC<CardProps> = ({ product }) => {
 
   return (
     <Card
@@ -66,7 +63,7 @@ const ProductCards = (product: Product) => {
             </Button>
           </Col>
           <Col xs={4} className="text-end">
-            <HeartButton />
+            <HeartButton productId={product.id} />
           </Col>
         </Row>
       </Card.Body>

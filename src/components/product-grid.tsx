@@ -1,19 +1,18 @@
 import { Col, Row } from "react-bootstrap";
 import ProductCards from "./product-cards";
-import Products from "../components/products";
+import { products }  from "../components/products";
 
-const ProductGrid = () => {
+const ProductGrid: React.FC = () => {
+  const selectedCategories = 'component';
+  const filteredProducts = products.filter((product) => product.category === selectedCategories);
+
   return (
     <Row className="g-0">
-      {Products.map((product) => (
+      {filteredProducts.map((product) => (
         <Col key={product.id} sm={12} md={6} lg={4} className="p-3">
             <ProductCards
-              name={product.name}
-              id={product.id}
-              description={product.description}
-              image={product.image}
-              price={product.price}
-              discount={product.discount}
+              key={product.id}
+              product={product}
             />
         </Col>
       ))}
