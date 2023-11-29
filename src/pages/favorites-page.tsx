@@ -3,7 +3,7 @@ import Footer from "../components/footer/footer";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
 
 
-const FavoritesPage: React.FC = () => {
+const FavoritesPage = () => {
   return (
     <>
       <NavigationBar />

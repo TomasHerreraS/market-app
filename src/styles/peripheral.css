@@ -30,22 +30,25 @@
 }
 
 .image-style{
-  margin: 8px 0px 15px 15px;
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
 }
 
-.image-style-responsive{
-  margin: 8px 0px 15px 0px;
-  width: 100px;
-  height: 100px;
+@media (min-width: 1360px) {
+  .image-style {
+    margin: 8px 0px 15px 15px;
+  }
+}
+
+@media (max-width: 1360px) {
+  .image-style {
+    margin: 8px 0px 15px 0px;
+  }
 }
 
 .col-submenu a{
   text-decoration: none;
   color: rgb(218, 218, 218);
-  margin-left: 2rem;
-  margin-right: 2rem;
   display: block;
 }
 
@@ -55,42 +58,54 @@
   display: block;
 }
 
+@media (min-width: 1360px) {
+  .col-submenu a{
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
 .submenu-title{
-  margin-top: 19px;
-  margin-right: 25px;
   cursor: pointer;
-  margin-bottom: 5px;
   font-weight: bold;
   transition: transform 0.5s ease;
 }
 
-.submenu-title-responsive{
-  text-decoration: none;
-  color: rgb(218, 218, 218);
-  display: block;
-  cursor: pointer;
-  margin-bottom: 5px !important;
-  margin-left: 25% !important;
-  margin-right: 25% !important;
-  font-weight: bold;
-  transition: transform 0.5s ease;
+@media (min-width: 1360px) {
+  .submenu-title {
+    margin-top: 19px;
+    margin-right: 25px;
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 1360px) {
+  .submenu-title {
+    display: block;
+    margin-bottom: 5px !important;
+    margin-left: 25% !important;
+    margin-right: 25% !important;
+  }
 }
 
 .submenu-p{
-  margin-right: 3rem !important;
   font-size: 12px;
   transition: transform 0.5s ease;
 
 }
 
-.submenu-p-responsive{
-  text-decoration: none;
-  color: rgb(218, 218, 218);
-  display: block;
-  margin-right: 25% !important;
-  margin-left: 25% !important;
-  font-size: 12px;
-  transition: transform 0.5s ease;
+@media (min-width: 1360px) {
+  .submenu-p {
+    margin-right: 3rem !important;
+  }
+}
+
+@media (max-width: 1360px) {
+  .submenu-p {
+    display: block;
+    margin-right: 25% !important;
+    margin-left: 25% !important;
+  }
 }
 
 .submenu-title:hover, .submenu-p:hover{

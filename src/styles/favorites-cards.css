@@ -19,10 +19,6 @@
     color: red;
 }
 
-.product-name-text {
-   
-}
-
 .price-off-text {
     font-size: 12px;
     color: green;
@@ -34,4 +30,20 @@
     color: gray;
     margin: 0;
     text-decoration: line-through;
+}
+
+/* Skeleton */
+
+.skeleton-button {
+    border: none !important;
+}
+
+.skeleton-image {
+    border: none !important;
+    border-bottom-left-radius: 12px !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    height: 200px;
+    width: 200px;
 }

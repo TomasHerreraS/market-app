@@ -1,21 +1,14 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
-import "../styles/product-cards.css";
 import HeartButton from "./heart-button";
 import { Product } from "./products";
+import { truncateText } from "../utils/truncate-text";
+import "../styles/product-cards.css";
 
 
 interface CardProps {
   product: Product;
 }
-
-// Add this to the utils folder
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length > maxLength) {
-    return text.slice(0, maxLength) + "...";
-  }
-  return text;
-};
 
 // Create a onClick function to redirect to the productURL
 const handleCardClick = (productUrl: any) => {

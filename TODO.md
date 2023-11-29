@@ -16,3 +16,8 @@
 - Fix navbar so that if you are signing in it does not display `Sign In` rather it should say `Sign Out`.
 
 - Create a `Mobile Version Navbar` for a responsive design.
+
+## `Cart`
+
+- Fix Cart Page (Product) add a map function & count it for make a overflow style with a max index 3.
+- Make it responsive.

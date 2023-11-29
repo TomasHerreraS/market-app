@@ -43,11 +43,16 @@
       );
 }
 
+.cursor{
+  cursor: pointer;
+}
+
 /* Theme-Button */
 .theme-button {
     font-size: 25px;
     transition: transform 0.8s ease;
     position: relative;
+    cursor: pointer;
 }
 
 .theme-button:hover {
