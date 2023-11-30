@@ -1,7 +1,7 @@
 export interface userData{
   name: string,
   lastname: string,
-  rol: string,
+  rol_id: number,
   email: string,
   password: string,
   phone: string,

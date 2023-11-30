@@ -3,23 +3,23 @@ import { Formik, Form, Field } from 'formik';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import * as yup from 'yup';
-import { userData } from '../../utils/type';
-import '../../styles/sign-up.css';
+import { userData } from '../../type';
 import { states } from '../../utils/state';
+import { createUser } from '../../provider/user.provider';
+import '../../styles/sign-up.css';
 
 
 const SignUp = ({show, setShow}: any) => {
-  const initialValues: userData = { name: '', lastname: '', rol: 'Superusuario', phone: '', state: '', city: '', address: '', email: '', password: '' }
+  const initialValues: userData = { name: 'name', lastname: 'lastname', rol_id: 2, phone: '123123123', state: 'state', city: 'city', address: 'address', email: 'email@gmail.com', password: 'password' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
 
   type UserDataKeys = keyof userData;
 
-  const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol', 'email', 'password', 'phone', 'state', 'city', 'address'];
+  const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
     setValueSelected(e.target.value);
   }
 
@@ -53,15 +53,11 @@ const SignUp = ({show, setShow}: any) => {
       .matches(/^[a-zA-Z]+$/, "Only letters are allowed")
       .min(3, 'Lastname is too short')
       .max(30, 'Lastname is too long'),
-    phone: yup.string()
-      .matches(/^\d+$/, 'Only numbers are allowed')
-      .min(11, 'Format: (123) 123-1234')
-      .max(11, 'Format: (123) 123-1234'),
     city: yup.string()
       .typeError('Only letters and numbers are allowed')
       .matches(/^[a-zA-Z0-9\s]+$/, 'Only letters and numbers are allowed')
-      .min(3, 'Address is too short')
-      .max(100, 'Address is too long'),
+      .min(3, 'City is too short')
+      .max(100, 'City is too long'),
     address: yup.string()
       .typeError('Only letters and numbers are allowed')
       .matches(/^[a-zA-Z0-9\s]+$/, 'Only letters and numbers are allowed')
@@ -90,9 +86,10 @@ const SignUp = ({show, setShow}: any) => {
             onSubmit={(value)=>{
               value.state=valueSelected;
               value.phone=phoneValue;
-              console.log(value);
             if (userDataValidation.every(field=> value[field] !== '')) {
+              createUser(value);
               // TODO: DESDE EL BACKEND MANDAR UN RANDOM NUMBER AL CORREO PARA VALIDAR CORREO.
+              // TODO: VALIDAR NUMERO DE CELULAR Y EL CORREO.
             } else {
               Swal.fire({
                 icon: 'error',
@@ -118,9 +115,6 @@ const SignUp = ({show, setShow}: any) => {
                   <Col className='mb-2' md={12}>
                     <rbForm.Control as={Field} name='phone' type='text' placeholder='Phone' value={phoneValue} autoComplete='off' 
                       onChange={handlePhoneValue}/>
-                      {errors.phone && touched.phone ? (
-                        <div className='error-color'>{errors.phone}</div>
-                      ) : null}
                   </Col>
                   <Col className='mb-2' md={6}>
                     <rbForm.Select name='state' onChange={handleChange}>
