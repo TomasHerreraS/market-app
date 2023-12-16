@@ -1,5 +1,5 @@
 import { Trash } from 'react-bootstrap-icons'
-import '../styles/delete-button.css'
+import '../../styles/delete-button.css'
 
 interface DeleteButtonProps {
   onDelete: () => void;

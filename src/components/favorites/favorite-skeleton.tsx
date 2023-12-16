@@ -1,5 +1,5 @@
 import { Card, Image, Placeholder, Row, Col, Stack } from "react-bootstrap";
-import "../styles/favorites-cards.css";
+import "../../styles/favorites-cards.css";
 
 const FavoriteSkeleton = () => {
   return (

@@ -1,15 +1,15 @@
-import FavoritesGrid from "../components/favorites/favorites-grid";
 import Footer from "../components/footer/footer";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
+import ProductGrid from "../components/products/product-grid";
 
-const FavoritesPage = () => {
+const ProductsPage = () => {
   return (
     <>
       <NavigationBar />
-      <FavoritesGrid />
+      <ProductGrid />
       <Footer />
     </>
   );
 };
 
-export default FavoritesPage;
+export default ProductsPage;
