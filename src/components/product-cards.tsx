@@ -1,10 +1,9 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
-import HeartButton from "./heart-button";
+import HeartButton from "./buttons/heart-button";
 import { Product } from "./products";
 import { truncateText } from "../utils/truncate-text";
 import "../styles/product-cards.css";
-
 
 interface CardProps {
   product: Product;
@@ -16,12 +15,11 @@ const handleCardClick = (productUrl: any) => {
 };
 
 const ProductCards: React.FC<CardProps> = ({ product }) => {
-
   return (
     <Card
       onClick={() => handleCardClick(product.id)}
       key={product.id}
-      className= "product-card"
+      className="product-card"
     >
       <Card.Img variant="top" src={product.image} className="card-images" />
       <Card.Body>

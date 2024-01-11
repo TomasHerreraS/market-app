@@ -5,7 +5,7 @@ import SignUp from "../../sign-up/sign-up";
 import Peripherals from "./peripheral";
 import Component from "./component";
 import { FaSearch } from "react-icons/fa";
-import ThemeToggleButton from "../../theme-button";
+import ThemeToggleButton from "../../buttons/theme-button";
 import { Fan } from "react-bootstrap-icons";
 import { BsCart3 } from "react-icons/bs";
 import exportedFunctions from "../../../utils/link";
@@ -17,11 +17,11 @@ const NavigationBarPc = () => {
   const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
   const redirectToCartPage = exportedFunctions.useRedirectToCart();
 
-  const loggedIn: any = '1';
+  const loggedIn: any = "1";
   return (
     <Row className="background-color text-color padding g-0 align-items-center">
       <Col md={1}>
-      <Fan onClick={redirectToMainPage} className="cursor" size={40}/>
+        <Fan onClick={redirectToMainPage} className="cursor" size={40} />
       </Col>
       <Col md={1}>
         <Peripherals />
@@ -38,7 +38,7 @@ const NavigationBarPc = () => {
           />
         </div>
       </Col>
-      {loggedIn === '2' ?
+      {loggedIn === "2" ? (
         <>
           <Col md={1}>
             <h6
@@ -62,21 +62,24 @@ const NavigationBarPc = () => {
             </h6>
             <SignIn show={showSignIn} setShow={setShowSignIn} />
           </Col>
-        </>: 
-        <Col className="align-end" md={{ span: 1, offset: 1}}>
+        </>
+      ) : (
+        <Col className="align-end" md={{ span: 1, offset: 1 }}>
           <div className="notification">
             <div className="notification-circle"></div>
-            <span className="notification-count">
-              1
-            </span>
+            <span className="notification-count">1</span>
             <div className="icon-side-bar-pc">
-              <BsCart3 className="align-end cursor" size={25} onClick={redirectToCartPage}/>
+              <BsCart3
+                className="align-end cursor"
+                size={25}
+                onClick={redirectToCartPage}
+              />
             </div>
           </div>
         </Col>
-      }
+      )}
       <Col className="text-center" md={1}>
-        <ThemeToggleButton/>
+        <ThemeToggleButton />
       </Col>
     </Row>
   );
