@@ -1,25 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "react-bootstrap-icons";
 import "../../styles/product-side-menu.css";
-import { Form } from "react-bootstrap";
-import Range from "../../utils/market-functions/range";
-
-export interface Filters {
-  price: number[];
-  sort: string;
-  category: string[];
-  brands: string[];
-  cpu: string[];
-}
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { Products } from "../../utils/type";
+import filterPrice from "../../utils/market-functions/filter-price";
+import { useLocation } from "react-router-dom";
 
 interface ProductSideMenuProps {
-  filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  products: Products[];
+  onFilterChange: (filteredProducts: Products[]) => void;
 }
 
 const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
-  filters,
-  setFilters,
+  products,
+  onFilterChange,
 }) => {
   // States to show submenus
   const [showPrice, setPrice] = useState(true);
@@ -27,6 +21,95 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
   const [showCategory, setCategory] = useState(true);
   const [showBrand, setBrand] = useState(true);
   const [showCPU, setCPU] = useState(true);
+  const [showStock, setStock] = useState(true);
+
+  // URL Params
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const priceParam = searchParams.get("price");
+  const sortParam = searchParams.get("sort");
+  const brandsParam = searchParams.get("brands");
+  const cpuParams = searchParams.get("cpu");
+  const categoryParam = searchParams.get("category");
+  let stockParam = searchParams.get("stock");
+
+  // URL Queries
+  const [priceURL, setPriceURL] = useState<string>();
+  const [cpuURL, setCpuURL] = useState<string[]>([]);
+  const [sortURL, setSortURL] = useState<string>();
+  const [brandsURL, setBrandsURL] = useState<string[]>([]);
+  const [categoryURL, setCategoryURL] = useState<string[]>([]);
+  const [stockURL, setStockURL] = useState(false);
+
+  // Handles for queries
+  const handlePriceURL = (price: string) => {
+    setPriceURL(price);
+  };
+
+  const handleSortURL = (sort: string) => {
+    setSortURL(sort);
+  };
+
+  const handleStockURL = () => {
+    setStockURL(!stockURL);
+  };
+
+  const handleCpuURL = (cpu: string) => {
+    setCpuURL((prev) => {
+      const updatedCpuURL = prev.includes(cpu)
+        ? prev.filter((prevCPU) => prevCPU !== cpu)
+        : [...prev, cpu];
+
+      return updatedCpuURL;
+    });
+  };
+
+  const handleCategoryURL = (category: string) => {
+    setCategoryURL((prev) => {
+      const updatedCategoryURL = prev.includes(category)
+        ? prev.filter((prevCategory) => prevCategory !== category)
+        : [...prev, category];
+
+      return updatedCategoryURL;
+    });
+  };
+
+  const handleBrandsURL = (brands: string) => {
+    setBrandsURL((prev) => {
+      const updatedBrandsURL = prev.includes(brands)
+        ? prev.filter((prevBrands) => prevBrands !== brands)
+        : [...prev, brands];
+
+      return updatedBrandsURL;
+    });
+  };
+
+  // This function changes the url name and navigates you to the new page
+  // causing the products to be filtered depending on the url.
+  const applyFilters = () => {
+    const cpuQuery = cpuURL?.length > 0 ? "cpu=" + cpuURL.join("%20") : "";
+    const categoryQuery =
+      categoryURL?.length > 0 ? "category=" + categoryURL.join("%20") : "";
+    const brandsQuery =
+      brandsURL?.length > 0 ? "brands=" + brandsURL.join("%20") : "";
+    const sortQuery = sortURL !== null ? "sort=" + sortURL : "";
+    const priceQuery = priceURL !== null ? "price=" + priceURL : "";
+    const stockQuery = stockURL === true ? "stock=Available" : "";
+
+    const url = `products?${[
+      sortQuery,
+      priceQuery,
+      cpuQuery,
+      brandsQuery,
+      categoryQuery,
+      stockQuery,
+    ]
+      .filter(Boolean)
+      .join("&")}`;
+
+    // Navigate depending on the filters
+    window.location.href = url;
+  };
 
   // Toggles to display options
   const handleTogglePrice = () => {
@@ -49,43 +132,163 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     setCPU(!showCPU);
   };
 
-  // Generic filter that takes any filter typer and the selected option.
-  // CAN ONLY BE USED FOR FILTERS THAT ONLY ALLOW FOR ONE SELECTION
-  const selectSingleFilter = (
-    filterType: keyof Filters,
-    selectedFilter: any
-  ) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterType]: selectedFilter,
-    }));
+  const handleToggleStock = () => {
+    setStock(!showStock);
+    stockParam = "Available";
   };
 
-  // Generic filter that takes the filter type and the selected option.
-  // CAN ONLY BE USED FOR FILTERS THAT ALLOW MULTIPLE SELECTIONS
-  const selectMultiFilter = (
-    filterType: keyof Filters,
-    selectedFilter: string
-  ) => {
-    setFilters((prevFilters) => {
-      // Checks if the selected filter was already selected. There are also null checks.
-      const isSelected = (prevFilters?.[filterType] as string[])?.includes(
-        selectedFilter
+  const resetFilters = () => {
+    window.location.href = "products?"
+  }
+
+  // Just for any refreshes
+  useEffect(() => {
+    // Price
+    setPriceURL(priceParam || "All");
+
+    // Sort
+    setSortURL(sortParam || "Featured");
+
+    // Stock
+    setStockURL(stockParam === "Available" ? true : false);
+
+    // CPU
+    const updatedCpuParams = cpuParams
+      ? cpuParams.split(" ").filter(Boolean)
+      : [];
+
+    setCpuURL(updatedCpuParams);
+
+     // Brands
+     const updatedBrandsParams = brandsParam
+     ? brandsParam.split(" ").filter(Boolean)
+     : [];
+
+   setBrandsURL(updatedBrandsParams);
+
+    // Category
+    const updatedCategoryParams = categoryParam
+      ? categoryParam.split(" ").filter(Boolean)
+      : [];
+
+    setCategoryURL(updatedCategoryParams);
+  }, []);
+
+  // Filtering the products
+  useEffect(() => {
+    const updatedFilteredProducts = products.filter((product) => {
+      let priceFilter = true;
+
+      const cpuFilter =
+        !cpuParams ||
+        cpuParams.length === 0 ||
+        cpuParams.toLowerCase().includes(product.cpu.toLowerCase());
+
+      const categoryFilter =
+        !categoryParam ||
+        categoryParam.length === 0 ||
+        product.category.some((category) =>
+          categoryParam.toLowerCase().includes(category.toLowerCase())
+        );
+
+      const brandsFilter =
+        !brandsParam ||
+        brandsParam.length === 0 ||
+        product.brands.some((brands) =>
+          brandsParam.toLowerCase().includes(brands.toLowerCase())
+        );
+
+      if (priceParam !== "All" && priceParam) {
+        const [minPrice, maxPrice] = priceParam.split("-").map(Number);
+        priceFilter = filterPrice(
+          minPrice,
+          maxPrice,
+          product.price - product.discount
+        );
+      } else {
+        priceFilter = true;
+      }
+
+      const stockFilter = stockParam === "Available" ? product.inStock : true;
+
+      // Check if all conditions are true
+      return (
+        cpuFilter &&
+        priceFilter &&
+        categoryFilter &&
+        brandsFilter &&
+        stockFilter
       );
-
-      return {
-        ...prevFilters,
-        [filterType]: isSelected
-          ? (prevFilters[filterType] as string[]).filter(
-              (currentFilter: string) => currentFilter !== selectedFilter
-            )
-          : [...(prevFilters[filterType] as string[]), selectedFilter],
-      };
     });
-  };
+
+    // We then sort the products depending on the sort option
+    const sortedProducts = [...updatedFilteredProducts];
+    if (sortParam === "Newest") {
+      sortedProducts.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      onFilterChange(sortedProducts);
+    } else if (sortParam === "Best_Sellers") {
+      sortedProducts.sort((a, b) => b.sold - a.sold);
+      onFilterChange(sortedProducts);
+    } else if (sortParam === "Featured") {
+      onFilterChange(sortedProducts);
+    } else if (sortParam === "Oldest") {
+      sortedProducts.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+      onFilterChange(sortedProducts);
+    } else {
+      onFilterChange(updatedFilteredProducts);
+    }
+  }, [products]);
 
   return (
     <>
+      <Row className="g-0">
+        <Col xs={12} md={6} className="d-flex">
+        <Button size="sm" className="filter-buttons mb-2" onClick={applyFilters}>
+          Apply Filters
+        </Button>
+        </Col>
+        <Col xs={12} md={6} className="d-flex">
+        <Button
+          size="sm"
+          className="filter-buttons mb-2"
+          onClick={resetFilters}
+        >
+          Reset Filters
+        </Button>
+        </Col>
+      </Row>
+
+      {/* Stock Filter */}
+      <div
+        style={{ width: "100%" }}
+        className={`d-flex justify-content-between ${
+          showStock ? "open" : "closed"
+        }`}
+        onClick={handleToggleStock}
+      >
+        <div>Stock</div>
+        <div>
+          <ChevronDown className="dropdown-chevron"/>
+        </div>
+      </div>
+      <hr />
+      {showStock && (
+        <>
+          <Form className="menu-options">
+            <Form.Check
+              className="form-text"
+              label="Show Only in Stock"
+              name="Stock"
+              onChange={() => handleStockURL()}
+              defaultChecked={stockParam === "Available"}
+            />
+          </Form>
+        </>
+      )}
       {/* Price Filter */}
       <div
         style={{ width: "100%" }}
@@ -96,7 +299,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       >
         <div>Price</div>
         <div>
-          <ChevronDown />
+          <ChevronDown className="dropdown-chevron"/>
         </div>
       </div>
       <hr />
@@ -104,22 +307,36 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         <>
           <Form className="menu-options">
             <Form.Check
+              className="form-text"
+              type="radio"
+              name="price"
+              label="All Prices"
+              onChange={() => handlePriceURL("All")}
+              defaultChecked={priceParam === "All" || priceParam === null}
+            />
+            <Form.Check
+            className="form-text"
               type="radio"
               name="price"
               label="Under $100"
-              onChange={() => selectSingleFilter("price", Range(0, 99))}
+              onChange={() => handlePriceURL("0-100")}
+              defaultChecked={priceParam === "0-100"}
             />
             <Form.Check
+            className="form-text"
               type="radio"
               name="price"
               label="$100 - $200"
-              onChange={() => selectSingleFilter("price", Range(100, 200))}
+              onChange={() => handlePriceURL("100-200")}
+              defaultChecked={priceParam === "100-200"}
             />
             <Form.Check
+            className="form-text"
               type="radio"
               name="price"
               label="$200 - $300"
-              onChange={() => selectSingleFilter("price", Range(200, 300))}
+              onChange={() => handlePriceURL("200-300")}
+              defaultChecked={priceParam === "200-300"}
             />
           </Form>
           <hr />
@@ -136,7 +353,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       >
         <div>Sort</div>
         <div>
-          <ChevronDown />
+          <ChevronDown className="dropdown-chevron"/>
         </div>
       </div>
       <hr />
@@ -144,16 +361,36 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         <>
           <Form className="menu-options">
             <Form.Check
-              label="Newest"
-              onChange={() => selectSingleFilter("sort", "Newest")}
-            />
-            <Form.Check
-              label="Best Sellers"
-              onChange={() => selectSingleFilter("sort", "Best Sellers")}
-            />
-            <Form.Check
+            className="form-text"
+              type="radio"
+              name="sort"
               label="Featured"
-              onChange={() => selectSingleFilter("sort", "Featured")}
+              onChange={() => handleSortURL("Featured")}
+              defaultChecked={sortParam === "Featured" || sortParam === null}
+            />
+            <Form.Check
+            className="form-text"
+              type="radio"
+              name="sort"
+              label="Newest"
+              onChange={() => handleSortURL("Newest")}
+              defaultChecked={sortParam === "Newest"}
+            />
+            <Form.Check
+            className="form-text"
+              type="radio"
+              name="sort"
+              label="Oldest"
+              onChange={() => handleSortURL("Oldest")}
+              defaultChecked={sortParam === "Oldest"}
+            />
+            <Form.Check
+            className="form-text"
+              type="radio"
+              name="sort"
+              label="Best Sellers"
+              onChange={() => handleSortURL("Best_Sellers")}
+              defaultChecked={sortParam === "Best_Sellers"}
             />
           </Form>
           <hr />
@@ -170,7 +407,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       >
         <div>Category</div>
         <div>
-          <ChevronDown />
+          <ChevronDown className="dropdown-chevron"/>
         </div>
       </div>
       <hr />
@@ -178,18 +415,29 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         <>
           <Form className="menu-options">
             <Form.Check
+            className="form-text"
               label="PC Cases"
-              onClick={() => selectMultiFilter("category", "PC Case")}
+              onClick={() => handleCategoryURL("PC_Case")}
+              defaultChecked={categoryParam?.toLowerCase().includes("pc_case")}
             />
             <Form.Check
+            className="form-text"
               label="GPU"
-              onClick={() => selectMultiFilter("category", "gpu")}
+              onClick={() => handleCategoryURL("GPU")}
+              defaultChecked={categoryParam?.toLowerCase().includes("gpu")}
             />
             <Form.Check
+            className="form-text"
               label="CPU"
-              onClick={() => selectMultiFilter("category", "cpu")}
+              onClick={() => handleCategoryURL("CPU")}
+              defaultChecked={categoryParam?.toLowerCase().includes("cpu")}
             />
-            <Form.Check label="Mouse" />
+            <Form.Check
+            className="form-text"
+              label="Mouse"
+              onClick={() => handleCategoryURL("Mouse")}
+              defaultChecked={categoryParam?.toLowerCase().includes("mouse")}
+            />
           </Form>
           <hr />
         </>
@@ -205,18 +453,43 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       >
         <div>Brand</div>
         <div>
-          <ChevronDown />
+          <ChevronDown className="dropdown-chevron"/>
         </div>
       </div>
       <hr />
       {showBrand && (
         <>
           <Form className="menu-options">
-            <Form.Check label="MSI" onClick={() => selectMultiFilter('brands', 'msi')}/>
-            <Form.Check label="ASUS" onClick={() => selectMultiFilter('brands', 'asus')}/>
-            <Form.Check label="EVGA" onClick={() => selectMultiFilter('brands', 'evga')}/>
-            <Form.Check label="Intel" onClick={() => selectMultiFilter('brands', 'intel')} />
-            <Form.Check label="Corsair" onClick={() => selectMultiFilter('brands', 'corsair')} />
+            <Form.Check
+            className="form-text"
+              label="MSI"
+              onClick={() => handleBrandsURL("MSI")}
+              defaultChecked={brandsParam?.toLowerCase().includes("msi")}
+            />
+            <Form.Check
+            className="form-text"
+              label="ASUS"
+              onClick={() => handleBrandsURL("ASUS")}
+              defaultChecked={brandsParam?.toLowerCase().includes("asus")}
+            />
+            <Form.Check
+            className="form-text"
+              label="EVGA"
+              onClick={() => handleBrandsURL("EVGA")}
+              defaultChecked={brandsParam?.toLowerCase().includes("evga")}
+            />
+            <Form.Check
+            className="form-text"
+              label="Intel"
+              onClick={() => handleBrandsURL("Intel")}
+              defaultChecked={brandsParam?.toLowerCase().includes("intel")}
+            />
+            <Form.Check
+            className="form-text"
+              label="Corsair"
+              onClick={() => handleBrandsURL("Corsair")}
+              defaultChecked={brandsParam?.toLowerCase().includes("corsair")}
+            />
           </Form>
           <hr />
         </>
@@ -226,24 +499,48 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       <div
         style={{ width: "100%" }}
         className={`d-flex justify-content-between ${
-          showBrand ? "open" : "closed"
+          showCPU ? "open" : "closed"
         }`}
         onClick={handleToggleCPU}
       >
         <div>CPU</div>
         <div>
-          <ChevronDown />
+          <ChevronDown className="dropdown-chevron"/>
         </div>
       </div>
       <hr />
       {showCPU && (
         <>
           <Form className="menu-options">
-            <Form.Check label="13th Gen" onClick={() => selectMultiFilter('cpu', '13th gen')}/>
-            <Form.Check label="12th Gen" onClick={() => selectMultiFilter('cpu', '12th gen')}/>
-            <Form.Check label="11th Gen" onClick={() => selectMultiFilter('cpu', '11th gen')}/>
-            <Form.Check label="10th Gen" onClick={() => selectMultiFilter('cpu', '10th gen')}/>
-            <Form.Check label="9th Gen" onClick={() => selectMultiFilter('cpu', '9th gen')}/>
+            <Form.Check
+            className="form-text"
+              label="13th Gen"
+              onClick={() => handleCpuURL("13th_Gen")}
+              defaultChecked={cpuParams?.toLowerCase().includes("13th_gen")}
+            />
+            <Form.Check
+            className="form-text"
+              label="12th Gen"
+              onClick={() => handleCpuURL("12th_Gen")}
+              defaultChecked={cpuParams?.toLowerCase().includes("12th_gen")}
+            />
+            <Form.Check
+            className="form-text"
+              label="11th Gen"
+              onClick={() => handleCpuURL("11th_Gen")}
+              defaultChecked={cpuParams?.toLowerCase().includes("11th_gen")}
+            />
+            <Form.Check
+            className="form-text"
+              label="10th Gen"
+              onClick={() => handleCpuURL("10th_Gen")}
+              defaultChecked={cpuParams?.toLowerCase().includes("10th_gen")}
+            />
+            <Form.Check
+              label="9th Gen"
+              onClick={() => handleCpuURL("9th_Gen")}
+              defaultChecked={cpuParams?.toLowerCase().includes("9th_gen")}
+            />
           </Form>
           <hr />
         </>

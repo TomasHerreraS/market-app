@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
-import '../../styles/add-to-cart-button.css'
+import '../../styles/product-cards.css'
 
 const AddToCartButton = () => {
   return (
-    <Button variant="info" className="">
+    <Button variant="info">
       <Cart size={20} className="product-icon" />
       &nbsp;Add To Cart
     </Button>

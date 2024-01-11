@@ -29,11 +29,11 @@ const FavoriteSkeleton = () => {
             direction="horizontal"
             className="justify-content-between mt-auto"
           >
-            <Placeholder as={Card.Text} xs={6} animation="wave">
-              <Placeholder xs={5} size="sm" />
+            <Placeholder as={Card.Text} xs={3} animation="wave">
+              <Placeholder xs={12} size="sm" />
             </Placeholder>
-            <Placeholder animation="wave" xs={9}>
-              <Placeholder.Button className="skeleton-button" xs={7} bg="info" size="lg" />
+            <Placeholder animation="wave" xs={5}  sm={5} md={4} lg={2}>
+              <Placeholder.Button className="skeleton-button" xs={12} bg="info" size="lg" />
             </Placeholder>
           </Stack>
         </Col>

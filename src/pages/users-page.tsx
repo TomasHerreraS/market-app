@@ -1,16 +1,16 @@
-import FavoritesGrid from "../components/favorites/favorites-grid";
+import UsersGrid from "../components/admin/users-grid";
 import Footer from "../components/footer/footer";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
 
-const FavoritesPage = () => {
-  document.title = "Favorites | Quantum Halo"
+const UsersPage = () => {
+  document.title = "Users | Quantum Halo"
   return (
     <>
       <NavigationBar />
-      <FavoritesGrid />
+      <UsersGrid />
       <Footer />
     </>
   );
 };
 
-export default FavoritesPage;
+export default UsersPage;
