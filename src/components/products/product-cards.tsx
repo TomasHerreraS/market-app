@@ -1,11 +1,12 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
-import { Product } from "./products";
-import { truncateText } from "../utils/truncate-text";
-import "../styles/product-cards.css";
+import HeartButton from "../buttons/heart-button";
+import { truncateText } from "../../utils/market-functions/truncate-text";
+import "../../styles/product-cards.css";
+import { Products } from "../../utils/type";
 
 interface CardProps {
-  product: Product;
+  product: Products;
 }
 
 // Create a onClick function to redirect to the productURL
@@ -53,6 +54,7 @@ const ProductCards: React.FC<CardProps> = ({ product }) => {
             </Button>
           </Col>
           <Col xs={4} className="text-end">
+            <HeartButton productId={product.id} />
           </Col>
         </Row>
       </Card.Body>

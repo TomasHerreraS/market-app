@@ -1,0 +1,17 @@
+.open svg {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.closed svg {
+  transition: transform 0.3s ease;
+}
+
+.menu-options {
+  width: 100%;
+  list-style: none;
+  font-size: 14px;
+  margin-left: 16px;
+}
+
+

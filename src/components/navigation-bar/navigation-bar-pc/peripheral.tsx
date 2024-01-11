@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Col, Dropdown, Image } from "react-bootstrap";
 import firstImage from "../../../assets/carousel-img/pc.webp";
 import PeripheralJson from "../../../data/peripheral.json";
-import useWindowDimensions from "../../../utils/screen-size";
+import useWindowDimensions from "../../../utils/market-functions/screen-size";
 import "../../../styles/peripheral.css";
 
 const Peripheral = () => {
@@ -13,9 +13,9 @@ const Peripheral = () => {
     setShow(true);
   };
 
-  const hideDropdown =() => {
+  const hideDropdown = () => {
     setShow(false);
-  }
+  };
 
   return (
     <Dropdown show={show} className="main-dropdown">
@@ -37,22 +37,22 @@ const Peripheral = () => {
             return (
               <Col key={index} md={2}>
                 <Row className="g-0">
-                  <Col className="text-center" md={windowDimensions > 1360 ? 6 : 12}>
+                  <Col
+                    className="text-center"
+                    md={windowDimensions > 1360 ? 6 : 12}
+                  >
                     <Image
                       roundedCircle
-                      className='image-style'
+                      className="image-style"
                       src={firstImage}
                       alt="First slide"
                     />
                   </Col>
                   <Col
-                    className='col-submenu'
+                    className="col-submenu"
                     md={windowDimensions > 1360 ? 1 : 12}
                   >
-                    <a
-                      href="/"
-                      className='submenu-title text-center'
-                    >
+                    <a href="/" className="submenu-title text-center">
                       {obj.title}
                     </a>
                     {obj.sub.map((subData, number) => {
@@ -60,7 +60,7 @@ const Peripheral = () => {
                         <a
                           key={number}
                           href="/"
-                          className='submenu-p text-center'
+                          className="submenu-p text-center"
                         >
                           {subData}
                         </a>

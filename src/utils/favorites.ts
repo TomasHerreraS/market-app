@@ -1,4 +1,4 @@
-import { Product } from '../components/products';
+import { Products } from "./type";
 
 const FAVORITE_PRODUCTS_KEY = 'favoriteProductIds';
 
@@ -30,7 +30,7 @@ export const isProductInFavorites = (productId: number): boolean => {
   return favoriteProductIds.includes(productId);
 };
 
-export const getFavoriteProducts = (allProducts: Product[]): Product[] => {
+export const getFavoriteProducts = (allProducts: Products[]): Products[] => {
   const favoriteProductIds = getFavoriteProductIds();
   return allProducts.filter(product => favoriteProductIds.includes(product.id));
 };

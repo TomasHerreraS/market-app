@@ -1,0 +1,68 @@
+[{
+    "name": "GPU",
+    "category": ["gpu", "CPU"],
+    "inStock": true,
+    "price": 100.99,
+    "discount": 10.99,
+    "brands": ["NVIDIA", "ASUS"],
+    "description": "description",
+    "id": 1,
+    "image":"/assets/carousel-img/pc3.jpg"
+},
+{
+    "name": "GPU",
+    "category": ["gpu"],
+    "inStock": true,
+    "price": 100.99,
+    "discount": 0,
+    "brands": ["NVIDIA", "EVGA"],
+    "description": "description",
+    "id": 2,
+    "image":"/assets/carousel-img/pc.webp"
+},
+{
+    "name": "GPU",
+    "category": ["gpu"],
+    "inStock": true,
+    "price": 100.99,
+    "discount": 0,
+    "brands": ["NVIDIA", "MSI"],
+    "description": "description",
+    "id": 3,
+    "image":"/assets/carousel-img/pc.webp"
+},
+{
+    "name": "CPU",
+    "category": ["cPu"],
+    "inStock": true,
+    "price": 100.99,
+    "discount": 15.99,
+    "brands": ["Intel"],
+    "description": "description",
+    "id": 4,
+    "image":"/assets/carousel-img/pc.webp"
+},
+{
+    "name": "PC Case",
+    "category": ["pc case"],
+    "inStock": false,
+    "price": 100.99,
+    "discount": 10.99,
+    "brands": ["Corsair"],
+    "description": "description",
+    "id": 5,
+    "image":"/assets/carousel-img/pc.webp"
+},
+{
+    "name": "Mouse",
+    "category": ["mouse"],
+    "inStock": false,
+    "price": 100.99,
+    "discount": 10.99,
+    "brands": ["Corsair"],
+    "description": "description",
+    "id": 6,
+    "image": "/assets/carousel-img/pc.webp"
+    }
+
+]

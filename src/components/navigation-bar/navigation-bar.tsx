@@ -1,4 +1,4 @@
-import useWindowDimensions from "../../utils/screen-size";
+import useWindowDimensions from "../../utils/market-functions/screen-size";
 import NavigationBarMobile from "./navigation-bar-mobile/navigation-bar-mobile";
 import NavigationBarPc from "./navigation-bar-pc/navigation-bar-pc";
 
@@ -7,13 +7,9 @@ const NavigationBar = () => {
 
   return (
     <>
-      {
-        windowDimensions > 1000 ?
-        <NavigationBarPc />:
-        <NavigationBarMobile/>
-      }
+      {windowDimensions > 1000 ? <NavigationBarPc /> : <NavigationBarMobile />}
     </>
-  )
-}
+  );
+};
 
 export default NavigationBar;
