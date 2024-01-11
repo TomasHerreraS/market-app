@@ -7,6 +7,7 @@ import "../styles/html.css";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
 
 const MainPage = () => {
+  document.title = "Home | Quantum Halo"
   return (
     <>
       <NavigationBar />
@@ -15,6 +16,7 @@ const MainPage = () => {
       <Button href="/about-us">About Us</Button>
       <Button href="/favorites">Favorites</Button>
       <Button href="/products">Products</Button>
+      <Button href="/admin">Admin</Button>
 
       <Slideshow />
       <ProductCarousel />

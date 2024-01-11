@@ -7,11 +7,29 @@
   transition: transform 0.3s ease;
 }
 
+.form-text {
+  margin-right: 20%;
+  color: aliceblue !important;
+}
+
+input, label {
+  cursor: pointer;
+}
+
+.dropdown-chevron {
+  cursor: pointer;
+}
+
 .menu-options {
   width: 100%;
   list-style: none;
   font-size: 14px;
   margin-left: 16px;
+}
+
+.filter-buttons {
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 
 

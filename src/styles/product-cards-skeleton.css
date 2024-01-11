@@ -1,0 +1,7 @@
+.product-skeleton-image{
+    border: none !important;
+    object-fit: cover;
+    height: 250px;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}

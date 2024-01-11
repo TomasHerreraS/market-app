@@ -1,0 +1,30 @@
+.darken {
+    background-color: rgba(0, 0, 0, 0.729);
+    width: 100vw;
+    height: 100vh;
+    position: fixed; /* Change to fixed for full-page overlay */
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+}
+
+.add-users {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(39, 39, 39);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 16;
+    max-width: 700px !important;
+    width: 88% !important;
+}
+
+.user-list {
+    width: 88% !important;
+}

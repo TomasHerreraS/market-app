@@ -14,19 +14,29 @@ const FavoritesGrid: React.FC = () => {
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [favoriteProducts, setFavoriteProducts] = useState<Products[]>([]);
   const [allProducts, setAllProducts] = useState<Products[]>([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+
+    const fetchDataAfterInterval = async () => {
       try {
-        const productsData = await fetchProducts(); // Assuming fetchProducts is an async function that fetches your products
+        const productsData = await fetchProducts();
         setAllProducts(productsData);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
-  }, []); // Fetch products when the component mounts
+    // Set up a timeout to trigger the data fetch after 1 second
+    const fetchTimeoutId = setTimeout(fetchDataAfterInterval, 1000);
+
+    // Clear the timeout when the component unmounts
+    return () => {
+      clearTimeout(fetchTimeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     setFavoriteProducts(getFavoriteProducts(allProducts));
@@ -39,18 +49,33 @@ const FavoritesGrid: React.FC = () => {
 
   return (
     <Container className="favorites-container">
-      <FavoriteSkeleton />
-      <h2 className="favorites-title">
-        My Favorites{" "}
-        <span className="items-text">({favoriteProducts.length} items)</span>
-      </h2>
-      {favoriteProducts.map((product) => (
-        <FavoritesCards
-          key={product.id}
-          product={product}
-          onDelete={handleDeleteFavorite}
-        />
-      ))}
+      {isLoading ? (
+        <>
+          <h2 className="favorites-title">
+            My Favorites
+            <span className="items-text">
+              ({favoriteProducts.length} items)
+            </span>
+          </h2>
+          <FavoriteSkeleton />
+        </>
+      ) : (
+        <>
+          <h2 className="favorites-title">
+            My Favorites
+            <span className="items-text">
+              ({favoriteProducts.length} items)
+            </span>
+          </h2>
+          {favoriteProducts.map((product) => (
+            <FavoritesCards
+              key={product.id}
+              product={product}
+              onDelete={handleDeleteFavorite}
+            />
+          ))}
+        </>
+      )}
     </Container>
   );
 };

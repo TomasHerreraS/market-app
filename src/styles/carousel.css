@@ -1,5 +1,4 @@
 .slideshow-image {
-  height: 50vw !important;
   max-height: 80vh;
   overflow: hidden;
 }

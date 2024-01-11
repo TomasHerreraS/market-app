@@ -3,6 +3,7 @@ import NavigationBar from "../components/navigation-bar/navigation-bar";
 import "../styles/html.css";
 
 const AboutPage = () => {
+  document.title = "About Us | Quantum Halo"
   return (
     <>
       <NavigationBar />

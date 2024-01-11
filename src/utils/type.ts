@@ -26,6 +26,18 @@ export interface Products{
   id: number;
   inStock: boolean;
   discount: number;
-  image: string;
+  images: string[];
   brands: string[];
+  sold: number;
+  date: string;
+}
+
+// For all the product filters
+export interface Filters{
+  filterPrice: number[];
+  sort?: string;
+  cpu?: string;
+  category?: string[];
+  inStock?: boolean;
+  brands?: string[];
 }

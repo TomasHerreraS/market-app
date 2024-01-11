@@ -1,5 +1,5 @@
 [{
-    "name": "GPU",
+    "name": "Keyboard",
     "category": ["gpu", "CPU"],
     "inStock": true,
     "price": 100.99,
@@ -7,7 +7,10 @@
     "brands": ["NVIDIA", "ASUS"],
     "description": "description",
     "id": 1,
-    "image":"/assets/carousel-img/pc3.jpg"
+    "images":["/assets/carousel-img/pc3.jpg", "/assets/carousel-img/pc.webp"],
+    "cpu": "11th_gen",
+    "sold": 3,
+    "date": "2023-04-03"
 },
 {
     "name": "GPU",
@@ -18,10 +21,13 @@
     "brands": ["NVIDIA", "EVGA"],
     "description": "description",
     "id": 2,
-    "image":"/assets/carousel-img/pc.webp"
+    "images":["/assets/carousel-img/pc.webp"],
+    "cpu": "12th_gen",
+    "sold": 9,
+    "date": "2022-03-15"
 },
 {
-    "name": "GPU",
+    "name": "Motherboard",
     "category": ["gpu"],
     "inStock": true,
     "price": 100.99,
@@ -29,7 +35,10 @@
     "brands": ["NVIDIA", "MSI"],
     "description": "description",
     "id": 3,
-    "image":"/assets/carousel-img/pc.webp"
+    "images":["/assets/carousel-img/pc.webp"],
+    "cpu": "9th_gen",
+    "sold": 13,
+    "date": "2021-08-27"
 },
 {
     "name": "CPU",
@@ -40,18 +49,24 @@
     "brands": ["Intel"],
     "description": "description",
     "id": 4,
-    "image":"/assets/carousel-img/pc.webp"
+    "images":["/assets/carousel-img/pc.webp"],
+    "cpu": "10th_gen",
+    "sold": 4,
+    "date": "2023-01-10"
 },
 {
     "name": "PC Case",
-    "category": ["pc case"],
+    "category": ["pc_case"],
     "inStock": false,
     "price": 100.99,
     "discount": 10.99,
     "brands": ["Corsair"],
     "description": "description",
     "id": 5,
-    "image":"/assets/carousel-img/pc.webp"
+    "images":["/assets/carousel-img/pc.webp"],
+    "cpu": "11th_gen",
+    "sold": 23,
+    "date": "2020-11-05"
 },
 {
     "name": "Mouse",
@@ -62,7 +77,10 @@
     "brands": ["Corsair"],
     "description": "description",
     "id": 6,
-    "image": "/assets/carousel-img/pc.webp"
+    "images": ["/assets/carousel-img/pc.webp"],
+    "cpu": "13th_gen",
+    "sold": 22,
+    "date": "2022-06-20"
     }
 
 ]
