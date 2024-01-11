@@ -1,6 +1,5 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Cart } from "react-bootstrap-icons";
-import HeartButton from "./buttons/heart-button";
 import { Product } from "./products";
 import { truncateText } from "../utils/truncate-text";
 import "../styles/product-cards.css";
@@ -54,7 +53,6 @@ const ProductCards: React.FC<CardProps> = ({ product }) => {
             </Button>
           </Col>
           <Col xs={4} className="text-end">
-            <HeartButton productId={product.id} />
           </Col>
         </Row>
       </Card.Body>
