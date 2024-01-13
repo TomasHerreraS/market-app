@@ -46,13 +46,19 @@ const MailValidation = ({show, setShow}: any) => {
               verificationCode(value).then((result)=>{
                 if (result.status === 200) {
                   console.log('data ingresada correctamente');
-                  // TODO: METER EL create acc
-                  // TODO:  si tira eerror reload, y lo mismo abajo con el email por localstorage corregir, está corregido
                   const storedData = localStorage.getItem('data');
                   if (storedData !== null) {
                     const parsedData = JSON.parse(storedData);
-                    console.log(parsedData);
-                    addUser(parsedData);
+                    addUser(parsedData).then(()=>{
+                      Swal.fire({
+                        icon: 'success',
+                        text: 'User created successfully'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          setShow(false)
+                        }
+                      })
+                    })
                   } else {
                     Swal.fire({
                       icon: 'error',
