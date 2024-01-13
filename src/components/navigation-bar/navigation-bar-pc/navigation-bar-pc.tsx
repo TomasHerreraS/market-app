@@ -8,16 +8,18 @@ import { FaSearch } from "react-icons/fa";
 import ThemeToggleButton from "../../theme-button";
 import { Fan } from "react-bootstrap-icons";
 import { BsCart3 } from "react-icons/bs";
-import exportedFunctions from "../../../utils/link";
+import exportRedirect from "../../../utils/link";
 import "../../../styles/navigation-bar-pc.css";
+import MailValidation from "../../sign-up/modal-mail-validation";
 
 const NavigationBarPc = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
-  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
-  const redirectToCartPage = exportedFunctions.useRedirectToCart();
+  const [showValidation, setShowValidation] = useState<boolean>(false);
+  const redirectToMainPage = exportRedirect.useRedirectToMainPage();
+  const redirectToCartPage = exportRedirect.useRedirectToCart();
 
-  const loggedIn: any = '2';
+  const loggedIn: any = 'offline';
   return (
     <Row className="background-color text-color padding g-0 align-items-center">
       <Col md={1}>
@@ -38,7 +40,7 @@ const NavigationBarPc = () => {
           />
         </div>
       </Col>
-      {loggedIn === '2' ?
+      {loggedIn === 'offline' ?
         <>
           <Col md={1}>
             <h6
@@ -49,7 +51,8 @@ const NavigationBarPc = () => {
             >
               Sign up
             </h6>
-            <SignUp show={showSignUp} setShow={setShowSignUp} />
+            <SignUp show={showSignUp} setShow={setShowSignUp} setShowValidation={setShowValidation}/>
+            <MailValidation show={showValidation} setShow={setShowValidation}/>
           </Col>
           <Col md={1}>
             <h6
@@ -62,19 +65,20 @@ const NavigationBarPc = () => {
             </h6>
             <SignIn show={showSignIn} setShow={setShowSignIn} />
           </Col>
-        </>: 
+        </>: null}
+        {loggedIn === 'client' ? 
         <Col className="align-end" md={{ span: 1, offset: 1}}>
-          <div className="notification">
-            <div className="notification-circle"></div>
-            <span className="notification-count">
-              1
-            </span>
-            <div className="icon-side-bar-pc">
-              <BsCart3 className="align-end cursor" size={25} onClick={redirectToCartPage}/>
-            </div>
+        <div className="notification">
+          <div className="notification-circle"></div>
+          <span className="notification-count">
+            1
+          </span>
+          <div className="icon-side-bar-pc">
+            <BsCart3 className="align-end cursor" size={25} onClick={redirectToCartPage}/>
           </div>
-        </Col>
-      }
+        </div>
+      </Col>: null} 
+        {/* {loggedIn === 'admin'} */}
       <Col className="text-center" md={1}>
         <ThemeToggleButton/>
       </Col>

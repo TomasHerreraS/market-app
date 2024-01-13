@@ -1,0 +1,18 @@
+.timer-color{
+  color: rgb(67, 67, 67);
+}
+
+.error-color{
+  color: rgb(255, 21, 21);
+  font-size: 13px;
+}
+
+.resend-style{
+  color: rgb(42, 56, 255);
+  font-size: 13px;
+}
+
+.resend-style:hover{
+  cursor: pointer;
+  color: rgb(18, 30, 189);
+}

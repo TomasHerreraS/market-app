@@ -12,7 +12,7 @@ import { IconContext } from 'react-icons';
 import { BsCart3 } from "react-icons/bs";
 import { SidebarData } from "./sidebar-data";
 import { Link } from 'react-router-dom';
-import exportedFunctions from "../../../utils/link";
+import exportRedirect from "../../../utils/link";
 import '../../../styles/navigation-bar-mobile.css';
 
 
@@ -21,7 +21,8 @@ const NavigationBarMobile = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const [sidebar, setSidebar] = useState(false);
-  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
+  const redirectToMainPage = exportRedirect.useRedirectToMainPage();
+  // TODO: redirect to cart page
 
   const showSidebar = () => setSidebar(!sidebar);
 

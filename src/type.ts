@@ -15,3 +15,7 @@ export interface signIn{
   password: string,
   keeplogged: boolean
 }
+
+export interface email{
+  email: string
+}
