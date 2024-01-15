@@ -17,6 +17,11 @@
     box-shadow: 0px 0px 6px 0px rgb(11, 11, 11);
 }
 
+/* Cards */
+[data-bs-theme=light] .card {
+    background-color: #f1f1f1;
+}
+
 /* Carousel */
 [data-bs-theme=dark] .main-carousel .carousel-indicators [data-bs-target] {
     background-color: #ffffff; /* Change to your desired color */
@@ -87,7 +92,13 @@
     color: black !important;
   }
 
-  /* Forms */
-  [data-bs-theme=light] .form-control {
-    background-color: #d3d3d3;
+/* Forms */
+[data-bs-theme=light] .form-control {
+    background-color: #f1f1f1;
   }
+
+/* User List */
+[data-bs-theme=light] .user-list, .add-users {
+    background-color: #ffffff;
+    border: solid 1px #929090;
+}

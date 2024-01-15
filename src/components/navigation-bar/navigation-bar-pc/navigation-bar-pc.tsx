@@ -14,10 +14,11 @@ import "../../../styles/navigation-bar-pc.css";
 const NavigationBarPc = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
+  
   const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
   const redirectToCartPage = exportedFunctions.useRedirectToCart();
 
-  const loggedIn: any = "1";
+  const loggedIn: string = "1";
   return (
     <Row className="background-color text-color padding g-0 align-items-center">
       <Col md={1}>

@@ -18,6 +18,7 @@ input, label {
 
 .dropdown-chevron {
   cursor: pointer;
+  font-size: 18px;
 }
 
 .menu-options {
@@ -32,4 +33,9 @@ input, label {
   margin-left: auto !important;
 }
 
+.option-text {
+  font-size: 13px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 

@@ -138,8 +138,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
   };
 
   const resetFilters = () => {
-    window.location.href = "products?"
-  }
+    window.location.href = "products?";
+  };
 
   // Just for any refreshes
   useEffect(() => {
@@ -159,12 +159,12 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
 
     setCpuURL(updatedCpuParams);
 
-     // Brands
-     const updatedBrandsParams = brandsParam
-     ? brandsParam.split(" ").filter(Boolean)
-     : [];
+    // Brands
+    const updatedBrandsParams = brandsParam
+      ? brandsParam.split(" ").filter(Boolean)
+      : [];
 
-   setBrandsURL(updatedBrandsParams);
+    setBrandsURL(updatedBrandsParams);
 
     // Category
     const updatedCategoryParams = categoryParam
@@ -247,20 +247,25 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     <>
       <Row className="g-0">
         <Col xs={12} md={6} className="d-flex">
-        <Button size="sm" className="filter-buttons mb-2" onClick={applyFilters}>
-          Apply Filters
-        </Button>
+          <Button
+            size="sm"
+            className="filter-buttons mb-2"
+            onClick={applyFilters}
+          >
+            Apply Filters
+          </Button>
         </Col>
         <Col xs={12} md={6} className="d-flex">
-        <Button
-          size="sm"
-          className="filter-buttons mb-2"
-          onClick={resetFilters}
-        >
-          Reset Filters
-        </Button>
+          <Button
+            size="sm"
+            className="filter-buttons mb-2"
+            onClick={resetFilters}
+          >
+            Reset Filters
+          </Button>
         </Col>
       </Row>
+      <hr />
 
       {/* Stock Filter */}
       <div
@@ -270,10 +275,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleToggleStock}
       >
-        <div>Stock</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">Stock</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showStock && (
@@ -287,6 +290,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={stockParam === "Available"}
             />
           </Form>
+          <hr />
         </>
       )}
       {/* Price Filter */}
@@ -297,10 +301,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleTogglePrice}
       >
-        <div>Price</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">Price</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showPrice && (
@@ -315,7 +317,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={priceParam === "All" || priceParam === null}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="price"
               label="Under $100"
@@ -323,7 +325,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={priceParam === "0-100"}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="price"
               label="$100 - $200"
@@ -331,7 +333,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={priceParam === "100-200"}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="price"
               label="$200 - $300"
@@ -351,17 +353,15 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleToggleSort}
       >
-        <div>Sort</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">Sort</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showSort && (
         <>
           <Form className="menu-options">
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="sort"
               label="Featured"
@@ -369,7 +369,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={sortParam === "Featured" || sortParam === null}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="sort"
               label="Newest"
@@ -377,7 +377,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={sortParam === "Newest"}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="sort"
               label="Oldest"
@@ -385,7 +385,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               defaultChecked={sortParam === "Oldest"}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               type="radio"
               name="sort"
               label="Best Sellers"
@@ -405,35 +405,33 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleToggleCategory}
       >
-        <div>Category</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">Categories</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showCategory && (
         <>
           <Form className="menu-options">
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="PC Cases"
               onClick={() => handleCategoryURL("PC_Case")}
               defaultChecked={categoryParam?.toLowerCase().includes("pc_case")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="GPU"
               onClick={() => handleCategoryURL("GPU")}
               defaultChecked={categoryParam?.toLowerCase().includes("gpu")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="CPU"
               onClick={() => handleCategoryURL("CPU")}
               defaultChecked={categoryParam?.toLowerCase().includes("cpu")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="Mouse"
               onClick={() => handleCategoryURL("Mouse")}
               defaultChecked={categoryParam?.toLowerCase().includes("mouse")}
@@ -451,41 +449,39 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleToggleBrand}
       >
-        <div>Brand</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">Brands</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showBrand && (
         <>
           <Form className="menu-options">
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="MSI"
               onClick={() => handleBrandsURL("MSI")}
               defaultChecked={brandsParam?.toLowerCase().includes("msi")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="ASUS"
               onClick={() => handleBrandsURL("ASUS")}
               defaultChecked={brandsParam?.toLowerCase().includes("asus")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="EVGA"
               onClick={() => handleBrandsURL("EVGA")}
               defaultChecked={brandsParam?.toLowerCase().includes("evga")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="Intel"
               onClick={() => handleBrandsURL("Intel")}
               defaultChecked={brandsParam?.toLowerCase().includes("intel")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="Corsair"
               onClick={() => handleBrandsURL("Corsair")}
               defaultChecked={brandsParam?.toLowerCase().includes("corsair")}
@@ -503,35 +499,33 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         }`}
         onClick={handleToggleCPU}
       >
-        <div>CPU</div>
-        <div>
-          <ChevronDown className="dropdown-chevron"/>
-        </div>
+        <h5 className="mx-2 option-text">CPU</h5>
+          <ChevronDown className="dropdown-chevron" />
       </div>
       <hr />
       {showCPU && (
         <>
           <Form className="menu-options">
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="13th Gen"
               onClick={() => handleCpuURL("13th_Gen")}
               defaultChecked={cpuParams?.toLowerCase().includes("13th_gen")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="12th Gen"
               onClick={() => handleCpuURL("12th_Gen")}
               defaultChecked={cpuParams?.toLowerCase().includes("12th_gen")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="11th Gen"
               onClick={() => handleCpuURL("11th_Gen")}
               defaultChecked={cpuParams?.toLowerCase().includes("11th_gen")}
             />
             <Form.Check
-            className="form-text"
+              className="form-text"
               label="10th Gen"
               onClick={() => handleCpuURL("10th_Gen")}
               defaultChecked={cpuParams?.toLowerCase().includes("10th_gen")}
