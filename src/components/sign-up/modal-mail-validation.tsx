@@ -45,7 +45,6 @@ const MailValidation = ({show, setShow}: any) => {
             onSubmit={(value: any)=>{
               verificationCode(value).then((result)=>{
                 if (result.status === 200) {
-                  console.log('data ingresada correctamente');
                   const storedData = localStorage.getItem('data');
                   if (storedData !== null) {
                     const parsedData = JSON.parse(storedData);
@@ -54,6 +53,8 @@ const MailValidation = ({show, setShow}: any) => {
                         icon: 'success',
                         text: 'User created successfully'
                       }).then((result) => {
+                        localStorage.removeItem('data')
+                        localStorage.removeItem('email')
                         if (result.isConfirmed) {
                           setShow(false)
                         }

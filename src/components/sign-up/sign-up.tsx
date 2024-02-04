@@ -10,7 +10,7 @@ import '../../styles/sign-up.css';
 
 
 const SignUp = ({show, setShow, setShowValidation}: any) => {
-  const initialValues: userData = { name: 'name', lastname: 'lastname', rol_id: 2, phone: '', state: 'state', city: 'city', address: 'address', email: 'h.tomaseds21@gmail.com', password: 'password' }
+  const initialValues: userData = { name: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');

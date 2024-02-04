@@ -10,7 +10,7 @@ export interface userData{
   address: string
 }
 
-export interface signIn{
+export interface signInData{
   email: string,
   password: string,
   keeplogged: boolean
