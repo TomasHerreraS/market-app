@@ -1,7 +1,7 @@
 import {Modal, Form as rbForm, Row, Col, Button} from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import { signIn } from '../../provider/user.provider';
-import { signInData } from '../../type';
+import { SignInData } from '../../type';
 import Cookies from 'universal-cookie';
 import Swal from 'sweetalert2';
 import '../../styles/sign-in.css';
@@ -10,9 +10,9 @@ import { useEffect } from 'react';
 
 const SignIn = ({show, setShow}: any) => {
   const handleClose = () => setShow(false);
-  const initialValues: signInData = { email: '', password: '', keeplogged: false }
+  const initialValues: SignInData = { email: '', password: '', keeplogged: false }
 
-  type login = keyof signInData;
+  type login = keyof SignInData;
 
   const loginValidation: login[] = ['email', 'password', 'keeplogged']
 
@@ -27,7 +27,7 @@ const SignIn = ({show, setShow}: any) => {
         <Modal.Body className='form-body'>
           <Formik
             initialValues={initialValues}
-            onSubmit={(value: signInData)=>{
+            onSubmit={(value: SignInData)=>{
             if (loginValidation.every(login=> value[login] !== '')) {
               signIn(value).then((result) => {
                 cookies.set('token', result, {

@@ -3,20 +3,20 @@ import { Formik, Form, Field } from 'formik';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import * as yup from 'yup';
-import { userData } from '../../type';
+import { UserData } from '../../type';
 import { states } from '../../utils/state';
 import { getUniques, sendEmail } from '../../provider/user.provider';
 import '../../styles/sign-up.css';
 
 
 const SignUp = ({show, setShow, setShowValidation}: any) => {
-  const initialValues: userData = { name: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
+  const initialValues: UserData = { name: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
   const [uniqueData, setUniqueData] = useState<{phone: string, email: string}[]>([]);;
 
-  type UserDataKeys = keyof userData;
+  type UserDataKeys = keyof UserData;
 
   const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
 
@@ -90,7 +90,7 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(value: userData)=>{
+            onSubmit={(value: UserData)=>{
               value.state=valueSelected;
               value.phone=phoneValue;
             if (userDataValidation.every(field=> value[field] !== '')) {

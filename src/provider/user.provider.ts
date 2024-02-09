@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { userData, email, signInData } from '../type';
+import { UserData, Email, SignInData } from '../type';
 
-export const sendEmail = async (data: email) => {
+export const sendEmail = async (data: Email) => {
   try {
     const response = await axios.post('http://localhost:3001/sendEmail', data);
     return response;
@@ -28,7 +28,7 @@ export const deleteGlobalNumber = async () => {
   }
 }
 
-export const addUser = async (data: userData) => {
+export const addUser = async (data: UserData) => {
   try {
     const response = await axios.post('http://localhost:3001/addUser', data);
     return response.data;
@@ -37,7 +37,7 @@ export const addUser = async (data: userData) => {
   }
 };
 
-export const signIn = async (data: signInData) => {
+export const signIn = async (data: SignInData) => {
   try {
     const response = await axios.post('http://localhost:3001/signIn', data);
     return response.data;
@@ -46,7 +46,7 @@ export const signIn = async (data: signInData) => {
   }
 };
 
-export const getEmailLoggedIn = async (email: email) => {
+export const getEmailLoggedIn = async (email: Email) => {
   try {
     const response = await axios.post('http://localhost:3001/getEmailLoggedIn', email);
     return response.data;
