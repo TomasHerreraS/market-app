@@ -26,6 +26,7 @@
     "react-multi-carousel": "^2.8.4",
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.7.4",
     "sweetalert2": "^11.9.0",
     "typescript": "^5.2.2",
     "universal-cookie": "^7.0.2",

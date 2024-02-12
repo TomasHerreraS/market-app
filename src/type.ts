@@ -31,3 +31,12 @@ export interface ProductData {
   favorite: boolean;
   image: Buffer;
 }
+
+export interface ProductId{
+  product_id: number;
+}
+
+export interface Quantity{
+  product_id: number;
+  quantity: number;
+}

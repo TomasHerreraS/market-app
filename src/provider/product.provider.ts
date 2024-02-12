@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ProductId } from '../type';
 
 export const getQuantity = async () => {
   try {
@@ -17,3 +18,12 @@ export const getAllProducts = async () => {
     throw error;
   }
 };
+
+export const buyProduct = async (id: ProductId) => {
+  try {
+    const response = await axios.post('http://localhost:3001/buyProduct', id)
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

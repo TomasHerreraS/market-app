@@ -1,46 +1,52 @@
 import { Row, Col, Image, Button } from "react-bootstrap";
-import firstImage from '../../assets/carousel-img/pc.webp';
 import { truncateText } from "../../utils/truncate-text";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { getQuantity, getAllProducts } from "../../provider/product.provider";
+import { getQuantity, getAllProducts, buyProduct } from "../../provider/product.provider";
 import '../../styles/cart.css';
-import { ProductData } from "../../type";
+import { ProductData, Quantity } from "../../type";
+import { socket } from "../../utils/socket";
 
 const Product = () => {
-  const [quantity, setQuantity] = useState<{quantity: number}>();
-  const [getProducts, setGetProducts] = useState<any>([]);
+  const [quantity, setQuantity] = useState<Quantity[]>([]);
+  const [getProducts, setGetProducts] = useState<ProductData[]>([]);
 
   useEffect(() => {
-    const fetchQuantity = async () => {
-      try {
-        const quantityData = await getQuantity();
-        setQuantity(quantityData.quantity);
-        console.log(quantityData);
-      } catch (error) {
-        console.error('Error getting quantity:', error);
-      }
-    };
-
-    fetchQuantity();
-
-    // No necesitas especificar una función de limpieza en este caso
-
-  }, []);
+    getQuantity().then((result)=> {
+      setQuantity(result)
+      console.log(result)
+    })
+  },[]);
 
   useEffect(()=>{
     getAllProducts().then((result)=>{
       setGetProducts(result); 
-      console.log(result)
     }).catch((error) => console.log(error))
   }, [])
+
+  useEffect(() => {
+    // Escuchar el evento 'quantityUpdated' del servidor
+    socket.on('quantityUpdated', () => {
+      getQuantity().then((result)=> {
+        setQuantity(result)
+        console.log(result)
+      })
+      // Actualizar la cantidad de productos en el estado
+      // Aquí podrías llamar a una función para obtener la nueva cantidad desde el servidor si es necesario
+    });
+
+    // Limpieza del efecto
+    return () => {
+      socket.off('quantityUpdated');
+    };
+  }, []);
 
   return(
     <div className="div-product-style">
       <h6 className="products-title">Products</h6>
       <hr/>
-      {getProducts.map((obj: any, index: any)=>{
+      {getProducts.map((obj: ProductData, index: any)=>{
         return (
           <Row key={index} className="mt-4">
             <Col className="text-center" md={3}>
@@ -67,13 +73,32 @@ const Product = () => {
                   <FiPlus className="plus pointer" size={20}/>
                 </Col>
               </Row>
-              <p className="available-style text-center">{obj.quantity} Available</p>
+              {quantity.map((quantity, secondIndex: number) => {
+                if (quantity.product_id === obj.product_id) {
+                  return (
+                    <p key={secondIndex} className="available-style text-center">{quantity.quantity} Available</p>
+                  )
+                } else {
+                  return (null)
+                }
+              })}
             </Col>
             <Col md={2}>
               <div className="mt-4 text-center">
                 <Button className="ms-2" variant="danger button-style"><FaTrash/></Button>
                 <p className="mt-1">$ {obj.price}</p>
               </div>
+            </Col>
+            <Col>
+              <Button onClick={() => {
+                try{
+                  buyProduct({product_id: obj.product_id}).then(()=>{
+                    socket.emit('quantityUpdated')
+                  })
+                } catch(error) {
+                  console.log(error);
+                }
+              }}>Borrar?</Button>
             </Col>
           </Row>
         )
