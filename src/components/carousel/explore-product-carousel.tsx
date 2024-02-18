@@ -25,8 +25,10 @@ const ProductCarousel = () => {
   };
 
   return (
-    <div className="carousel-back">
-    <h2>Explore Products</h2>
+    <div className="m-3 carousel-back">
+      <div  className="explore-products-title">
+    <h2 className="p-0 product-title">Explore Products</h2>
+      </div>
       <Carousel className="carousel-product" responsive={responsive}>
         {cardProducts.map((cardProducts) => (
           <Card key={cardProducts.id} className="carousel-product-card">

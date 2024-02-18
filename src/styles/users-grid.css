@@ -2,7 +2,7 @@
     background-color: rgba(0, 0, 0, 0.729);
     width: 100vw;
     height: 100vh;
-    position: fixed; /* Change to fixed for full-page overlay */
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -11,7 +11,7 @@
     z-index: 15;
 }
 
-.add-users {
+.user-list-form-add-users {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -29,4 +29,30 @@
     width: 88% !important;
     border-radius: 15px;
     background-color: rgb(54, 54, 54);
+}
+
+.user-list-filter-options {
+    z-index: 2;
+    position: absolute;
+    background-color: rgb(70, 70, 70);
+    border-radius: 5px;
+    outline:  solid 1px rgb(131, 131, 131);
+}
+
+.user-list-select-options:hover {
+    cursor: pointer;
+    background-color: rgb(103, 103, 103);
+    border-radius: 5px;
+    transition: ease 0.85s;
+}
+
+.user-list-select-options {
+    padding: 5px;
+}
+
+.user-list-selected-filter {
+    background-color: rgb(31, 24, 24);
+    border-radius: 5px;
+    padding: 5px;
+    transition:  ease 0.85s;
 }

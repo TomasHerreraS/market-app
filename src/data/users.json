@@ -1,0 +1,56 @@
+[{
+    "name": "aUser",
+    "address": "123 ave",
+    "email": "quantum@email.com",
+    "role": "admin",
+    "date": "2024-02-06",
+    "phone": 1234567890,
+    "userId": 1
+},
+{
+    "name": "Joe45",
+    "address": "123 ave",
+    "email": "quantum@email.com",
+    "role": "client",
+    "date": "2024-01-15",
+    "phone": 2068798888,
+    "userId": 2
+},
+{
+    "name": "Steve44",
+    "address": "123 ave",
+    "email": "quantum@email.com",
+    "role": "client",
+    "date": "2023-12-25",
+    "phone": 8009009999,
+    "userId": 3
+},
+
+{
+    "name": "User",
+    "address": "123 ave",
+    "email": "client@email.com",
+    "role": "client",
+    "date": "2023-11-11",
+    "phone": 3334445555,
+    "userId": 4
+},
+{
+    "name": "Stanco",
+    "address": "123 ave",
+    "email": "stanco@quantum.com",
+    "role": "admin",
+    "date": "2023-10-20",
+    "phone": 3334445555,
+    "userId": 5
+},
+{
+    "name": "Tomas",
+    "address": "123 ave",
+    "email": "tomas@quantum.com",
+    "role": "admin",
+    "date": "2023-09-05",
+    "phone": 3334445555,
+    "userId": 6
+}
+]

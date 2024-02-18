@@ -26,8 +26,21 @@
   margin: 0 auto;
 }
 
+.explore-products-title {
+  position: relative;
+  background-color: rgba(97, 97, 97, 0.593);
+  border-radius: 30px;
+  border: solid 1px rgb(148, 235, 245);
+  width: 300px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:20px auto 0px auto ;
+}
+
 .carousel-product-card {
-  background: rgba(99, 99, 99, 0.37) !important;
+  background: rgba(97, 97, 97, 0.485) !important;
   margin: 50px 20px;
   transition: ease 2ms;
 }
@@ -50,10 +63,12 @@
 }
 
 .carousel-back {
-  background: url("../assets/carousel-img/carousel-back.jpg");
+  background: url("https://images.alphacoders.com/116/1169862.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  border-radius: 25px;
+  border: solid 1px gray;
 }
 
 .carousel-product-card h3 {
@@ -68,4 +83,9 @@
 
 .carousel h3 {
   color: white;
+}
+
+.carousel-product-card h3, .product-title {
+  color: white;
+  text-shadow: 1px 3px 3px rgba(0, 0, 0, 0.842);
 }

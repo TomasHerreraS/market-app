@@ -98,7 +98,24 @@
   }
 
 /* User List */
-[data-bs-theme=light] .user-list, .add-users {
+[data-bs-theme=light] .user-list {
     background-color: #ffffff;
     border: solid 1px #929090;
+}
+
+[data-bs-theme=light] .user-list-form-add-users {
+    background-color: #ffffff;
+    border: solid 1px #929090;
+}
+
+[data-bs-theme=light] .user-list-select-options:hover {
+    background-color: #f1f1f1;
+}
+
+[data-bs-theme=light] .user-list-filter-options {
+    background-color: #ffffff;
+}
+
+[data-bs-theme=light] .user-list-selected-filter {
+    background-color: #c6c6c6;
 }

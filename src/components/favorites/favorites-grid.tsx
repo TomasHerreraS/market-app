@@ -49,32 +49,22 @@ const FavoritesGrid: React.FC = () => {
 
   return (
     <Container className="favorites-container">
+          <h2 className="favorites-title">
+            My Favorites
+            <span className="items-text">
+              ({favoriteProducts.length} items)
+            </span>
+          </h2>
       {isLoading ? (
-        <>
-          <h2 className="favorites-title">
-            My Favorites
-            <span className="items-text">
-              ({favoriteProducts.length} items)
-            </span>
-          </h2>
           <FavoriteSkeleton />
-        </>
       ) : (
-        <>
-          <h2 className="favorites-title">
-            My Favorites
-            <span className="items-text">
-              ({favoriteProducts.length} items)
-            </span>
-          </h2>
-          {favoriteProducts.map((product) => (
+          favoriteProducts.map((product) => (
             <FavoritesCards
               key={product.id}
               product={product}
               onDelete={handleDeleteFavorite}
             />
-          ))}
-        </>
+          ))
       )}
     </Container>
   );

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { fetchProducts } from "../../utils/api";
 import ProductSkeleton from "./product-cards-skeleton";
 
-const ProductGrid = ({}) => {
+const ProductGrid = () => {
   const [products, setProducts] = useState<Products[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Products[]>([]);
   const [isLoading, setLoading] = useState(true);

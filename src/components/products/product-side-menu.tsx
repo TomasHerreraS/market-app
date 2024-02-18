@@ -246,7 +246,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
   return (
     <>
       <Row className="g-0">
-        <Col xs={12} md={6} className="d-flex">
+        <Col xs={'auto'} className="d-flex mx-auto">
           <Button
             size="sm"
             className="filter-buttons mb-2"
@@ -255,7 +255,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
             Apply Filters
           </Button>
         </Col>
-        <Col xs={12} md={6} className="d-flex">
+        <Col xs={'auto'} className="d-flex mx-auto">
           <Button
             size="sm"
             className="filter-buttons mb-2"

@@ -41,3 +41,13 @@ export interface Filters{
   inStock?: boolean;
   brands?: string[];
 }
+
+export interface Users {
+  name: string;
+  address: string;
+  role: string;
+  email: string;
+  date: Date;
+  userId: number;
+  phone: number;
+}
