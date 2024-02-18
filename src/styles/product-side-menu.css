@@ -1,0 +1,41 @@
+.open svg {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.closed svg {
+  transition: transform 0.3s ease;
+}
+
+.form-text {
+  margin-right: 20%;
+  color: aliceblue !important;
+}
+
+input, label {
+  cursor: pointer;
+}
+
+.dropdown-chevron {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.menu-options {
+  width: 100%;
+  list-style: none;
+  font-size: 14px;
+  margin-left: 16px;
+}
+
+.filter-buttons {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.option-text {
+  font-size: 13px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+

@@ -1,0 +1,15 @@
+.delete-button {
+    transition: transform 0.5s ease;
+    cursor: pointer;
+
+}
+
+.delete-button:hover {
+    transform: scale(1.2);
+    transform-origin: center;
+}
+
+.delete-button:active {
+    transform: scale(0.8);
+    transform-origin: center;
+}

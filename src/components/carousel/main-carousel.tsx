@@ -9,14 +9,14 @@ import "../../styles/carousel.css";
 
 function Slideshow() {
   return (
-    <Carousel className="slideshow-image" fade>
+    <Carousel className="slideshow-image main-carousel" fade>
       <Carousel.Item className="slideshow-image">
           <Image
             className="d-block w-100"
             src={firstImage}
             alt="First slide"
           />
-        <Carousel.Caption className="slideshow-text">
+        <Carousel.Caption  className="slideshow-text">
           <CarouselButton buttonText="Shop Now" />
           <h3>Components</h3>
         </Carousel.Caption>

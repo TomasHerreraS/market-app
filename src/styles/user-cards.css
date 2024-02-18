@@ -1,0 +1,10 @@
+.user-cards {
+    padding: 18px;
+    margin: 1px;
+    height: 260px !important;
+}
+
+.user-info {
+    margin: 0px 0px 3px 0px;
+    font-weight: 500;
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Row, Col, Image, Button } from "react-bootstrap";
 import { truncateText } from "../../utils/truncate-text";
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -167,4 +168,23 @@ const Cart = () => {
   )
 }
 
+=======
+import { Row, Col } from "react-bootstrap"
+import Product from "./product"
+import Total from "./total";
+
+const Cart = () => {
+  return (
+    <Row className="g-0">
+      <Col md={8}>
+        <Product/>
+      </Col>
+      <Col md={4}>
+        <Total/>
+      </Col>
+    </Row>
+  )
+}
+
+>>>>>>> fadc7d662dc3fba7be115544f1dad86fd9d4f1b8
 export default Cart;

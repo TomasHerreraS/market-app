@@ -1,0 +1,10 @@
+.admin-options {
+ width: 220px !important; 
+ height: 220px !important; 
+}
+
+.admin-options:hover {
+    border: 1px solid rgb(0, 208, 255);
+    cursor: pointer;
+}
+
