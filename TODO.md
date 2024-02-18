@@ -21,3 +21,6 @@
 
 - Fix Cart Page (Product) add a map function & count it for make a overflow style with a max index 3.
 - Make it responsive.
+- Save in LocalStorage idProduct, Quantity
+- Use localStorage to compare idProductLocalStorage = idProductDB, then get image and other attr
+- Use THAT price/product to show in page, not all db product
