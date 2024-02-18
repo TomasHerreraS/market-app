@@ -15,15 +15,16 @@ import { FaSearch } from "react-icons/fa";
 import ThemeToggleButton from "../../buttons/theme-button";
 import { Fan, PersonFill } from "react-bootstrap-icons";
 import { BsCart3 } from "react-icons/bs";
-import exportedFunctions from "../../../utils/link";
+import exportRedirect from "../../../utils/link";
 import "../../../styles/navigation-bar-pc.css";
+import MailValidation from "../../sign-up/modal-mail-validation";
 
 const NavigationBarPc = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
-
-  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
-  const redirectToCartPage = exportedFunctions.useRedirectToCart();
+  const [showValidation, setShowValidation] = useState<boolean>(false);
+  const redirectToMainPage = exportRedirect.useRedirectToMainPage();
+  const redirectToCartPage = exportRedirect.useRedirectToCart();
 
   const loggedIn: string = "2";
   return (
@@ -58,7 +59,8 @@ const NavigationBarPc = () => {
                 >
                 Sign up
               </h6>
-              <SignUp show={showSignUp} setShow={setShowSignUp} />
+              <SignUp show={showSignUp} setShow={setShowSignUp} setShowValidation={setShowValidation}/>
+              <MailValidation show={showValidation} setShow={setShowValidation}/>
               <h6
                 className="h6-margin cursor"
                 onClick={() => {

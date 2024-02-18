@@ -7,8 +7,15 @@ import ProductsPage from './pages/products-page';
 import ProductDetailsPage from './pages/product-details-page';
 import AdminPage from './pages/admin-page';
 import UsersPage from './pages/users-page';
+import { decodedToken } from './utils/token';
+import { getEmailLoggedIn } from './provider/user.provider';
 
 const RouteByComponent = () => {
+  if (decodedToken) {
+    getEmailLoggedIn({email: decodedToken.email}).then((result)=>{
+      console.log(result);
+    });
+  }
   return (
     <Routes>
       <Route path='/' element={<MainPage />} />

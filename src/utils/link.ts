@@ -20,9 +20,9 @@ const useRedirectToCart = () => {
   return url;
 }
 
-const exportedFunctions = {
+const exportRedirect = {
   useRedirectToMainPage,
   useRedirectToCart
 }
 
-export default exportedFunctions;
+export default exportRedirect;

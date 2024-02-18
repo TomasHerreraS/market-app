@@ -18,8 +18,9 @@ import { IconContext } from "react-icons";
 import { BsCart3 } from "react-icons/bs";
 import { SidebarData } from "./sidebar-data";
 import { Link } from "react-router-dom";
-import exportedFunctions from "../../../utils/link";
+import exportRedirect from "../../../utils/link";
 import "../../../styles/navigation-bar-mobile.css";
+
 
 const NavigationBarMobile: React.FC = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const NavigationBarMobile: React.FC = () => {
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const [sidebar, setSidebar] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const redirectToMainPage = exportedFunctions.useRedirectToMainPage();
+  const redirectToMainPage = exportRedirect.useRedirectToMainPage();
 
   const showSidebar = () => setSidebar(!sidebar);
 

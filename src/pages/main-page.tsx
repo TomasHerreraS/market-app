@@ -4,6 +4,7 @@ import Footer from "../components/footer/footer";
 import Slideshow from "../components/carousel/main-carousel";
 import "../styles/html.css";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
+import "../styles/html.css"
 
 const MainPage = () => {
   document.title = "Home | Quantum Halo"

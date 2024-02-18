@@ -1,25 +1,26 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import * as yup from 'yup';
-import { userData } from '../../utils/type';
-import '../../styles/sign-up.css';
+import { UserData } from '../../type';
 import { states } from '../../utils/state';
+import { getUniques, sendEmail } from '../../provider/user.provider';
+import '../../styles/sign-up.css';
 
 
-const SignUp = ({show, setShow}: any) => {
-  const initialValues: userData = { name: '', lastname: '', rol: 'Superusuario', phone: '', state: '', city: '', address: '', email: '', password: '' }
+const SignUp = ({show, setShow, setShowValidation}: any) => {
+  const initialValues: UserData = { name: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
+  const [uniqueData, setUniqueData] = useState<{phone: string, email: string}[]>([]);;
 
-  type UserDataKeys = keyof userData;
+  type UserDataKeys = keyof UserData;
 
-  const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol', 'email', 'password', 'phone', 'state', 'city', 'address'];
+  const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
     setValueSelected(e.target.value);
   }
 
@@ -53,15 +54,11 @@ const SignUp = ({show, setShow}: any) => {
       .matches(/^[a-zA-Z]+$/, "Only letters are allowed")
       .min(3, 'Lastname is too short')
       .max(30, 'Lastname is too long'),
-    phone: yup.string()
-      .matches(/^\d+$/, 'Only numbers are allowed')
-      .min(11, 'Format: (123) 123-1234')
-      .max(11, 'Format: (123) 123-1234'),
     city: yup.string()
       .typeError('Only letters and numbers are allowed')
       .matches(/^[a-zA-Z0-9\s]+$/, 'Only letters and numbers are allowed')
-      .min(3, 'Address is too short')
-      .max(100, 'Address is too long'),
+      .min(3, 'City is too short')
+      .max(100, 'City is too long'),
     address: yup.string()
       .typeError('Only letters and numbers are allowed')
       .matches(/^[a-zA-Z0-9\s]+$/, 'Only letters and numbers are allowed')
@@ -75,7 +72,13 @@ const SignUp = ({show, setShow}: any) => {
       .typeError('Only letters and numbers are allowed')
       .min(3, 'Password is too short')
       .max(20, 'Password is too long'),
-    })
+  })
+
+  useEffect(()=>{
+    getUniques().then((result)=>{
+      setUniqueData(result.data);
+    }).catch((error) => console.log(error))
+  }, [])
 
   return (
     <>
@@ -87,12 +90,37 @@ const SignUp = ({show, setShow}: any) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(value)=>{
+            onSubmit={(value: UserData)=>{
               value.state=valueSelected;
               value.phone=phoneValue;
-              console.log(value);
             if (userDataValidation.every(field=> value[field] !== '')) {
-              // TODO: DESDE EL BACKEND MANDAR UN RANDOM NUMBER AL CORREO PARA VALIDAR CORREO.
+              const phoneComparison = uniqueData.some(obj => obj.phone === value.phone);
+              const emailComparison = uniqueData.some(obj => obj.email === value.email);
+              if (phoneComparison) {
+                Swal.fire({
+                  icon: 'error',
+                  text: 'Phone number already exists',
+                })
+              } else if (emailComparison) {
+                Swal.fire({
+                  icon: 'error',
+                  text: 'Email already exists',
+                })
+              } else {
+                sendEmail({email: value.email}).then(()=>{
+                  Swal.fire({
+                    icon: 'success',
+                    text: 'Verify your email please.'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      localStorage.setItem('email', value.email);
+                      localStorage.setItem('data', JSON.stringify(value));
+                      handleClose();
+                      setShowValidation(true);
+                    }
+                  })
+                })
+              }
             } else {
               Swal.fire({
                 icon: 'error',
@@ -118,8 +146,8 @@ const SignUp = ({show, setShow}: any) => {
                   <Col className='mb-2' md={12}>
                     <rbForm.Control as={Field} name='phone' type='text' placeholder='Phone' value={phoneValue} autoComplete='off' 
                       onChange={handlePhoneValue}/>
-                      {errors.phone && touched.phone ? (
-                        <div className='error-color'>{errors.phone}</div>
+                    {errors.phone && touched.phone ? (
+                      <div className='error-color'>{errors.phone}</div>
                       ) : null}
                   </Col>
                   <Col className='mb-2' md={6}>
