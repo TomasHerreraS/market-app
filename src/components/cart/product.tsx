@@ -1,5 +1,5 @@
 import { Row, Col, Image, Button } from "react-bootstrap";
-import { truncateText } from "../../utils/truncate-text";
+import { truncateText } from "../../utils/market-functions/truncate-text";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";

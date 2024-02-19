@@ -15,6 +15,7 @@ import { fetchUsers } from "../../utils/api";
 import UserCards from "./user-cards";
 import UserSkeletons from "./user-skeletons";
 import { ChevronDown } from "react-bootstrap-icons";
+import { getAllUsers } from "../../provider/user.provider";
 
 const UsersGrid = () => {
   // Timeout to create loading skeletons
@@ -84,7 +85,7 @@ const UsersGrid = () => {
   // Fetching the users
   const fetchAccount = async () => {
     try {
-      const accounts = await fetchUsers();
+      const accounts = await getAllUsers();
 
       const user: Users[] = accounts.map((user) => ({
         ...user,
@@ -237,15 +238,15 @@ const UsersGrid = () => {
         <hr />
         <Row className="g-0">
           {isLoading &&
-            skeletons.map((skeleton) => (
-              <Col xs={12} sm={6} lg={3}>
+            skeletons.map((skeleton, index) => (
+              <Col xs={12} sm={6} lg={3} key={index}>
                 <UserSkeletons key={skeleton} />
               </Col>
             ))}
           {!isLoading && filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <Col xs={12} sm={6} lg={3}>
-                <UserCards key={user.userId} users={user} />
+            filteredUsers.map((user, index) => (
+              <Col xs={12} sm={6} lg={3} key={index}>
+                <UserCards users={user} />
               </Col>
             ))
           ) : (
