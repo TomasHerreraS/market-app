@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 import { Row, Col, Image, Button } from "react-bootstrap";
-import { truncateText } from "../../utils/truncate-text";
+import { truncateText } from "../../utils/market-functions/truncate-text";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -45,10 +44,6 @@ const Cart = () => {
     }, 0))
   }, [price]);
 
-  useEffect(()=>{
-    // console.log(total)
-  }, [total]);
-
   useEffect(() => {
     // Escuchar el evento 'quantityUpdated' del servidor
     socket.on('quantityUpdated', () => {
@@ -71,7 +66,8 @@ const Cart = () => {
         <div className="div-product-style">
           <h6 className="products-title">Products</h6>
           <hr/>
-          {getProducts.map((obj: ProductData, index: any)=>{
+          {getProducts.length > 0 ?
+            getProducts.map((obj: ProductData, index: any)=>{
             return (
               <Row key={index} className="mt-4">
                 <Col className="text-center" md={3}>
@@ -127,7 +123,8 @@ const Cart = () => {
                 </Col>
               </Row>
             )
-          })}
+          }):
+          <p className="ms-3">No hay productos agregados al carro</p>}
         </div>
       </Col>
       <Col md={4}>
@@ -136,8 +133,7 @@ const Cart = () => {
         <hr/>
         <Row className="mt-4 ps-3 pe-3 product-shipment-style">
           <Col md={{ span: 8, offset: 0}}>
-            {getProducts.length > 1 ?
-            <p>Products ({getProducts.length})</p>: <p>Product ({getProducts.length})</p>}
+            <p>Product{getProducts.length > 1 ? 's' : null}</p>
           </Col>
           <Col>
             <p>$40.000</p>
@@ -168,23 +164,4 @@ const Cart = () => {
   )
 }
 
-=======
-import { Row, Col } from "react-bootstrap"
-import Product from "./product"
-import Total from "./total";
-
-const Cart = () => {
-  return (
-    <Row className="g-0">
-      <Col md={8}>
-        <Product/>
-      </Col>
-      <Col md={4}>
-        <Total/>
-      </Col>
-    </Row>
-  )
-}
-
->>>>>>> fadc7d662dc3fba7be115544f1dad86fd9d4f1b8
 export default Cart;
