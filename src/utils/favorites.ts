@@ -32,7 +32,7 @@ export const isProductInFavorites = (productId: number): boolean => {
 
 export const getFavoriteProducts = (allProducts: Products[]): Products[] => {
   const favoriteProductIds = getFavoriteProductIds();
-  return allProducts.filter(product => favoriteProductIds.includes(product.id));
+  return allProducts.filter(product => favoriteProductIds.includes(product.product_id));
 };
 
 // Initialize the key with an empty array if it doesn't exist

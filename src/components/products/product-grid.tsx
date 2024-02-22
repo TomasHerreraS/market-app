@@ -3,8 +3,8 @@ import ProductCards from "./product-cards";
 import ProductSideMenu from "./product-side-menu";
 import { Products } from "../../utils/type";
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../../utils/api";
 import ProductSkeleton from "./product-cards-skeleton";
+import { getAllProducts } from "../../provider/product.provider";
 
 const ProductGrid = () => {
   const [products, setProducts] = useState<Products[]>([]);
@@ -18,7 +18,7 @@ const ProductGrid = () => {
    
     const fetchData = async () => {
       try {
-        const productsData = await fetchProducts();
+        const productsData = await getAllProducts();
         setProducts(productsData);
       } catch (error) {
         console.error("Could Not Fetch Products", error);
@@ -26,9 +26,8 @@ const ProductGrid = () => {
         setLoading(false);
       }
     };
-    
+
     const fetchTimeout = setTimeout(fetchData, 1000);
-    
     return () => {
       clearTimeout(fetchTimeout);
     }
@@ -74,9 +73,9 @@ const ProductGrid = () => {
           {/* Product Grid */}
           <Col xs={9} sm={9} md={9} lg={9} xl={10}>
             <Row className="g-0">
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((obj: Products) => (
                 <Col
-                  key={product.id}
+                  key={obj.product_id}
                   xs={12}
                   sm={12}
                   md={6}
@@ -84,7 +83,7 @@ const ProductGrid = () => {
                   xl={3}
                   className="px-2 py-3"
                 >
-                  <ProductCards key={product.id} product={product} />
+                  <ProductCards key={obj.product_id} obj={obj} />
                 </Col>
               ))}
             </Row>

@@ -18,16 +18,16 @@ export interface signIn{
 
 // Products interface
 export interface Products{
+  product_id: number;
   name: string;
   cpu: string;
   price: number;
   category: string[];
   description: string;
-  id: number;
-  inStock: boolean;
+  quantity: number;
   discount: number;
-  images: string[];
-  brands: string[];
+  image: string[];
+  brand: string[];
   sold: number;
   date: string;
 }
@@ -39,7 +39,7 @@ export interface Filters{
   cpu?: string;
   category?: string[];
   inStock?: boolean;
-  brands?: string[];
+  brand?: string[];
 }
 
 export interface Users {

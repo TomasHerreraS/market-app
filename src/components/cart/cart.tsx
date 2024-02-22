@@ -23,6 +23,7 @@ const Cart = () => {
   useEffect(()=>{
     getAllProducts().then((result)=>{
       setGetProducts(result);
+      console.log(result);
     }).catch((error) => console.log(error))
   }, [])
 
@@ -39,7 +40,6 @@ const Cart = () => {
       if (!isNaN(priceParsed)) {
         acc += priceParsed;
       }
-      console.log(acc)
       return acc;
     }, 0))
   }, [price]);
@@ -72,7 +72,7 @@ const Cart = () => {
               <Row key={index} className="mt-4">
                 <Col className="text-center" md={3}>
                   <Image
-                    className="img-fluid image-style ms-3"
+                    className="img-fluid image-style text-center"
                     rounded
                     src={`data:image/jpeg;base64,${obj.image}`}
                     alt={obj.name}
