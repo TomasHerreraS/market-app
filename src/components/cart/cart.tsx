@@ -7,6 +7,7 @@ import { getQuantity, getAllProducts, buyProduct } from "../../provider/product.
 import '../../styles/cart.css';
 import { ProductData, Quantity } from "../../type";
 import { socket } from "../../utils/socket";
+import { TransformImage } from "../../utils/market-functions/transform-image";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState<Quantity[]>([]);
@@ -74,7 +75,7 @@ const Cart = () => {
                   <Image
                     className="img-fluid image-style text-center"
                     rounded
-                    src={`data:image/jpeg;base64,${obj.image}`}
+                    src={TransformImage(obj.image)}
                     alt={obj.name}
                   />
                   <p className="text-center">{obj.name}</p>
