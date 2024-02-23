@@ -18,15 +18,15 @@ import { BsCart3 } from "react-icons/bs";
 import exportRedirect from "../../../utils/link";
 import "../../../styles/navigation-bar-pc.css";
 import MailValidation from "../../sign-up/modal-mail-validation";
+import { Role } from "../../../utils/type";
 
-const NavigationBarPc = () => {
+const NavigationBarPc: React.FC<Role> = ({ role }) => {
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const [showValidation, setShowValidation] = useState<boolean>(false);
   const redirectToMainPage = exportRedirect.useRedirectToMainPage();
   const redirectToCartPage = exportRedirect.useRedirectToCart();
 
-  const loggedIn: string = "1";
   return (
     <Row className="background-color text-color padding g-0 align-items-center justify-content-between">
       <Col md="auto">
@@ -47,7 +47,7 @@ const NavigationBarPc = () => {
           <FormControl placeholder="Search for a product" className="navbar-search-input"/>
         </InputGroup>
       </Col>
-      {loggedIn === "1" ? (
+      {role === 1 ? (
         <Col md="auto" className="d-flex justify-content-end">
             <div className="d-flex justify-content-end" style={{width: "180px"}}>
             <Stack direction="horizontal" gap={4}>
@@ -86,14 +86,14 @@ const NavigationBarPc = () => {
               <span className="notification-count">1</span>
               <div className="icon-side-bar-pc">
                 <BsCart3
-                  className="cursor"
+                   className="cursor icon-buttons"
                   size={23}
                   onClick={redirectToCartPage}
                   />
               </div>
             </div>
             <div>
-              <PersonFill size={23} />
+              <PersonFill size={23}  className="cursor icon-buttons"/>
             </div>
           </Stack>
                   </div>

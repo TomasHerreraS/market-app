@@ -69,6 +69,7 @@ input:focus{
 }
 
 .notification-circle {
+  z-index: 2;
   position: absolute;
   right: -4.5px !important;
   background-color: red;
@@ -78,6 +79,7 @@ input:focus{
 }
 
 .notification-count {
+  z-index: 2;
   position: absolute;
   top: -2px;
   right: -1px;

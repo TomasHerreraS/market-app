@@ -13,7 +13,7 @@ export interface userData{
 export interface signIn{
   email: string,
   password: string,
-  keeplogged: boolean
+  keeplogged: boolean,
 }
 
 // Products interface
@@ -43,11 +43,16 @@ export interface Filters{
 }
 
 export interface Users {
-  name: string;
+  firstname: string;
+  lastname: string;
   address: string;
-  role: string;
+  rol_id: number;
   email: string;
   date: Date;
   userId: number;
   phone: number;
+}
+
+export interface Role {
+  role: number
 }

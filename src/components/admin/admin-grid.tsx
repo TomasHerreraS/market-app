@@ -17,10 +17,11 @@ const AdminGrid = () => {
       <Container className="p-3">
         <h2 className="text-center mb-4">Welcome Admin User</h2>
         <Row className="justify-content-center">
-          {options.map((option) => (
+          {options.map((option, index) => (
             <Col
               xs="auto"
               className="p-1"
+              key={index}
             >
               <Card
                 onClick={() => handleChoice(option.link)}

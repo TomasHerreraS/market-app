@@ -27,3 +27,12 @@ export const buyProduct = async (id: ProductId) => {
     throw error;
   }
 }
+
+export const getProductById = async (id: number) => {
+  try {
+    const response = await axios.post('http://localhost:3001/getProductById', id)
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

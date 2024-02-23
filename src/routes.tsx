@@ -8,17 +8,19 @@ import ProductDetailsPage from './pages/product-details-page';
 import AdminPage from './pages/admin-page';
 import UsersPage from './pages/users-page';
 import { decodedToken } from './utils/token';
-import { getEmailLoggedIn } from './provider/user.provider';
+import { getRole } from './provider/user.provider';
+import SignUpPage from './pages/signup-page';
 
 const RouteByComponent = () => {
   if (decodedToken) {
-    getEmailLoggedIn({email: decodedToken.email}).then((result)=>{
+    getRole({email: decodedToken.email}).then((result)=>{
       console.log(result);
     });
   }
   return (
     <Routes>
       <Route path='/' element={<MainPage />} />
+      <Route path='/sign-up' element={<SignUpPage />} />
       <Route path='/cart' element={<CartPage />} />
       <Route path='/about-us' element={<AboutPage />} />
       <Route path='/favorites' element={<FavoritesPage />} />

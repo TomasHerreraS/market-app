@@ -28,6 +28,7 @@ const SignIn = ({show, setShow}: any) => {
           <Formik
             initialValues={initialValues}
             onSubmit={(value: SignInData)=>{
+              console.log(value)
             if (loginValidation.every(login=> value[login] !== '')) {
               signIn(value).then((result) => {
                 cookies.set('token', result, {

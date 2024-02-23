@@ -47,9 +47,9 @@ export const signIn = async (data: SignInData) => {
   }
 };
 
-export const getEmailLoggedIn = async (email: Email) => {
+export const getRole = async (email: Email) => {
   try {
-    const response = await axios.post('http://localhost:3001/getEmailLoggedIn', email);
+    const response = await axios.post('http://localhost:3001/getRole', email);
     return response.data;
   } catch (error) {
     throw error;

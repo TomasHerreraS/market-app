@@ -69,20 +69,20 @@
   cursor: pointer;
 }
 
-/* Theme-Button */
-.theme-button {
+/* Icon Buttons */
+.icon-buttons {
     font-size: 25px;
     transition: transform 0.8s ease;
     position: relative;
     cursor: pointer;
 }
 
-.theme-button:hover {
+.icon-buttons:hover {
     transform: scale(1.2);
     transform-origin: center;
 }
 
-.theme-button:active {
+.icon-buttons:active {
     transform: scale(0.8);
     transform-origin: center;
 }
