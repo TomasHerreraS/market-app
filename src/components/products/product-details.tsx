@@ -17,6 +17,7 @@ import {
   Stack,
 } from "react-bootstrap";
 import AddToCartButton from "../buttons/add-to-cart-button";
+import { getAllProducts } from "../../provider/product.provider";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -27,21 +28,14 @@ const ProductDetails = () => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productsData = await fetchProducts();
-        setProducts(productsData);
-      } catch (error) {
-        console.error("Could Not Fetch Products", error);
-      }
-    };
-
-    fetchData();
+    getAllProducts().then(result => {
+      setProducts(result);
+    })
   }, []);
 
   useEffect(() => {
     if (idParam !== undefined) {
-      const product = products.find((product) => product.id === idParam);
+      const product = products.find((obj) => obj.product_id === idParam);
       setSelectedProduct(product);
     }
   }, [idParam, products]);
@@ -61,24 +55,24 @@ const ProductDetails = () => {
     <>
       <Card className="mx-auto my-3 product-detail">
         <Carousel className="product-details-carousel">
-          {Array.isArray(selectedProduct.images) ? (
-            selectedProduct.images.map((image, index) => (
+          {Array.isArray(selectedProduct.image) ? (
+            selectedProduct.image.map((image, index) => (
               <CarouselItem key={index} className="slideshow-image">
                 <Image
                   width="100%"
                   className="product-detail-img"
-                  src={image}
+                  src={`data:image/jpeg;base64,${image}`}
                 />
               </CarouselItem>
             ))
           ) : (
             <CarouselItem>
-              <Image src={selectedProduct.images[0]} />
+              <Image src={selectedProduct.image[0]} />
             </CarouselItem>
           )}
         </Carousel>
         <CardBody>
-          {selectedProduct.inStock ? (
+          {selectedProduct.quantity > 0 ? (
             <Card.Text className="in-stock">In Stock</Card.Text>
           ) : (
             <Card.Text className="out-of-stock">Out Of Stock</Card.Text>
@@ -110,7 +104,7 @@ const ProductDetails = () => {
             </Col>
             <Col className="d-flex justify-content-end" xs={8}>
               <div className="d-flex gap-2">
-                <HeartButton productId={selectedProduct.id} />
+                <HeartButton productId={selectedProduct.product_id} />
               </div>
             </Col>
           </Row>
@@ -118,7 +112,7 @@ const ProductDetails = () => {
       </Card>
       <Row className="detail-price d-flex g-0">
         <Col xs={4} md={2} className="my-auto d-flex justify-content-start">
-          {selectedProduct.inStock 
+          {selectedProduct.quantity > 0
           ? <AddToCartButton />
           : <Button variant="secondary">Out Of Stock</Button>
           }

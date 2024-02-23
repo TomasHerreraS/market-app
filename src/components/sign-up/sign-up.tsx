@@ -10,7 +10,7 @@ import '../../styles/sign-up.css';
 
 
 const SignUp = ({show, setShow, setShowValidation}: any) => {
-  const initialValues: UserData = { name: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
+  const initialValues: UserData = { firstname: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
@@ -18,7 +18,7 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
 
   type UserDataKeys = keyof UserData;
 
-  const userDataValidation: UserDataKeys[] = ['name', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
+  const userDataValidation: UserDataKeys[] = ['firstname', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValueSelected(e.target.value);
@@ -132,9 +132,9 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
               <Form>
                 <Row>
                   <Col className='mb-2' md={12}>
-                    <rbForm.Control as={Field} name='name' type='text' placeholder='Name' autoComplete='off' />
-                    {errors.name && touched.name ? (
-                      <div className='error-color'>{errors.name}</div>
+                    <rbForm.Control as={Field} name='firstname' type='text' placeholder='Name' autoComplete='off' />
+                    {errors.firstname && touched.firstname ? (
+                      <div className='error-color'>{errors.firstname}</div>
                       ) : null}
                   </Col>
                   <Col className='mb-2' md={12}>

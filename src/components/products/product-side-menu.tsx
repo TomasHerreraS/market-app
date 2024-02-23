@@ -194,8 +194,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       const brandsFilter =
         !brandsParam ||
         brandsParam.length === 0 ||
-        product.brands.some((brands) =>
-          brandsParam.toLowerCase().includes(brands.toLowerCase())
+        product.brand.some((brand) =>
+          brandsParam.toLowerCase().includes(brand.toLowerCase())
         );
 
       if (priceParam !== "All" && priceParam) {
@@ -209,7 +209,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         priceFilter = true;
       }
 
-      const stockFilter = stockParam === "Available" ? product.inStock : true;
+      const stockFilter = stockParam === "Available" ? product.quantity > 0 : true;
 
       // Check if all conditions are true
       return (

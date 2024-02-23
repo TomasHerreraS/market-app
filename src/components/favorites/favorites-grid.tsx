@@ -58,10 +58,10 @@ const FavoritesGrid: React.FC = () => {
       {isLoading ? (
           <FavoriteSkeleton />
       ) : (
-          favoriteProducts.map((product) => (
+          favoriteProducts.map((obj) => (
             <FavoritesCards
-              key={product.id}
-              product={product}
+              key={obj.product_id}
+              obj={obj}
               onDelete={handleDeleteFavorite}
             />
           ))

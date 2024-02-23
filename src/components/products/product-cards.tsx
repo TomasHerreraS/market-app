@@ -4,15 +4,15 @@ import HeartButton from "../buttons/heart-button";
 import { truncateText } from "../../utils/market-functions/truncate-text";
 import "../../styles/product-cards.css";
 import { Products } from "../../utils/type";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddToCartButton from "../buttons/add-to-cart-button";
 import OutOfStockButton from "../buttons/out-of-stock-button";
 
 interface CardProps {
-  product: Products;
+  obj: Products;
 }
 
-const ProductCards: React.FC<CardProps> = ({ product }) => {
+const ProductCards: React.FC<CardProps> = ({ obj }) => {
   // For the Buttons to work correctly
   const [isHovered, setHovered] = useState(false);
 
@@ -36,43 +36,43 @@ const ProductCards: React.FC<CardProps> = ({ product }) => {
 
   return (
     <Card
-      onClick={() => handleCardClick(product.id)}
-      key={product.id}
+      onClick={() => handleCardClick(obj.product_id)}
+      key={obj.product_id}
       className="product-card"
     >
-      <Card.Img variant="top" src={product.images[0]} className="card-images" />
+      <Card.Img variant="top" src={`data:image/jpeg;base64,${obj.image}`} className="card-images" />
       <Card.Body>
-        <Card.Text className={product.inStock ? "in-stock" : "out-of-stock"}>
-          {product.inStock ? "In Stock" : "Out Of Stock"}
+        <Card.Text className={obj.quantity > 0 ? "in-stock" : "out-of-stock"}>
+          {obj.quantity > 0 ? "In Stock" : "Out Of Stock"}
         </Card.Text>
-        <Card.Title className="card-title">{product.name}</Card.Title>
+        <Card.Title className="card-title">{obj.name}</Card.Title>
         <Card.Text className="card-description">
-          {truncateText(product.description, 105)}
+          {truncateText(obj.description, 105)}
         </Card.Text>
         <div className="space">
-          {product.discount > 0 ? (
+          {obj.discount > 0 ? (
             <>
               <Card.Text className="card-price space-between">
-                ${(product.price - product.discount).toFixed(2)}
+                ${(obj.price - obj.discount).toFixed(2)}
               </Card.Text>
               <Card.Text className="space-between">
                 <span className="original-price">
-                  ${product.price.toFixed(2)}
+                  ${obj.price}
                 </span>{" "}
                 <span className="savings">
-                  SAVE ${product.discount.toFixed(2)}
+                  SAVE ${obj.discount}
                 </span>
               </Card.Text>
             </>
           ) : (
             <Card.Text className="card-price">
-              ${product.price.toFixed(2)}
+              ${obj.price}
             </Card.Text>
           )}
         </div>
         <Row>
           <Col xs={8}>
-            {product.inStock ? (
+            {obj.quantity > 0 ? (
               <div
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -99,7 +99,7 @@ const ProductCards: React.FC<CardProps> = ({ product }) => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <HeartButton productId={product.id} />
+                <HeartButton productId={obj.product_id} />
               </div>
             )}
           </Col>
