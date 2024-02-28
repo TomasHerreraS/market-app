@@ -26,7 +26,7 @@ const NavigationBarPc = () => {
   const redirectToMainPage = exportRedirect.useRedirectToMainPage();
   const redirectToCartPage = exportRedirect.useRedirectToCart();
 
-  const loggedIn: string = "2";
+  const loggedIn: string = "1";
   return (
     <Row className="background-color text-color padding g-0 align-items-center justify-content-between">
       <Col md="auto">

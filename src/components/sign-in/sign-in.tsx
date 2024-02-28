@@ -3,10 +3,9 @@ import { Formik, Form, Field } from 'formik';
 import { signIn } from '../../provider/user.provider';
 import { SignInData } from '../../utils/type';
 import Cookies from 'universal-cookie';
-import Swal from 'sweetalert2';
 import '../../styles/sign-in.css';
-import { signInToken, decodedToken } from '../../utils/token';
-import { useEffect } from 'react';
+import { signInToken } from '../../utils/token';
+import { notification } from '../../utils/market-functions/notification';
 
 const SignIn = ({show, setShow}: any) => {
   const handleClose = () => setShow(false);
@@ -38,35 +37,23 @@ const SignIn = ({show, setShow}: any) => {
                 })
                 // Valida que el token existe, si existe entonces manda el mensaje y hace reload, sino te pide que lo intentes de nuevo.
                 if (signInToken !== '' || signInToken !== undefined) {
-                  console.log(signInToken);
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Successfully logged in',
-                  }).then((result) => {
+                  notification('success', 'Successfully logged in.')
+                  .then((result) => {
                     if (result.isConfirmed) {
                       window.location.reload();
                     }
                   })
                 } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Please log in again.',
-                  })
+                  notification('error', 'Please log in again')
                 }
               }).catch((error) => {
                 const status = error.response.status;
                 if (status === 401) {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Incorrect email or password, try again.',
-                  })
+                  notification('error', 'Incorrect email or password, try again.')
                 }
               })
             } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Debe llenar todos los campos',
-              })
+              notification('error', 'You must fill out all fields.')
             }
           }}>
             {({ errors, touched }) => (

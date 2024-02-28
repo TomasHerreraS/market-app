@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import { addUser, verificationCode, sendEmail, deleteGlobalNumber } from '../../provider/user.provider';
-import Swal from 'sweetalert2';
 import '../../styles/modal-mail-validation.css';
+import { notification } from '../../utils/market-functions/notification';
 
 const MailValidation = ({show, setShow}: any) => {
   const [badCode, setBadCode] = useState<boolean>(false);
@@ -49,10 +49,8 @@ const MailValidation = ({show, setShow}: any) => {
                   if (storedData !== null) {
                     const parsedData = JSON.parse(storedData);
                     addUser(parsedData).then(()=>{
-                      Swal.fire({
-                        icon: 'success',
-                        text: 'User created successfully'
-                      }).then((result) => {
+                      notification('success', 'User created successfully.')
+                      .then((result) => {
                         localStorage.removeItem('data')
                         localStorage.removeItem('email')
                         if (result.isConfirmed) {
@@ -61,10 +59,8 @@ const MailValidation = ({show, setShow}: any) => {
                       })
                     })
                   } else {
-                    Swal.fire({
-                      icon: 'error',
-                      text: 'Oops an error happened, please sign up again.',
-                    }).then((result)=>{
+                    notification('error', 'An error occurred, please sign up again')
+                    .then((result)=>{
                       if (result.isConfirmed) {
                         redirectToMainPage();
                       }
@@ -120,16 +116,11 @@ const MailValidation = ({show, setShow}: any) => {
                         setIsActive(true);
                         setSeconds(180);
                         setNotFoundCode(false);
-                        Swal.fire({
-                          icon: 'success',
-                          text: 'Code sent'
-                        })
+                        notification('success', 'Code sent')
                       })
                     } else {
-                      Swal.fire({
-                        icon: 'error',
-                        text: 'Oops an error happened, please sign up again.'
-                      }).then((result)=>{
+                      notification('error', 'An error occurred, please sign up again')
+                      .then((result)=>{
                         if (result.isConfirmed) {
                           redirectToMainPage()
                         }

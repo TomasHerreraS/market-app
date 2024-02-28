@@ -1,12 +1,12 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 import * as yup from 'yup';
 import { UserData } from '../../utils/type';
 import { states } from '../../utils/state';
 import { getUniques, sendEmail } from '../../provider/user.provider';
 import '../../styles/sign-up.css';
+import { notification } from '../../utils/market-functions/notification';
 
 
 const SignUp = ({show, setShow, setShowValidation}: any) => {
@@ -97,21 +97,13 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
               const phoneComparison = uniqueData.some(obj => obj.phone === value.phone);
               const emailComparison = uniqueData.some(obj => obj.email === value.email);
               if (phoneComparison) {
-                Swal.fire({
-                  icon: 'error',
-                  text: 'Phone number already exists',
-                })
+                notification('error', 'Phone number already exists')
               } else if (emailComparison) {
-                Swal.fire({
-                  icon: 'error',
-                  text: 'Email already exists',
-                })
+                notification('error', 'Email already exists')
               } else {
                 sendEmail({email: value.email}).then(()=>{
-                  Swal.fire({
-                    icon: 'success',
-                    text: 'Verify your email please.'
-                  }).then((result) => {
+                  notification('success', 'Verify your email please.')
+                  .then((result) => {
                     if (result.isConfirmed) {
                       localStorage.setItem('email', value.email);
                       localStorage.setItem('data', JSON.stringify(value));
@@ -122,10 +114,7 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
                 })
               }
             } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'All fields must be filled in',
-              })
+              notification('error', 'You must fill out all fields')
             }
           }}>
             {({ errors, touched }) => (
