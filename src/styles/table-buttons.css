@@ -1,0 +1,47 @@
+.visualize{
+  border-radius: 30px !important;
+  padding-top: 2px !important;
+  background-color: rgb(85, 85, 191) !important;
+  border: none !important;
+}
+
+.visualize:hover{
+  background-color: rgb(64, 64, 197);
+}
+
+.visualize:active{
+  border-radius: 30px !important;
+  padding-top: 2px !important;
+  background-color: rgb(64, 64, 197) !important;
+  border: none !important;
+}
+
+.edit{
+  border-radius: 30px !important;
+  padding-top: 2px !important;
+  background-color: rgb(208, 205, 43) !important;
+  border: none !important;
+}
+
+.edit:hover{
+  background-color: rgb(181, 179, 26) !important;
+}
+
+.edit:active{
+  background-color: rgb(181, 179, 26) !important;
+}
+
+.delete{
+  border-radius: 30px !important;
+  padding-top: 2px !important;
+  background-color: rgb(185, 56, 56) !important;
+  border: none !important;
+}
+
+.delete:hover{
+  background-color: rgb(154, 40, 40) !important;
+}
+
+.delete:active{
+  background-color: rgb(154, 40, 40) !important;
+}

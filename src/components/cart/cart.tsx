@@ -3,17 +3,38 @@ import { truncateText } from "../../utils/market-functions/truncate-text";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { getQuantity, getAllProducts, buyProduct } from "../../provider/product.provider";
+import { getQuantity, getAllProducts, buyProduct, getProductTable, getProductLength } from "../../provider/product.provider";
 import '../../styles/cart.css';
 import { ProductData, Quantity } from "../../type";
 import { socket } from "../../utils/socket";
 import { TransformImage } from "../../utils/market-functions/transform-image";
+import { DataTable } from "../../utils/table/data-table";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState<Quantity[]>([]);
   const [getProducts, setGetProducts] = useState<ProductData[]>([]);
   const [price, setPrice] = useState<any>([]);
   const [total, setTotal] = useState<number>(0);
+
+  // ESTOS SON LOS DATOS NECESARIOS PARA QUE FUNCIONE LA TABLE
+  const [data, setData] = useState([]); // ESTÁ TRAERÁ DESDE EL BACKEND LA FUNCION GETPRODUCTTABLE, QUE TRAE DATA ESPECIFICA SEGÚN EL PARAMETRO
+  const [getItemsPerPage, setGetItemsPerPage] = useState(0);  // ACÁ SE MANDA EL SET, PARA CONSEGUIR DEL COMPONENTE HIJO LA CANTIDAD DE ITEMS POR PAGE
+  const [getCurrentPage, setGetCurrentPage] = useState(0); // ACÁ SE MANDA EL SET, PARA CONSEGUIR DEL COMPONENTE HIJO LA CANTIDAD DE PÁGINAS EN TOTAL
+  const [getIndexOfFirstItem, setGetIndexOfFirstItem] = useState(0); // ACÁ SE MANDA EL SET, PARA OBTENER EL INDEX PER PAGE.
+  const [dataLength, setDataLength] = useState<number>(0); // CON ESTE OBTENEMOS EL LENGTH DE TODA LA DATA, PARA SER ENVIADA Y USADA COMO PAGINATION
+
+  useEffect(()=>{ // ACÁ OBTENEMOS LA DATA DEL PRODUCTO, SEGÚN EL PARAMETRO
+    getProductTable(getItemsPerPage, getIndexOfFirstItem).then((result) => {
+      setData(result);
+    })
+  }, [getCurrentPage, getItemsPerPage]);
+
+  // Consigue el length de productos de la db para saber la cantidad de pagination
+  useEffect(()=>{
+    getProductLength().then((result: number) => {
+      setDataLength(result);
+    })
+  }, []);
 
   useEffect(() => {
     getQuantity().then((result)=> {
@@ -161,6 +182,13 @@ const Cart = () => {
           </Row>
         </div>
       </Col>
+      <DataTable 
+      data={data}
+      setGetItemsPerPage={setGetItemsPerPage}
+      setGetCurrentPage={setGetCurrentPage}
+      setGetIndexOfFirstItem={setGetIndexOfFirstItem}
+      dataLength={dataLength}
+      type='product'/>
     </Row>
   )
 }

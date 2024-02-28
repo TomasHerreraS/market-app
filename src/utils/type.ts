@@ -51,3 +51,13 @@ export interface Users {
   userId: number;
   phone: number;
 }
+
+export interface Table {
+  // data: Products[], LLAMAR A PRODUCT CUANDO EL TYPE ESTÉ CORRECTO.
+  data: any,
+  setGetItemsPerPage: React.Dispatch<React.SetStateAction<number>>,
+  setGetCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+  setGetIndexOfFirstItem: React.Dispatch<React.SetStateAction<number>>,
+  dataLength: number,
+  type: 'product' | 'user' | 'record'
+}
