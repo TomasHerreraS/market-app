@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductId } from '../type';
+import { ProductId } from '../utils/type';
 
 export const getQuantity = async () => {
   try {

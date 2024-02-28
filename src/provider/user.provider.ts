@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserData, Email, SignInData } from '../type';
+import { UserData, Email, SignInData } from '../utils/type';
 
 export const sendEmail = async (data: Email) => {
   try {

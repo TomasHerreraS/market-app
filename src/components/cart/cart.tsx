@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { getQuantity, getAllProducts, buyProduct, getProductTable, getProductLength } from "../../provider/product.provider";
 import '../../styles/cart.css';
-import { ProductData, Quantity } from "../../type";
+import { Quantity, ProductData } from "../../utils/type";
 import { socket } from "../../utils/socket";
 import { TransformImage } from "../../utils/market-functions/transform-image";
 import { DataTable } from "../../utils/table/data-table";

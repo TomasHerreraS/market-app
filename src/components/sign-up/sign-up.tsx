@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { Row, Col, Form as rbForm, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import * as yup from 'yup';
-import { UserData } from '../../type';
+import { UserData } from '../../utils/type';
 import { states } from '../../utils/state';
 import { getUniques, sendEmail } from '../../provider/user.provider';
 import '../../styles/sign-up.css';

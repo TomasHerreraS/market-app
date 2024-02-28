@@ -1,7 +1,7 @@
 import {Modal, Form as rbForm, Row, Col, Button} from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import { signIn } from '../../provider/user.provider';
-import { SignInData } from '../../type';
+import { SignInData } from '../../utils/type';
 import Cookies from 'universal-cookie';
 import Swal from 'sweetalert2';
 import '../../styles/sign-in.css';
