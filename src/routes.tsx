@@ -10,6 +10,7 @@ import UsersPage from './pages/users-page';
 import { decodedToken } from './utils/token';
 import { getRole } from './provider/user.provider';
 import SignUpPage from './pages/signup-page';
+import AdminProductsPage from './pages/admin-products-page';
 
 const RouteByComponent = () => {
   if (decodedToken) {
@@ -27,7 +28,7 @@ const RouteByComponent = () => {
       <Route path='/products/*' element={<ProductsPage />} />
       <Route path='/products/:id' element={<ProductDetailsPage />}/>
       <Route path='/admin' element={<AdminPage />} />
-      <Route path='/admin/products' element={<ProductsPage />} />
+      <Route path='/admin/products' element={<AdminProductsPage />} />
       <Route path='/admin/users' element={<UsersPage />} />
     </Routes>
   )

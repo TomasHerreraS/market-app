@@ -26,10 +26,12 @@ export interface Products{
   description: string;
   quantity: number;
   discount: number;
-  image: string[];
+  image1: Buffer;
+  image2: Buffer;
+  image3: Buffer;
   brand: string[];
   sold: number;
-  date: string;
+  release_date: Date;
 }
 
 // For all the product filters

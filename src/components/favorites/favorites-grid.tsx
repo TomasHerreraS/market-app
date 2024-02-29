@@ -3,34 +3,32 @@ import FavoritesCards from "./favorites-cards";
 import { Products } from "../../utils/type";
 import "../../styles/favorites-grid.css";
 import React, { useState, useEffect } from "react";
-import {
-  getFavoriteProducts,
-  removeFromFavorites,
-} from "../../utils/favorites";
 import FavoriteSkeleton from "./favorite-skeleton";
-import { fetchProducts } from "../../utils/api";
+import { getFavorite } from "../../provider/product.provider";
+import { decodedToken } from "../../utils/token";
+import { getUserId } from "../../provider/user.provider";
 
 const FavoritesGrid: React.FC = () => {
-  const [updateFavorites, setUpdateFavorites] = useState(false);
-  const [favoriteProducts, setFavoriteProducts] = useState<Products[]>([]);
-  const [allProducts, setAllProducts] = useState<Products[]>([]);
+  const [favorites, setFavorites] = useState<Products[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-
-    const fetchDataAfterInterval = async () => {
-      try {
-        const productsData = await fetchProducts();
-        setAllProducts(productsData);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
+    const fetchData = async () => {
+      if (decodedToken) {
+        try {
+          const user_id = await getUserId(decodedToken);
+          const favoritesData = await getFavorite(user_id);
+          setFavorites(favoritesData);
+        } catch (error) {
+          console.error("Could Not Fetch Products", error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
 
     // Set up a timeout to trigger the data fetch after 1 second
-    const fetchTimeoutId = setTimeout(fetchDataAfterInterval, 1000);
+    const fetchTimeoutId = setTimeout(fetchData, 1000);
 
     // Clear the timeout when the component unmounts
     return () => {
@@ -38,33 +36,24 @@ const FavoritesGrid: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setFavoriteProducts(getFavoriteProducts(allProducts));
-  }, [updateFavorites, allProducts]);
-
-  const handleDeleteFavorite = (id: number) => {
-    removeFromFavorites(id);
-    setUpdateFavorites((prev) => !prev);
-  };
+  const handleDeleteFavorite = (id: number) => {};
 
   return (
     <Container className="favorites-container">
-          <h2 className="favorites-title">
-            My Favorites
-            <span className="items-text">
-              ({favoriteProducts.length} items)
-            </span>
-          </h2>
+      <h2 className="favorites-title">
+        My Favorites
+        <span className="items-text">({favorites.length} items)</span>
+      </h2>
       {isLoading ? (
-          <FavoriteSkeleton />
+        <FavoriteSkeleton />
       ) : (
-          favoriteProducts.map((obj) => (
-            <FavoritesCards
-              key={obj.product_id}
-              obj={obj}
-              onDelete={handleDeleteFavorite}
-            />
-          ))
+        favorites.map((obj) => (
+          <FavoritesCards
+            key={obj.product_id}
+            obj={obj}
+            onDelete={handleDeleteFavorite}
+          />
+        ))
       )}
     </Container>
   );

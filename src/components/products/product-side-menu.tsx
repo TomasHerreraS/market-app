@@ -225,7 +225,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     const sortedProducts = [...updatedFilteredProducts];
     if (sortParam === "Newest") {
       sortedProducts.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        (a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
       );
       onFilterChange(sortedProducts);
     } else if (sortParam === "Best_Sellers") {
@@ -235,7 +235,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
       onFilterChange(sortedProducts);
     } else if (sortParam === "Oldest") {
       sortedProducts.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        (a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
       );
       onFilterChange(sortedProducts);
     } else {

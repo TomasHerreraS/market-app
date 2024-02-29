@@ -29,7 +29,7 @@ export interface ProductData {
   discount: string;
   price: string;
   favorite: boolean;
-  image: Buffer[];
+  image: Buffer;
 }
 
 export interface ProductId{

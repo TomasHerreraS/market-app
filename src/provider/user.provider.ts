@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { UserData, Email, SignInData } from '../type';
 import { Users } from '../utils/type';
 
@@ -68,6 +68,15 @@ export const getUniques = async () => {
 export const getAllUsers = async (): Promise<Users[]> => {
   try {
     const response = await axios.get<Users[]>('http://localhost:3001/getAllUsers');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserId = async (email: Email) => {
+  try {
+    const response = await axios.post('http://localhost:3001/getUserId', email);
     return response.data;
   } catch (error) {
     throw error;
