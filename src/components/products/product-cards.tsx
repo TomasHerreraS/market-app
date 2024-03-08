@@ -48,7 +48,7 @@ const ProductCards: React.FC<CardProps> = ({ obj }) => {
         </Card.Text>
         <Card.Title className="card-title">{obj.name}</Card.Title>
         <Card.Text className="card-description">
-          {truncateText(obj.description, 105)}
+          {truncateText(obj.description, 60)}
         </Card.Text>
         <div className="space">
           {obj.discount > 0 ? (

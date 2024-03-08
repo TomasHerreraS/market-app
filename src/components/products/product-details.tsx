@@ -41,7 +41,7 @@ const ProductDetails = () => {
   }
   return (
     <>
-      <Card className="mx-auto my-3 product-detail">
+      <Card className="mx-auto my-4 product-detail">
         <Carousel className="product-details-carousel">
           {product.image1 && (
             <CarouselItem className="slideshow-image">

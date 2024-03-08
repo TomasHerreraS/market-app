@@ -47,7 +47,7 @@ const NavigationBarPc: React.FC<Role> = ({ role }) => {
           <FormControl placeholder="Search for a product" className="navbar-search-input"/>
         </InputGroup>
       </Col>
-      {role === 1 ? (
+      {role === 0 ? (
         <Col md="auto" className="d-flex justify-content-end">
             <div className="d-flex justify-content-end" style={{width: "180px"}}>
             <Stack direction="horizontal" gap={4}>

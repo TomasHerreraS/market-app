@@ -60,7 +60,8 @@ const ProductGrid = () => {
                   sm={12}
                   md={6}
                   lg={6}
-                  xl={3}
+                  xl={4}
+                  xxl={3}
                 >
                   <ProductSkeleton key={skeleton} />
                 </Col>
@@ -80,7 +81,8 @@ const ProductGrid = () => {
                   sm={12}
                   md={6}
                   lg={6}
-                  xl={3}
+                  xl={4}
+                  xxl={3}
                   className="px-2 py-3"
                 >
                   <ProductCards key={obj.product_id} obj={obj} />

@@ -1,6 +1,11 @@
 .slideshow-image {
-  max-height: 80vh;
+  max-height: 500px;
   overflow: hidden;
+}
+
+.main-carousel {
+  margin-top: -9px;
+  z-index: -1;
 }
 
 .slideshow-text {
