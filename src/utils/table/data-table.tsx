@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Table, Pagination, Form } from 'react-bootstrap';
-import { bodyProductData, headProductData } from './data';
 import { Table as TableType } from './../type';
 
 export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, type}: TableType) => {
@@ -31,16 +30,72 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
 
   // TODO: traer headProductData y bodyProductData solo si es requerida.
 
+  const [dynamic, setDynamic] = useState<any[]>([]);
+  const [dynamicObject, setDynamicObject] = useState<any[]>([]);
+  const [objectKey, setObjectKey] = useState<any[]>([]);
+  
+  useEffect(() => {
+    if (data.length > 0) {
+      const firstObject = data[0];
+      setObjectKey(Object.keys(firstObject))
+    }
+  }, [data]);
+
+  useEffect(()=>{
+    if (dynamic.length !== 0) {
+      setDynamic([]);
+    }
+    if (objectKey && objectKey.length > 0) {
+      for (let z = 0; z < data.length; z++) {
+        for (let i = 0; i < objectKey.length; i++) {
+          if (data && objectKey.length > 0) {
+            const object = [data[z][objectKey[i]]]
+            setDynamic((prev: any[]) => [...prev, ...object])
+          }
+        }
+      }
+    }
+  }, [objectKey, data]);
+  
+  useEffect(()=> {
+    const group = [];
+    const arrayDynamicLength = dynamic.length;
+    const groupSlicer = objectKey.length;
+    for (let i = 0; i < arrayDynamicLength; i += groupSlicer) {
+      const part = dynamic.slice(i, i + groupSlicer);
+      const groupObject = { id: i / groupSlicer + 1 , element: part};
+      group.push(groupObject);
+      setDynamicObject(group);
+    }
+  }, [dynamic, objectKey])
+
+  const final = () => {
+    const patron = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+    const keyLength: number = objectKey.length;
+    return dynamicObject?.map((data: any, index: any)=> (
+      <tr key={index}>
+        {data.element.slice(0, keyLength).map((element: any, index2: number) => (
+          <td key={index2} className='text-center'> {typeof element === 'object' ? Array.isArray(element) ?
+          element.join(', '): null: (patron.test(element) ?
+          element.split('T')[0] : element)}
+          </td>
+        ))}
+      </tr>
+    ))
+  }
+
   const showData = () => {
     if (type === 'product') {
       return <Table striped bordered hover>
       <thead>
         <tr>
-          {headProductData()}
+          {objectKey.map((data, index)=> (
+            <th key={index}>{data}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {bodyProductData(data)}
+        {final()}
       </tbody>
     </Table>
     } else if (type === 'user') {
