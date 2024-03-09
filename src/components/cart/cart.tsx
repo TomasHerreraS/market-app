@@ -45,7 +45,6 @@ const Cart = () => {
   useEffect(()=>{
     getAllProducts().then((result)=>{
       setGetProducts(result);
-      console.log(result);
     }).catch((error) => console.log(error))
   }, [])
 
@@ -188,7 +187,9 @@ const Cart = () => {
       setGetCurrentPage={setGetCurrentPage}
       setGetIndexOfFirstItem={setGetIndexOfFirstItem}
       dataLength={dataLength}
-      type='product'/>
+      image={true}
+      updateButton={true}
+      deleteButton={true}/>
     </Row>
   )
 }

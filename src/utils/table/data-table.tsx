@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Table, Pagination, Form } from 'react-bootstrap';
 import { Table as TableType } from './../type';
+import { DeleteButton, EditButton, VisualizeButton } from "../../components/buttons/table-button";
+import { formatVariableNames } from '../format-text';
 
-export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, type}: TableType) => {
+export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, image, updateButton, deleteButton}: TableType) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+  const [dynamic, setDynamic] = useState<any[]>([]);
+  const [dynamicObject, setDynamicObject] = useState<any[]>([]);
+  const [objectKey, setObjectKey] = useState<any[]>([]);
+  const [isFormatted, setIsFormatted] = useState<boolean>(false);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -29,10 +35,6 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
   }, [data, itemsPerPage]);
 
   // TODO: traer headProductData y bodyProductData solo si es requerida.
-
-  const [dynamic, setDynamic] = useState<any[]>([]);
-  const [dynamicObject, setDynamicObject] = useState<any[]>([]);
-  const [objectKey, setObjectKey] = useState<any[]>([]);
   
   useEffect(() => {
     if (data.length > 0) {
@@ -40,6 +42,34 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
       setObjectKey(Object.keys(firstObject))
     }
   }, [data]);
+
+  useEffect(() => {
+    if (updateButton) {
+      setObjectKey((prev) => {
+        const update = "Update";
+        // Verificar si la clave "Update" ya existe en el estado
+        if (!prev.includes(update)) {
+          // Si no existe, agregarla al estado
+          return [...prev, update];
+        }
+        // Si ya existe, devolver el estado sin cambios
+        return prev;
+      });
+    }
+    if (deleteButton) {
+      setObjectKey((prev) => {
+        const deleteHeader = "Delete";
+        // Verificar si la clave "Update" ya existe en el estado
+        if (!prev.includes(deleteHeader)) {
+          // Si no existe, agregarla al estado
+          return [...prev, deleteHeader];
+        }
+        // Si ya existe, devolver el estado sin cambios
+        return prev;
+      });
+    }
+  }, [objectKey]); // Solo se ejecuta cuando updateButton cambia
+  
 
   useEffect(()=>{
     if (dynamic.length !== 0) {
@@ -76,8 +106,9 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
       <tr key={index}>
         {data.element.slice(0, keyLength).map((element: any, index2: number) => (
           <td key={index2} className='text-center'> {typeof element === 'object' ? Array.isArray(element) ?
-          element.join(', '): null: (patron.test(element) ?
-          element.split('T')[0] : element)}
+          element.join(', '): <VisualizeButton/> : (patron.test(element) ?
+          element.split('T')[0]: objectKey[index2] === 'Update' ? <EditButton/>:
+          objectKey[index2] === 'Delete' ? <DeleteButton/>: element)}
           </td>
         ))}
       </tr>
@@ -85,12 +116,11 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
   }
 
   const showData = () => {
-    if (type === 'product') {
       return <Table striped bordered hover>
       <thead>
         <tr>
           {objectKey.map((data, index)=> (
-            <th key={index}>{data}</th>
+            <th key={index} className='text-center'>{data}</th>
           ))}
         </tr>
       </thead>
@@ -98,13 +128,6 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
         {final()}
       </tbody>
     </Table>
-    } else if (type === 'user') {
-      // data de user
-    } else if (type === 'record') {
-      // data de record
-    } else {
-      return <p>An error occurred, please try again.</p>
-    }
   }
 
   return (
