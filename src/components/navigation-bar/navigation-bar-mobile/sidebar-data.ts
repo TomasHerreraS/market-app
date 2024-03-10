@@ -4,7 +4,7 @@ interface SidebarItem {
   cName: string;
 }
 
-export const SidebarData: SidebarItem[] = [
+export const ClientSidebarData: SidebarItem[] = [
   {
     title: 'Peripherals',
     path: '/',
@@ -34,3 +34,16 @@ export const SidebarData: SidebarItem[] = [
     cName: 'nav-text'
   }
 ];
+
+export const AdminSidebarData: SidebarItem[] =[
+  {
+    title: 'Users',
+    path: '/admin/users',
+    cName: 'nav-text'
+  },
+  {
+    title: 'Products',
+    path: '/products',
+    cName: 'nav-text'
+  },
+]

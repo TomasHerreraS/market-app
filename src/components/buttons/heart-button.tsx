@@ -1,33 +1,78 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import "../../styles/heart-button.css";
+import { getUserId } from "../../provider/user.provider";
+import { decodedToken } from "../../utils/token";
 import {
-  addToFavorites,
-  isProductInFavorites,
-  removeFromFavorites,
-} from "../../utils/favorites";
+  addToFavorite,
+  isInFavorite,
+  removeFromFavorite,
+} from "../../provider/product.provider";
 
 const HeartButton = ({ productId }: { productId: number }) => {
-  const [isLiked, setLike] = useState(isProductInFavorites(productId));
+  const [isLiked, setLike] = useState(false);
+  const [userId, setUserId] = useState<number>();
 
-  const toggleLike = () => {
-    setLike(!isLiked);
+  useEffect(() => {
+    const fetchUserId = async () => {
+      if (decodedToken) {
+        const id = await getUserId({ email: decodedToken.email });
+        setUserId(id.user_id);
+      }
+    };
 
-    // Add a function to add and remove the product from the wishlist
-    if (isLiked) {
-      removeFromFavorites(productId);
-    } else {
-      addToFavorites(productId);
+  fetchUserId();
+
+  }, []);
+
+  useEffect(() => {
+    const fetchInFavorite = async () => {
+      if(userId) {
+        const like = await isInFavorite(productId, userId)
+          setLike(like.data);
+        }
+    };
+
+    fetchInFavorite();
+
+  }, [userId])
+
+
+  const addFavorite = async () => {
+    if (userId) {
+      await addToFavorite(productId, userId);
     }
-
-    setLike(!isLiked);
   };
 
-  if (isLiked)
-    return (
-      <HeartFill className="heart-button heart-fill" onClick={toggleLike} />
-    );
-  return <Heart className="heart-button" onClick={toggleLike} />;
+  const removeFavorite = async () => {
+    if (userId) {
+      await removeFromFavorite(productId, userId);
+    }
+  };
+
+  const toggleLike = () => {
+    if (userId) {
+      setLike(!isLiked);
+    } else {
+      console.log("Login to add to favorite");
+    }
+  };
+
+  const handleClick = () => {
+    toggleLike();
+
+    if (isLiked) {
+      removeFavorite();
+    } else {
+      addFavorite();
+    }
+  };
+
+  return isLiked ? (
+    <HeartFill className="heart-button heart-fill" onClick={handleClick} />
+  ) : (
+    <Heart className="heart-button" onClick={handleClick} />
+  );
 };
 
 export default HeartButton;

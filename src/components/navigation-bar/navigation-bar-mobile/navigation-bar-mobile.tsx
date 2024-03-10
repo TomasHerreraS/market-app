@@ -16,13 +16,13 @@ import ThemeToggleButton from "../../buttons/theme-button";
 import { Fan } from "react-bootstrap-icons";
 import { IconContext } from "react-icons";
 import { BsCart3 } from "react-icons/bs";
-import { SidebarData } from "./sidebar-data";
+import { AdminSidebarData, ClientSidebarData } from "./sidebar-data";
 import { Link } from "react-router-dom";
 import exportRedirect from "../../../utils/link";
 import "../../../styles/navigation-bar-mobile.css";
+import { Role } from "../../../utils/type";
 
-
-const NavigationBarMobile: React.FC = () => {
+const NavigationBarMobile: React.FC<Role> = ({ role }) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
@@ -32,13 +32,13 @@ const NavigationBarMobile: React.FC = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  let loggedIn = 1;
-
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
       if (
         searchInputRef.current &&
-        !searchInputRef.current.contains(e.target as Node)
+        !searchInputRef.current.contains(e.target as Node) &&
+        !target.classList.contains("search")
       ) {
         setShowSearch(false);
       }
@@ -52,7 +52,10 @@ const NavigationBarMobile: React.FC = () => {
   }, []);
 
   const handleSearch = () => {
-    setShowSearch(!showSearch);
+    setShowSearch((prevShowSearch) => !prevShowSearch);
+    if (showSearch) {
+      setShowSearch(false);
+    }
   };
 
   return (
@@ -72,34 +75,59 @@ const NavigationBarMobile: React.FC = () => {
                 direction="horizontal"
                 className="justify-content-between me-3 my-3"
               >
-                <BsCart3 size={30} className="cursor" />
-                <AiIcons.AiOutlineClose size={30} className="cursor" />
+                {role !== 1 ? <BsCart3 size={30} className="cursor icon-buttons" /> : null}
+                <AiIcons.AiOutlineClose size={30} className="cursor ms-auto icon-buttons" />
               </Stack>
-              {SidebarData.map((item, index) =>
-                loggedIn === 0 &&
-                (item.title === "Sign in" || item.title === "Sign up") ? (
-                  <li key={index} className={item.cName}>
-                    <a
-                      className="no-link"
-                      onClick={() => {
-                        if (item.title === "Sign up") {
-                          setShowSignUp(true);
-                        } else if (item.title === "Sign in") {
-                          setShowSignIn(true);
-                        }
-                      }}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
-                ) : (item.title !== "Sign in" && item.title !== "Sign up" && item.path) ? (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                ) : null
-              )}
+              {role !== 1
+                ? ClientSidebarData.map((item, index) =>
+                    role === 0 ? (
+                      item.title === "Sign in" || item.title === "Sign up" ? (
+                        <li key={index} className={item.cName}>
+                          <a
+                            className="no-link"
+                            onClick={() => {
+                              if (item.title === "Sign up") {
+                                setShowSignUp(true);
+                              } else if (item.title === "Sign in") {
+                                setShowSignIn(true);
+                              }
+                            }}
+                          >
+                            {item.title}
+                          </a>
+                        </li>
+                      ) : (
+                        item.title !== "Sign in" &&
+                        item.title !== "Sign up" &&
+                        item.path && (
+                          <li key={index} className={item.cName}>
+                            <Link to={item.path}>
+                              <span>{item.title}</span>
+                            </Link>
+                          </li>
+                        )
+                      )
+                    ) : 
+                      item.title !== "Sign in" &&
+                      item.title !== "Sign up" &&
+                      item.path && (
+                        <li key={index} className={item.cName}>
+                          <Link to={item.path}>
+                            <span>{item.title}</span>
+                          </Link>
+                        </li>
+                      )
+                  )
+                : AdminSidebarData.map(
+                    (item, index) =>
+                      item.path && (
+                        <li key={index} className={item.cName}>
+                          <Link to={item.path}>
+                            <span>{item.title}</span>
+                          </Link>
+                        </li>
+                      )
+                  )}
             </ul>
           </nav>
           <SignUp show={showSignUp} setShow={setShowSignUp} />
@@ -113,7 +141,7 @@ const NavigationBarMobile: React.FC = () => {
         <Stack direction="horizontal" className="justify-content-between">
           <ThemeToggleButton />
           <FaSearch
-            className="cursor search"
+            className="cursor search icon-buttons"
             size={23}
             onClick={handleSearch}
           />

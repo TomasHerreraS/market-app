@@ -13,7 +13,7 @@ export interface UserData{
 export interface SignInData{
   email: string,
   password: string,
-  keeplogged: boolean
+  keeplogged: boolean,
 }
 
 export interface Email{
@@ -30,10 +30,12 @@ export interface Products{
   description: string;
   quantity: number;
   discount: number;
-  image: string[];
+  image1: Buffer;
+  image2: Buffer;
+  image3: Buffer;
   brand: string[];
   sold: number;
-  date: string;
+  release_date: Date;
 }
 
 // For all the product filters
@@ -47,9 +49,10 @@ export interface Filters{
 }
 
 export interface Users {
-  name: string;
+  firstname: string;
+  lastname: string;
   address: string;
-  role: string;
+  rol_id: number;
   email: string;
   date: Date;
   userId: number;
@@ -87,4 +90,8 @@ export interface Table {
   image: boolean,
   updateButton: boolean,
   deleteButton: boolean,
+}
+
+export interface Role {
+  role: number
 }

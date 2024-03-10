@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserData, Email, SignInData } from '../utils/type';
+import { UserData, Email, SignInData, Users } from '../utils/type';
 
 export const sendEmail = async (data: Email) => {
   try {
@@ -46,9 +46,9 @@ export const signIn = async (data: SignInData) => {
   }
 };
 
-export const getEmailLoggedIn = async (email: Email) => {
+export const getRole = async (email: Email) => {
   try {
-    const response = await axios.post('http://localhost:3001/getEmailLoggedIn', email);
+    const response = await axios.post('http://localhost:3001/getRole', email);
     return response.data;
   } catch (error) {
     throw error;
@@ -63,3 +63,21 @@ export const getUniques = async () => {
     throw error;
   }
 };
+
+export const getAllUsers = async (): Promise<Users[]> => {
+  try {
+    const response = await axios.get<Users[]>('http://localhost:3001/getAllUsers');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserId = async (email: Email) => {
+  try {
+    const response = await axios.post('http://localhost:3001/getUserId', email);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import UsersGrid from "../components/admin/users-grid";
-import Footer from "../components/footer/footer";
 import NavigationBar from "../components/navigation-bar/navigation-bar";
+import Footer from "../components/footer/footer";
+import { useEffect, useState } from "react";
 import { decodedToken } from "../utils/token";
 import { getRole } from "../provider/user.provider";
+import AdminProductGrid from "../components/admin/admin-product-grid";
 
-const UsersPage = () => {
-  document.title = "Users | Quantum Halo"
+const AdminProductsPage = () => {
   const [role, setRole] = useState<number>(0);
 
   useEffect(() => {
@@ -25,14 +24,18 @@ const UsersPage = () => {
 
     fetchRole();
   }, []);
-  
+
   return (
     <>
       <NavigationBar />
-      {role === 1 ? <UsersGrid /> : <h2 className="text-center">Not an admin user</h2>}
+      {role !== 1 ? (
+        <AdminProductGrid />
+      ) : (
+        <h2 className="text-center">Not an admin user</h2>
+      )}
       <Footer />
     </>
   );
 };
 
-export default UsersPage;
+export default AdminProductsPage;

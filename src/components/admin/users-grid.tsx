@@ -11,10 +11,10 @@ import {
 } from "react-bootstrap";
 import "../../styles/users-grid.css";
 import { Users } from "../../utils/type";
-import { fetchUsers } from "../../utils/api";
 import UserCards from "./user-cards";
 import UserSkeletons from "./user-skeletons";
 import { ChevronDown } from "react-bootstrap-icons";
+import { getAllUsers } from "../../provider/user.provider";
 
 const UsersGrid = () => {
   // Timeout to create loading skeletons
@@ -30,7 +30,7 @@ const UsersGrid = () => {
   const [showSort, setShowSort] = useState<boolean>(false);
   const [sortFilter, setSortFilter] = useState<string>("Alphabetical");
   const [showRole, setShowRole] = useState<boolean>(false);
-  const [roleFilter, setRoleFilter] = useState<string>("");
+  const [roleFilter, setRoleFilter] = useState<number>(0);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -39,19 +39,19 @@ const UsersGrid = () => {
     let filter = users.filter(
       (user) =>
         // If the search input is found an any of these
-        user.name.toLowerCase().includes(search) ||
+        user.firstname.toLowerCase().includes(search) ||
+        user.lastname.toLowerCase().includes(search) ||
         user.email.toLowerCase().includes(search) ||
-        user.role.toLowerCase().includes(search) ||
         user.address.toLowerCase().includes(search) ||
         user.phone.toString().includes(search)
     );
     // Filtering roles
     filter = filter.filter((user) =>
-      user.role.toLowerCase().includes(roleFilter)
+      (user.rol_id === roleFilter || roleFilter === 0)
     );
 
     if (sortFilter === "Alphabetical") {
-      filter.sort((a, b) => a.name.localeCompare(b.name));
+      filter.sort((a, b) => a.firstname.localeCompare(b.firstname));
     }
 
     if (sortFilter === "Newest") {
@@ -63,7 +63,7 @@ const UsersGrid = () => {
     }
 
     setFilteredUsers(filter);
-  }, [search, roleFilter, sortFilter]);
+  }, [search, roleFilter, sortFilter, users]);
 
   const handleSortEnter = () => {
     setShowSort(true);
@@ -81,28 +81,27 @@ const UsersGrid = () => {
     setShowRole(false);
   };
 
+  
   // Fetching the users
-  const fetchAccount = async () => {
+  const fetchUsers = async () => {
     try {
-      const accounts = await fetchUsers();
+      const accounts = await getAllUsers();
 
       const user: Users[] = accounts.map((user) => ({
         ...user,
         date: new Date(user.date),
       }));
-
       setUsers(user);
-      setFilteredUsers(user);
     } catch (error) {
       console.log("Could not fetch users", error);
     }
   };
-
+  
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       if (users.length === 0) {
-        fetchAccount();
+        fetchUsers();
       }
     }, DELAY_MILISECONDS);
 
@@ -115,7 +114,7 @@ const UsersGrid = () => {
 
   const resetSearch = () => {
     setSortFilter("Alphabetical");
-    setRoleFilter("");
+    setRoleFilter(0);
     setSearch("");
   };
 
@@ -199,25 +198,25 @@ const UsersGrid = () => {
                   >
                     <div
                       className={
-                        roleFilter === "" ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 0 ? "user-list-selected-filter" : "user-list-select-options"
                       }
-                      onClick={() => setRoleFilter("")}
+                      onClick={() => setRoleFilter(0)}
                     >
                       All
                     </div>
                     <div
                       className={
-                        roleFilter === "admin" ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 1 ? "user-list-selected-filter" : "user-list-select-options"
                       }
-                      onClick={() => setRoleFilter("admin")}
+                      onClick={() => setRoleFilter(1)}
                     >
                       Admin
                     </div>
                     <div
                       className={
-                        roleFilter === "client" ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 2 ? "user-list-selected-filter" : "user-list-select-options"
                       }
-                      onClick={() => setRoleFilter("client")}
+                      onClick={() => setRoleFilter(2)}
                     >
                       Client
                     </div>
@@ -237,15 +236,15 @@ const UsersGrid = () => {
         <hr />
         <Row className="g-0">
           {isLoading &&
-            skeletons.map((skeleton) => (
-              <Col xs={12} sm={6} lg={3}>
+            skeletons.map((skeleton, index) => (
+              <Col xs={12} sm={6} lg={3} key={index}>
                 <UserSkeletons key={skeleton} />
               </Col>
             ))}
           {!isLoading && filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <Col xs={12} sm={6} lg={3}>
-                <UserCards key={user.userId} users={user} />
+            filteredUsers.map((user, index) => (
+              <Col xs={12} sm={6} lg={3} key={index}>
+                <UserCards users={user} />
               </Col>
             ))
           ) : (
@@ -253,7 +252,7 @@ const UsersGrid = () => {
           )}
         </Row>
       </Container>
-      {showForm ? (
+      {showForm && (
         <>
           <Container className="user-list-form-add-users">
             <Stack direction="horizontal" className="justify-content-end">
@@ -292,7 +291,7 @@ const UsersGrid = () => {
             </Col>
           </Container>
         </>
-      ) : null}
+      )}
     </>
   );
 };

@@ -23,9 +23,9 @@ const ThemeToggleButton: React.FC = () => {
   };
 
   return theme === "dark" ? (
-    <SunFill className="theme-button" onClick={toggleTheme} />
+    <SunFill className="icon-buttons" onClick={toggleTheme} />
   ) : (
-    <MoonStarsFill className="theme-button" onClick={toggleTheme} />
+    <MoonStarsFill className="icon-buttons" onClick={toggleTheme} />
   );
 };
 
