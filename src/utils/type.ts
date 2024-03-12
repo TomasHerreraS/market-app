@@ -87,7 +87,6 @@ export interface Table {
   setGetCurrentPage: React.Dispatch<React.SetStateAction<number>>,
   setGetIndexOfFirstItem: React.Dispatch<React.SetStateAction<number>>,
   dataLength: number,
-  image: boolean,
   updateButton: boolean,
   deleteButton: boolean,
 }

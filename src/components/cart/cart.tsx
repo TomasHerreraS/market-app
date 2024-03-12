@@ -187,7 +187,6 @@ const Cart = () => {
       setGetCurrentPage={setGetCurrentPage}
       setGetIndexOfFirstItem={setGetIndexOfFirstItem}
       dataLength={dataLength}
-      image={true}
       updateButton={true}
       deleteButton={true}/>
     </Row>

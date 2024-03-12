@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { getQuantity, getAllProducts, buyProduct } from "../../provider/product.provider";
 import '../../styles/cart.css';
-import { ProductData, Quantity } from "../../type";
+import { ProductData, Quantity } from "../../utils/type";
 import { socket } from "../../utils/socket";
 
 const Product = () => {

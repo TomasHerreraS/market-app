@@ -4,7 +4,7 @@ import { Table as TableType } from './../type';
 import { DeleteButton, EditButton, VisualizeButton } from "../../components/buttons/table-button";
 import { formatVariableNames } from '../format-text';
 
-export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, image, updateButton, deleteButton}: TableType) => {
+export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, updateButton, deleteButton}: TableType) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(5);
   const [dynamic, setDynamic] = useState<any[]>([]);
@@ -44,7 +44,7 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
   }, [data]);
 
   useEffect(() => {
-    if (updateButton) {
+    if (updateButton && objectKey.length > 0) {
       setObjectKey((prev) => {
         const update = "Update";
         // Verificar si la clave "Update" ya existe en el estado
@@ -56,7 +56,7 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
         return prev;
       });
     }
-    if (deleteButton) {
+    if (deleteButton && objectKey.length > 0) {
       setObjectKey((prev) => {
         const deleteHeader = "Delete";
         // Verificar si la clave "Update" ya existe en el estado
@@ -102,36 +102,28 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
   const final = () => {
     const patron = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
     const keyLength: number = objectKey.length;
+  
     return dynamicObject?.map((data: any, index: any)=> (
       <tr key={index}>
         {data.element.slice(0, keyLength).map((element: any, index2: number) => (
-          <td key={index2} className='text-center'> {typeof element === 'object' ? Array.isArray(element) ?
-          element.join(', '): <VisualizeButton/> : (patron.test(element) ?
-          element.split('T')[0]: objectKey[index2] === 'Update' ? <EditButton/>:
-          objectKey[index2] === 'Delete' ? <DeleteButton/>: element)}
+          <td key={index2} className='text-center'>
+            {typeof element === 'object' ? Array.isArray(element) ?
+              element.join(', ') : element :
+              (patron.test(element) ? element.split('T')[0] :
+                (objectKey[index2] === 'Update' ? <EditButton/> :
+                  (objectKey[index2] === 'Delete' ? <DeleteButton/> :
+                    (objectKey[index2].includes('image') ? <VisualizeButton/> : element))))
+            }
           </td>
         ))}
       </tr>
     ))
   }
 
-  const showData = () => {
-      return <Table striped bordered hover>
-      <thead>
-        <tr>
-          {objectKey.map((data, index)=> (
-            <th key={index} className='text-center'>{data}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {final()}
-      </tbody>
-    </Table>
-  }
-
   return (
-    <Row>
+    <>
+    {objectKey.length > 0 ?
+    <Row className='m-5'>
       <Col className='mb-3' md={1}>
         <Form.Select className='text-center' onChange={handleOnChange}>
           <option>5</option>
@@ -140,7 +132,18 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
         </Form.Select>
       </Col>
       <Col md={12}>
-        {showData()}
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              {objectKey.map((data, index)=> (
+                <th key={index} className='text-center'>{data}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {final()}
+          </tbody>
+        </Table>
       </Col>
       <Col md={1}>
         <Pagination>
@@ -151,6 +154,7 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
           ))}
         </Pagination>
       </Col>
-    </Row>
+    </Row>: <p className='ms-3'>No data in table</p>}
+    </>
   );
 };
