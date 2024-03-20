@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Table, Pagination, Form } from 'react-bootstrap';
 import { Table as TableType } from './../type';
 import { DeleteButton, EditButton, VisualizeButton } from "../../components/buttons/table-button";
-import { formatVariableNames } from '../format-text';
 
 export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIndexOfFirstItem, dataLength, updateButton, deleteButton}: TableType) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,7 +9,6 @@ export const DataTable = ({data, setGetItemsPerPage, setGetCurrentPage, setGetIn
   const [dynamic, setDynamic] = useState<any[]>([]);
   const [dynamicObject, setDynamicObject] = useState<any[]>([]);
   const [objectKey, setObjectKey] = useState<any[]>([]);
-  const [isFormatted, setIsFormatted] = useState<boolean>(false);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 

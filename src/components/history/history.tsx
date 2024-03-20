@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { DataTable } from "../../utils/table/data-table"
-import { getHistoryLength, getHistoryTable } from "../../provider/history.provider";
+import { getHistoryLength, getHistoryTable, getHistoryTableByFilter } from "../../provider/history.provider";
 import { Col, Row, Form } from "react-bootstrap";
+import { FilterTable, DateFilter } from "../../utils/type";
 
 export const History = () => {
-  const [adminFilters, setAdminFilters] = useState<boolean>(false); 
-  const [crud, setCrud] = useState<string>('');
-  const [table, setTable] = useState<string>('');
+  const [adminFilters, setAdminFilters] = useState<boolean>(false);
   const [dataFiltering, setDataFiltering] = useState([]);
   const [noData, setNoData] = useState<boolean>(false);
+
   // ESTOS SON LOS DATOS NECESARIOS PARA QUE FUNCIONE LA TABLE
   const [data, setData] = useState<any>([]); // ESTÁ TRAERÁ DESDE EL BACKEND LA FUNCION GETPRODUCTTABLE, QUE TRAE DATA ESPECIFICA SEGÚN EL PARAMETRO
   const [getItemsPerPage, setGetItemsPerPage] = useState(0);  // ACÁ SE MANDA EL SET, PARA CONSEGUIR DEL COMPONENTE HIJO LA CANTIDAD DE ITEMS POR PAGE
@@ -16,58 +16,93 @@ export const History = () => {
   const [getIndexOfFirstItem, setGetIndexOfFirstItem] = useState(0); // ACÁ SE MANDA EL SET, PARA OBTENER EL INDEX PER PAGE.
   const [dataLength, setDataLength] = useState<number>(0); // CON ESTE OBTENEMOS EL LENGTH DE TODA LA DATA, PARA SER ENVIADA Y USADA COMO PAGINATION
 
-  useEffect(()=>{ // ACÁ OBTENEMOS LA DATA DEL PRODUCTO, SEGÚN EL PARAMETRO
-    getHistoryTable(getItemsPerPage, getIndexOfFirstItem).then((result) => {
-      setData(result);
-      setDataFiltering(result);
-    })
-  }, [getCurrentPage, getItemsPerPage]);
+  // useEffect(()=>{ // ACÁ OBTENEMOS LA DATA DEL PRODUCTO, SEGÚN EL PARAMETRO
+  const [arrayFilter, setArrayFilter] = useState<FilterTable>({email: '', phone: '', role: '', action: '', table: ''});
+  const [dateFilter, setDateFilter] = useState<DateFilter>({initDate: '', finalDate: ''})
 
-    // Consigue el length de productos de la db para saber la cantidad de pagination
+  // Consigue el length de productos de la db para saber la cantidad de pagination
   useEffect(()=>{
     getHistoryLength().then((result: number) => {
       setDataLength(result);
     })
   }, []);
 
+
+  useEffect(()=>{
+    getHistoryTableByFilter(arrayFilter, getItemsPerPage, getIndexOfFirstItem, dateFilter).then((result)=> {
+      console.log(result)
+      setData(result)
+      setDataFiltering(result)}
+    )
+  }, [dataLength, arrayFilter, getItemsPerPage, getIndexOfFirstItem, dateFilter, getCurrentPage]);
+
   useEffect(() => {
     if (dataFiltering) {
       let filteredData = dataFiltering;
-  
-      // Aplica el filtro si es que existe, y sino, muestra todos los valores que el filtro aplicaba.
-      if (crud !== '') {
-        filteredData = filteredData.filter((obj: any) => obj.action === crud);
-      } else {
-        filteredData = filteredData.filter((obj: any) => obj.action);
-        console.log(filteredData)
-      }
-  
-      if (table !== '') {
-        filteredData = filteredData.filter((obj: any) => obj.table === table);
-      } else {
-        filteredData = filteredData.filter((obj: any) => obj.table);
-      }
-      // TODO: Agregar el filtro de rol y del input email, y agregarlo como dependencia de este useEffect
-      // Aplicar filtro de rol si existe
-      // if (rol) {
-      //   filteredData = filteredData.filter((obj: any) => obj.rol === rol);
-      // }
       if (filteredData.length === 0) {
         setNoData(true);
       } else {
         setNoData(false);
       }
-      setData(filteredData); // Reiniciar mensaje si hay datos
     }
-  }, [dataFiltering, crud, table]);
+  }, [dataFiltering]);
+
+  const onChangeRoleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const role = e.target.value
+    setArrayFilter((prev) => ({ ...prev, role: role}))
+    if (e.target.value === 'Administrator') {
+        setAdminFilters(true);
+    } else {
+        setAdminFilters(false);
+    }
+  }
+
+  const onChangeEmailFilter = (e: React.ChangeEvent<any>) => {
+    const email = e.target.value;
+    if (email !== '') {
+      setArrayFilter((prev) => ({ ...prev, email: email}))
+    } else {
+      setArrayFilter((prev) => ({ ...prev, email: ''}))
+    }
+  }
+
+  const [phoneValue, setPhoneValue] = useState<string>('');
+
+  const handlePhoneValue = (e: any) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    let formattedValue = '';
+
+    if (value.length <= 10) {
+      if (value.length > 0) {
+        formattedValue = `(${value.slice(0, 3)}`; // The first 3 numbers will have parentheses and a space
+        if (value.length > 2) {
+          formattedValue += ') ';
+        }
+        if (value.length > 6) {
+          formattedValue += `${value.slice(3, 6)}-${value.slice(6, 10)}`; // if the value is greater than 6, it will be separated with a dash
+        } else {
+          formattedValue += value.slice(3); // If the value is less than or equal to 6, it will fill with numbers without restriction
+        }
+      } else {
+        formattedValue = value;
+      }
+      setPhoneValue(formattedValue);
+    }
+  };
+
+  useEffect(()=>{
+    setArrayFilter((prev) => ({ ...prev, phone: phoneValue}))
+  }, [phoneValue])
 
   const adminOption = () => {
     const onChangeCrudFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setCrud(e.target.value);
+      const crud = e.target.value;
+      setArrayFilter((prev) => ({ ...prev, action: crud}))
     }
 
     const onChangeTableFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setTable(e.target.value);
+      const table = e.target.value;
+      setArrayFilter((prev) => ({ ...prev, table: table}))
     }
     
     return (
@@ -91,23 +126,31 @@ export const History = () => {
     )
   }
 
-  const onChangeAdminFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === 'Administrator') {
-        setAdminFilters(true);
+  const onChangeDate = (e: React.ChangeEvent<any>, init: boolean) => {
+    const inputDate = e.target.value;
+    if (init === true) {
+      setDateFilter((prev) => ({ ...prev, initDate: inputDate}))
     } else {
-        setAdminFilters(false);
+      setDateFilter((prev) => ({ ...prev, finalDate: inputDate}))
     }
   }
-
-  // TODO: Poder ver Boleta electronica del cliente????
 
   return (
     <Row md={12}>
       <Col className="ms-5 mt-3" md={2}>
-        <Form.Control type="text" placeholder="Email"/>
+        <Form.Control type="text" placeholder='Email' onChange={(e) => onChangeEmailFilter(e)}/>
       </Col>
       <Col className="ms-5 mt-3" md={2}>
-        <Form.Select onChange={(e) => onChangeAdminFilter(e)}>
+        <Form.Control type="text" placeholder='Phone' value={phoneValue} onChange={(e) => handlePhoneValue(e)}/>
+      </Col>
+      <Col className="ms-5 mt-3" md={2}>
+      <Form.Control type="date" placeholder="Select a Date" onChange={(e) => onChangeDate(e, true)}/>
+      </Col>
+      <Col className="ms-5 mt-3" md={2}>
+      <Form.Control type="date" placeholder="Select a Date" onChange={(e) => onChangeDate(e, false)}/>
+      </Col>
+      <Col className="ms-5 mt-3" md={2}>
+        <Form.Select onChange={(e) => onChangeRoleFilter(e)}>
           <option value=''>No filter</option>
           <option>Administrator</option>
           <option>Client</option>

@@ -94,3 +94,16 @@ export interface Table {
 export interface Role {
   role: number
 }
+
+export interface FilterTable {
+  email: string,
+  phone: string,
+  role: string,
+  action: string,
+  table: string
+}
+
+export interface DateFilter {
+  initDate: string,
+  finalDate: string
+}
