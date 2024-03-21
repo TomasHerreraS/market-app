@@ -52,7 +52,7 @@ const Peripheral = () => {
                     className="col-submenu"
                     md={windowDimensions > 1360 ? 1 : 12}
                   >
-                    <a href="/" className="submenu-title text-center">
+                    <a href="/" className="submenu-title">
                       {obj.title}
                     </a>
                     {obj.sub.map((subData, number) => {
@@ -60,7 +60,7 @@ const Peripheral = () => {
                         <a
                           key={number}
                           href="/"
-                          className="submenu-p text-center"
+                          className="submenu-p"
                         >
                           {subData}
                         </a>

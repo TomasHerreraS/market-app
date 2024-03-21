@@ -1,5 +1,5 @@
 export interface userData{
-  name: string,
+  firstname: string,
   lastname: string,
   rol: string,
   email: string,
@@ -20,7 +20,6 @@ export interface signIn{
 export interface Products{
   product_id: number;
   name: string;
-  cpu: string;
   price: number;
   category: string[];
   description: string;

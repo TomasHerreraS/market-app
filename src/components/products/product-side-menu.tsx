@@ -31,6 +31,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
   const brandsParam = searchParams.get("brands");
   const cpuParams = searchParams.get("cpu");
   const categoryParam = searchParams.get("category");
+  const searchProductParam = searchParams.get('search')
   let stockParam = searchParams.get("stock");
 
   // URL Queries
@@ -40,6 +41,7 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
   const [brandsURL, setBrandsURL] = useState<string[]>([]);
   const [categoryURL, setCategoryURL] = useState<string[]>([]);
   const [stockURL, setStockURL] = useState(false);
+  const [searchURL, setSearchURL] = useState<string>()
 
   // Handles for queries
   const handlePriceURL = (price: string) => {
@@ -95,14 +97,16 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     const sortQuery = sortURL !== null ? "sort=" + sortURL : "";
     const priceQuery = priceURL !== null ? "price=" + priceURL : "";
     const stockQuery = stockURL === true ? "stock=Available" : "";
+    const searchQuery = searchProductParam !== (null || '') ? "search=" + searchURL : "";
 
     const url = `products?${[
+      searchQuery,
       sortQuery,
       priceQuery,
       cpuQuery,
       brandsQuery,
       categoryQuery,
-      stockQuery,
+      stockQuery
     ]
       .filter(Boolean)
       .join("&")}`;
@@ -149,6 +153,9 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     // Sort
     setSortURL(sortParam || "Featured");
 
+    // Search
+    setSearchURL(searchProductParam || '');
+
     // Stock
     setStockURL(stockParam === "Available" ? true : false);
 
@@ -179,23 +186,31 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
     const updatedFilteredProducts = products.filter((product) => {
       let priceFilter = true;
 
+      const searchFilter =
+        !searchProductParam ||
+        product.name.toLowerCase().includes(searchProductParam.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchProductParam.toLowerCase()) ||
+        product.brand.includes(searchProductParam.toLowerCase()) ||
+        product.category.includes(searchProductParam.toLowerCase())
+
       const cpuFilter =
         !cpuParams ||
         cpuParams.length === 0 ||
-        cpuParams.toLowerCase().includes(product.cpu.toLowerCase());
+        product.name.toLowerCase().includes(cpuParams.replace("_", " ").toLowerCase())||
+        product.description.toLowerCase().includes(cpuParams.replace("_", " ").toLowerCase());
 
       const categoryFilter =
         !categoryParam ||
         categoryParam.length === 0 ||
         product.category.some((category) =>
-          categoryParam.toLowerCase().includes(category.toLowerCase())
+          categoryParam.toLowerCase().includes(category.toLowerCase().replace("_", " "))
         );
 
       const brandsFilter =
         !brandsParam ||
         brandsParam.length === 0 ||
         product.brand.some((brand) =>
-          brandsParam.toLowerCase().includes(brand.toLowerCase())
+          brandsParam.toLowerCase().includes(brand.toLowerCase().replace("_", " "))
         );
 
       if (priceParam !== "All" && priceParam) {
@@ -217,7 +232,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
         priceFilter &&
         categoryFilter &&
         brandsFilter &&
-        stockFilter
+        stockFilter &&
+        searchFilter
       );
     });
 
@@ -321,8 +337,8 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               type="radio"
               name="price"
               label="Under $100"
-              onChange={() => handlePriceURL("0-100")}
-              defaultChecked={priceParam === "0-100"}
+              onChange={() => handlePriceURL("0-99")}
+              defaultChecked={priceParam === "0-99"}
             />
             <Form.Check
               className="form-text"
@@ -432,9 +448,15 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
             />
             <Form.Check
               className="form-text"
-              label="Mouse"
-              onClick={() => handleCategoryURL("Mouse")}
-              defaultChecked={categoryParam?.toLowerCase().includes("mouse")}
+              label="Peripherals"
+              onClick={() => handleCategoryURL("Peripheral")}
+              defaultChecked={categoryParam?.toLowerCase().includes("peripheral")}
+            />
+            <Form.Check
+              className="form-text"
+              label="PC Parts"
+              onClick={() => handleCategoryURL("PC_Parts")}
+              defaultChecked={categoryParam?.toLowerCase().includes("pc_parts")}
             />
           </Form>
           <hr />
@@ -461,6 +483,12 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               label="MSI"
               onClick={() => handleBrandsURL("MSI")}
               defaultChecked={brandsParam?.toLowerCase().includes("msi")}
+            />
+            <Form.Check
+              className="form-text"
+              label="AMD"
+              onClick={() => handleBrandsURL("AMD")}
+              defaultChecked={brandsParam?.toLowerCase().includes("amd")}
             />
             <Form.Check
               className="form-text"
@@ -534,6 +562,21 @@ const ProductSideMenu: React.FC<ProductSideMenuProps> = ({
               label="9th Gen"
               onClick={() => handleCpuURL("9th_Gen")}
               defaultChecked={cpuParams?.toLowerCase().includes("9th_gen")}
+            />
+            <Form.Check
+              label="Ryzen 8000"
+              onClick={() => handleCpuURL("Ryzen_8000")}
+              defaultChecked={cpuParams?.toLowerCase().includes("ryzen_8000")}
+            />
+            <Form.Check
+              label="Ryzen 7000"
+              onClick={() => handleCpuURL("Ryzen_7000")}
+              defaultChecked={cpuParams?.toLowerCase().includes("ryzen_7000")}
+            />
+            <Form.Check
+              label="Ryzen 5000"
+              onClick={() => handleCpuURL("Ryzen_5000")}
+              defaultChecked={cpuParams?.toLowerCase().includes("ryzen_5000")}
             />
           </Form>
           <hr />

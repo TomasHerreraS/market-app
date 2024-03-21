@@ -263,6 +263,7 @@ const AdminProductForm = () => {
     if (image.length !== 0) {
       setImageError("");
     }
+
     // Validate the form data against the schema
     try {
       await schema.validate(
@@ -295,7 +296,6 @@ const AdminProductForm = () => {
 
       brand.forEach((b) => formData.append("brand[]", b));
       category.forEach((c) => formData.append("category[]", c));
-
       image.forEach((file) => formData.append("image", file));
 
       await addProduct(formData);
@@ -309,9 +309,8 @@ const AdminProductForm = () => {
       setBrand([]);
       setCategory([]);
       setImage([]);
-      setValidationErrors([]); // Clear any previous validation errors
+      setValidationErrors([]); 
     } catch (error) {
-      // If validation fails, set the validation errors state
       if (error instanceof yup.ValidationError) {
         setValidationErrors(error.errors);
       }

@@ -1,17 +1,29 @@
 .product-box-top-left {
   position: relative;
-  width: 100%;
+  width: 99%;
   height: 100%;
   padding: 20px 10px 10px 20px;
   max-height: 48vh;
+  transition: ease 0.75s;
+}
+
+.product-box-top-left:hover, .product-box-top-right:hover, .product-box-right:hover,
+.row2-bottom-left:hover, .row2-top-left:hover {
+  transform: scale(1.02,1.02);
+}
+
+.product-box-top-left:active, .product-box-right:active, .row2-bottom-left:active, .row2-top-left:active, .product-box-top-right:active {
+  transform: scale(0.95,0.95);
 }
 
 .product-box-top-right {
   position: relative;
-  width: 100%;
+  width: 99%;
   height: 100%;
   padding: 20px 20px 10px 10px;
   max-height: 48vh;
+  overflow: hidden;
+  transition: ease 0.75s;
 }
 
 .top-row-img {
@@ -23,32 +35,35 @@
 
 .product-box-right {
   position: relative;
-  width: 100%;
+  width: 99%;
   height: 100%;
   padding: 10px 20px 20px 10px;
   max-height: 80vh;
+  transition: ease 0.75s;
 }
 
 .row2-top-left {
   position: relative;
-  width: 100%;
+  width: 99%;
   height: 50%;
   padding: 10px 10px 10px 20px;
   max-height: 40vh;
+  transition: ease 0.75s;
 }
 
 .row2-bottom-left {
   position: relative;
-  width: 100%;
+  width: 99%;
   height: 50%;
   padding: 0px 10px 20px 20px;
   max-height: 40vh;
+  transition: ease 0.75s;
 }
 
 .row2-img-left {
   overflow: hidden;
   object-fit: cover;
-  width: 100%;
+  width: 99%;
   height: 100%;
 }
 

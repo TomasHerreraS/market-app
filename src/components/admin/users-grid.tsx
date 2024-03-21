@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import {
   Button,
-  CloseButton,
   Col,
   Container,
   Form,
@@ -10,13 +9,14 @@ import {
   Stack,
 } from "react-bootstrap";
 import "../../styles/users-grid.css";
-import { Users } from "../../utils/type";
+import { Role, Users } from "../../utils/type";
 import UserCards from "./user-cards";
 import UserSkeletons from "./user-skeletons";
 import { ChevronDown } from "react-bootstrap-icons";
-import { getAllUsers } from "../../provider/user.provider";
+import { deleteUser, getAllUsers } from "../../provider/user.provider";
+import AdminUserForm from "./admin-user-form";
 
-const UsersGrid = () => {
+const UsersGrid = ({ role }: Role) => {
   // Timeout to create loading skeletons
   const DELAY_MILISECONDS = 1000;
 
@@ -31,6 +31,7 @@ const UsersGrid = () => {
   const [sortFilter, setSortFilter] = useState<string>("Alphabetical");
   const [showRole, setShowRole] = useState<boolean>(false);
   const [roleFilter, setRoleFilter] = useState<number>(0);
+  const [initialRender, setInitialRender] = useState<boolean>(true);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -46,8 +47,8 @@ const UsersGrid = () => {
         user.phone.toString().includes(search)
     );
     // Filtering roles
-    filter = filter.filter((user) =>
-      (user.rol_id === roleFilter || roleFilter === 0)
+    filter = filter.filter(
+      (user) => user.rol_id === roleFilter || roleFilter === 0
     );
 
     if (sortFilter === "Alphabetical") {
@@ -81,7 +82,6 @@ const UsersGrid = () => {
     setShowRole(false);
   };
 
-  
   // Fetching the users
   const fetchUsers = async () => {
     try {
@@ -96,12 +96,13 @@ const UsersGrid = () => {
       console.log("Could not fetch users", error);
     }
   };
-  
+
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      if (users.length === 0) {
+      if (users.length === 0 && initialRender) {
         fetchUsers();
+        setInitialRender(false);
       }
     }, DELAY_MILISECONDS);
 
@@ -110,6 +111,15 @@ const UsersGrid = () => {
 
   const handleForm = () => {
     setShowForm(!showForm);
+  };
+
+  const handleDelete = async (email: string) => {
+    try {
+      await deleteUser(email);
+      fetchUsers();
+    } catch (error) {
+      throw error;
+    }
   };
 
   const resetSearch = () => {
@@ -121,7 +131,7 @@ const UsersGrid = () => {
   return (
     <>
       <div className={showForm ? "darken" : ""}></div>
-      <Container className="p-3 m-5 mx-auto user-list">
+      <Container className="p-3 my-5 user-list">
         <h3 className="text-center mb-4">List of Users</h3>
         <Row className="g-3 justify-content-between">
           <Col xs={12} md={5}>
@@ -164,7 +174,9 @@ const UsersGrid = () => {
                     </div>
                     <div
                       className={
-                        sortFilter === "Newest" ? "user-list-selected-filter" : "user-list-select-options"
+                        sortFilter === "Newest"
+                          ? "user-list-selected-filter"
+                          : "user-list-select-options"
                       }
                       onClick={() => setSortFilter("Newest")}
                     >
@@ -172,7 +184,9 @@ const UsersGrid = () => {
                     </div>
                     <div
                       className={
-                        sortFilter === "Oldest" ? "user-list-selected-filter" : "user-list-select-options"
+                        sortFilter === "Oldest"
+                          ? "user-list-selected-filter"
+                          : "user-list-select-options"
                       }
                       onClick={() => setSortFilter("Oldest")}
                     >
@@ -198,7 +212,9 @@ const UsersGrid = () => {
                   >
                     <div
                       className={
-                        roleFilter === 0 ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 0
+                          ? "user-list-selected-filter"
+                          : "user-list-select-options"
                       }
                       onClick={() => setRoleFilter(0)}
                     >
@@ -206,7 +222,9 @@ const UsersGrid = () => {
                     </div>
                     <div
                       className={
-                        roleFilter === 1 ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 1
+                          ? "user-list-selected-filter"
+                          : "user-list-select-options"
                       }
                       onClick={() => setRoleFilter(1)}
                     >
@@ -214,7 +232,9 @@ const UsersGrid = () => {
                     </div>
                     <div
                       className={
-                        roleFilter === 2 ? "user-list-selected-filter" : "user-list-select-options"
+                        roleFilter === 2
+                          ? "user-list-selected-filter"
+                          : "user-list-select-options"
                       }
                       onClick={() => setRoleFilter(2)}
                     >
@@ -244,7 +264,7 @@ const UsersGrid = () => {
           {!isLoading && filteredUsers.length > 0 ? (
             filteredUsers.map((user, index) => (
               <Col xs={12} sm={6} lg={3} key={index}>
-                <UserCards users={user} />
+                <UserCards users={user} role={role} onDelete={() => handleDelete(user.email)} />
               </Col>
             ))
           ) : (
@@ -252,46 +272,7 @@ const UsersGrid = () => {
           )}
         </Row>
       </Container>
-      {showForm && (
-        <>
-          <Container className="user-list-form-add-users">
-            <Stack direction="horizontal" className="justify-content-end">
-              <CloseButton onClick={() => handleForm()} />
-            </Stack>
-            <Form.Label>E-mail:</Form.Label>
-            <Form.Control
-              type="email"
-              id="email"
-              placeholder="name@quantum.com"
-            />
-            <Form.Text id="email" muted></Form.Text>
-            <br />
-            <Form.Label>Username:</Form.Label>
-            <Form.Control type="name" id="name" placeholder="quantum123" />
-            <Form.Text id="name" muted>
-              Username must be atleast 6 characters long.
-            </Form.Text>
-            <br />
-            <Form.Label htmlFor="inputPassword5" className="mt-4">
-              Password:
-            </Form.Label>
-            <Form.Control
-              type="password"
-              id="inputPassword5"
-              aria-describedby="passwordHelpBlock"
-              placeholder="Password"
-            />
-            <Form.Text id="passwordHelpBlock" muted>
-              Password must be 8-20 characters long, contain letters and
-              numbers, and must not contain spaces, special characters, or
-              emoji.
-            </Form.Text>
-            <Col className="d-flex justify-content-center mt-5">
-              <Button variant="info">Add User</Button>
-            </Col>
-          </Container>
-        </>
-      )}
+      {showForm && <AdminUserForm onHide={handleForm} />}
     </>
   );
 };

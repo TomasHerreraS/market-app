@@ -29,7 +29,7 @@ const UsersPage = () => {
   return (
     <>
       <NavigationBar />
-      {role === 1 ? <UsersGrid /> : <h2 className="text-center">Not an admin user</h2>}
+      {role !== 1 ? <UsersGrid role={role} /> : <h2 className="text-center">Not an admin user</h2>}
       <Footer />
     </>
   );

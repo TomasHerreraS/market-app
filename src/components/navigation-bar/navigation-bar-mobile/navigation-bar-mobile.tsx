@@ -26,6 +26,7 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>();
   const [sidebar, setSidebar] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const redirectToMainPage = exportRedirect.useRedirectToMainPage();
@@ -57,6 +58,25 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
       setShowSearch(false);
     }
   };
+
+  const triggerSearch = () => {
+    if(search) {
+      const url = '/products?search=' + search.replace(" ", "_");
+      window.location.href = url;
+    } else {
+      window.location.href = '/products'
+    }
+  }
+
+  const handleKeyPress = (e: any) => {
+    if(e.key === 'Enter') {
+      triggerSearch();
+    }
+  };
+
+  const handleSearchInput = (e: any) => {
+    setSearch(e.target.value)
+  }
 
   return (
     <Row className="background-color text-color padding g-0 align-items-center justify-content-between">
@@ -101,9 +121,9 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
                         item.title !== "Sign up" &&
                         item.path && (
                           <li key={index} className={item.cName}>
-                            <Link to={item.path}>
+                            <a href={item.path}>
                               <span>{item.title}</span>
-                            </Link>
+                            </a>
                           </li>
                         )
                       )
@@ -112,9 +132,9 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
                       item.title !== "Sign up" &&
                       item.path && (
                         <li key={index} className={item.cName}>
-                          <Link to={item.path}>
+                          <a href={item.path}>
                             <span>{item.title}</span>
-                          </Link>
+                          </a>
                         </li>
                       )
                   )
@@ -122,9 +142,9 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
                     (item, index) =>
                       item.path && (
                         <li key={index} className={item.cName}>
-                          <Link to={item.path}>
+                          <a href={item.path}>
                             <span>{item.title}</span>
-                          </Link>
+                          </a>
                         </li>
                       )
                   )}
@@ -154,8 +174,8 @@ const NavigationBarMobile: React.FC<Role> = ({ role }) => {
         ref={searchInputRef}
       >
         <InputGroup>
-          <Button size="sm">Search</Button>
-          <FormControl placeholder="What are you looking for?" />
+          <Button size="sm" onClick={triggerSearch}>Search</Button>
+          <FormControl placeholder="What are you looking for?" value={search} onChange={handleSearchInput} onKeyDown={handleKeyPress}/>
         </InputGroup>
       </div>
     </Row>

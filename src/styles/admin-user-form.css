@@ -1,0 +1,20 @@
+.errors {
+    color: red;
+    font-size: 14px;
+    margin: 4px 0px 4px 25px;
+    width: 50%
+}
+
+.state-options {
+    margin-top: 36.5px !important;
+    width: 50%;
+}
+
+.city-options {
+    margin: 36.5px 0px 0px 50% !important;
+    width: 50%
+}
+
+.location-label {
+    width: 50%;
+}

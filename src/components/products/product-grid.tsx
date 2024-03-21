@@ -88,6 +88,9 @@ const ProductGrid = () => {
                   <ProductCards key={obj.product_id} obj={obj} />
                 </Col>
               ))}
+              {filteredProducts.length === 0 &&
+              <h3 className="text-center my-5">No Results Found</h3>
+              }
             </Row>
           </Col>
         </>
