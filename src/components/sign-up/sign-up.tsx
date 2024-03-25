@@ -10,7 +10,7 @@ import { notification } from '../../utils/market-functions/notification';
 
 
 const SignUp = ({show, setShow, setShowValidation}: any) => {
-  const initialValues: UserData = { firstname: '', lastname: '', rol_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
+  const initialValues: UserData = { firstname: '', lastname: '', role_id: 2, phone: '', state: '', city: '', address: '', email: '', password: '' }
   const handleClose = () => setShow(false);
   const [valueSelected, setValueSelected] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
@@ -18,7 +18,7 @@ const SignUp = ({show, setShow, setShowValidation}: any) => {
 
   type UserDataKeys = keyof UserData;
 
-  const userDataValidation: UserDataKeys[] = ['firstname', 'lastname', 'rol_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
+  const userDataValidation: UserDataKeys[] = ['firstname', 'lastname', 'role_id', 'email', 'password', 'phone', 'state', 'city', 'address'];
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValueSelected(e.target.value);
