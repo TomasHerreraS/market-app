@@ -13,7 +13,7 @@ import {
   addUser,
   getCheckExists,
 } from "../../provider/user.provider";
-import { UserData } from "../../type";
+import { UserData } from "../../utils/type";
 import "../../styles/admin-user-form.css";
 
 interface FormProp {
