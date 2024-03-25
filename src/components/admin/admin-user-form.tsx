@@ -237,7 +237,7 @@ const AdminUserForm = ({ onHide }: FormProp) => {
             lastname: lastname,
           password: password,
           email: email,
-          rol_id: role,
+          role_id: role,
           phone: phone,
           state: stateInput,
           city: cityInput,
