@@ -7,7 +7,6 @@ interface DeleteButtonProps {
 
 const DeleteButton:React.FC<DeleteButtonProps> = ({ onDelete }) => {
   const handleClick = () => {
-    console.log('Delete button clicked');
     onDelete();
   };
 
@@ -16,4 +15,4 @@ const DeleteButton:React.FC<DeleteButtonProps> = ({ onDelete }) => {
   )
 }
 
-export default DeleteButton
+export default DeleteButton;

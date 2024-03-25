@@ -25,7 +25,7 @@ const Component = () => {
         className={show ? "dropdown-button picked" : "dropdown-button"}
         id="dropdown-basic"
       >
-        PC Components
+        Categories
       </Dropdown.Toggle>
       <Dropdown.Menu
         onMouseOver={showDropdown}
@@ -49,22 +49,22 @@ const Component = () => {
                     />
                   </Col>
                   <Col
-                    className="col-submenu"
+                    className="col-submenu p-3"
                     md={windowDimensions > 1360 ? 7 : 12}
                   >
-                    <a href="/" className="submenu-title">
+                    <a href={obj.title_path} className="submenu-title">
                       {obj.title}
                     </a>
-                    {obj.sub.map((subData, number) => {
+                    {obj.sub.sub_title.map((subTitle, index) => {
                       return (
                         <a
-                          key={number}
-                          href="/"
+                          key={index}
+                          href={obj.sub.sub_path[index]}
                           className={
-                            subData.length < 5 ? "submenu-p-size" : "submenu-p"
+                            subTitle.length < 5 ? "submenu-p-size" : "submenu-p"
                           }
                         >
-                          {subData}
+                          {subTitle}
                         </a>
                       );
                     })}

@@ -1,21 +1,50 @@
-[{
-  "title":"Pc Cases",
-  "sub": []
+[
+{
+  "title":"CPU",
+  "title_path": "/products?category=cpu",
+  "sub":{
+    "sub_title":["Intel Processors", "AMD Processors"],
+    "sub_path": ["/products?category=cpu&brands=intel","/products?category=cpu&brands=amd"]
+  }
 },
 {
-  "title":"Fans",
-  "sub": ["RGB", "120 mm", "140 mm"]
+  "title":"GPU",
+  "title_path": "/products?category=gpu",
+  "sub":{
+    "sub_title":["RX Cards", "RTX Cards"],
+    "sub_path": ["/products?search=rx_cards&category=gpu","/products?search=rtx_cards&category=gpu"]
+  }
 },
 {
-  "title":"Memory",
-  "sub":[]
+  "title":"PC Cases",
+  "title_path": "/products?category=pc_cases",
+  "sub":{
+    "sub_title":["Low-Tower", "Mid-Tower", "High-Tower"],
+    "sub_path": ["/products?search=low_tower&category=pc_case", "/products?search=mid_tower&category=pc_case", "/products?search=High_tower&category=pc_case"]
+  }
 },
 {
-  "title":"Storage",
-  "sub":["SSD","External SSD", "USB Flash Drives"]
+  "title":"Peripherals",
+  "title_path": "/products?category=peripheral",
+  "sub":{
+    "sub_title":["Mouse", "Keyboard", "Headphones"],
+    "sub_path": ["/products?search=mouse&category=peripheral","/products?search=keyboard&category=peripheral", "/products?search=headphones&category=peripheral"]
+  }
 },
 {
-  "title":"Accesories",
-  "sub":["Hubs & Docks"]
+  "title":"Brands",
+  "title_path": "/products?",
+  "sub":{
+    "sub_title":["Intel", "AMD", "ASUS"],
+    "sub_path": ["/products?brands=intel","/products?brands=amd", "/products?brands=asus"]
+  }
+},
+{
+  "title":"PC Parts",
+  "title_path": "/products?category=pc_parts",
+  "sub":{
+    "sub_title":["Fans", "Memory", "Motherboard"],
+    "sub_path": ["/products?search=fans&category=pc_parts","/products?search=memory&category=pc_parts", "/products?search=motherboard&category=pc_parts"]
+  }
 }
 ]

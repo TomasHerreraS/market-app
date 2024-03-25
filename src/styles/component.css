@@ -2,16 +2,20 @@
   position: static !important;
 }
 
-.dropdown-button{
+.dropdown-button {
   background-color: rgba(228, 107, 107, 0) !important;
   border: none !important;
   color: white;
   height: 55px;
   padding: 0 !important;
+  transition: 1s ease !important;
+  transform-origin: center;
 }
 
-.picked{
-  color: rgb(255, 255, 118) !important;
+.picked {
+  color: aqua !important;
+  transition: 1s ease !important;
+  font-size: 18px !important;
 }
 
 .dropdown-toggle::after{
@@ -24,27 +28,30 @@
 }
   
 .dropdown-size{
-  margin-top: -2px !important;
+  margin-top: -6.5px !important;
   width: 100% !important;
   margin-left: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
+  border-bottom: solid 2.5px aqua !important;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
 }
 
 .image-style{
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
 }
 
 @media (min-width: 1360px) {
   .image-style {
-    margin: 8px 0px 15px 15px;
+    margin: 8px 0px 15px 30px !important;
   }
 }
 
 @media (max-width: 1360px) {
   .image-style {
-    margin: 8px 0px 15px 0px;
+    margin: 8px 0px 15px 0px !important;
   }
 }
 
@@ -63,8 +70,9 @@
 @media (min-width: 1360px) {
   .submenu-title {
     margin-top: 10px;
-    margin-left: 10% !important;
+    margin-left: 10px !important;
     margin-right: 0px !important;
+    text-align: start;
   }
 }
 
@@ -84,15 +92,15 @@
 
 @media (min-width: 1360px) {
   .submenu-p {
-    margin-left: 10% !important;
+    margin-left: 15px !important;
     margin-right: 0px !important;
   }
 }
 
 @media (max-width: 1360px) {
   .submenu-p {
-    margin-left: 25% !important;
-    margin-right: 25% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     text-align: center;
   }
 }

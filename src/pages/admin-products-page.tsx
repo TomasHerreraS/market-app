@@ -3,7 +3,7 @@ import Footer from "../components/footer/footer";
 import { useEffect, useState } from "react";
 import { decodedToken } from "../utils/token";
 import { getRole } from "../provider/user.provider";
-import AdminProductGrid from "../components/admin/admin-product-grid";
+import AdminProductGrid from "../components/admin/admin-product-form";
 
 const AdminProductsPage = () => {
   const [role, setRole] = useState<number>(0);

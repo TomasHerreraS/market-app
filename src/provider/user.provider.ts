@@ -81,3 +81,25 @@ export const getUserId = async (email: Email) => {
     throw error;
   }
 }
+
+export const getCheckExists = async (phone: string, email: string) => {
+  try {
+    const response = await axios.post('http://localhost:3001/getCheckExists', {
+      phone: phone,
+      email: email
+  })
+    return response.data
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const deleteUser = async (email: string) => {
+  try {
+    const response = await axios.post('http://localhost:3001/deleteUser', {
+      email: email
+    })
+  } catch (error) {
+    throw error
+  }
+}

@@ -13,9 +13,9 @@ function ProductBoxRow() {
       <Row className="g-0">
         <Col sm={6} md={6}>
           <div className="product-box-top-left">
-            <a href="#">
+            <a href="/products?search=monitor">
               <div className="product-box-image-text top-row-image-text">
-                <h2>Hello</h2>
+                <h2>Monitors</h2>
                 <h3>
                   Shop Now
                   <ChevronRight />
@@ -29,9 +29,9 @@ function ProductBoxRow() {
         </Col>
         <Col sm={6} md={6}>
           <div className="product-box-top-right">
-            <a href="#">
+            <a href="product?search=mouse">
               <div className="product-box-image-text top-row-image-text">
-                <h2>Hello</h2>
+                <h2>Mice</h2>
                 <h3>
                   Shop Now
                   <ChevronRight />
@@ -47,9 +47,9 @@ function ProductBoxRow() {
       <Row className="g-0">
         <Col sm={6} md={6}>
           <div className="row2-top-left">
-            <a href="#">
+            <a href="products?category=GPU">
               <div className="product-box-image-text row2-top-left-image-text">
-                <h2>Hello</h2>
+                <h2>Graphics Cards</h2>
                 <h3>
                   Shop Now
                   <ChevronRight />
@@ -61,9 +61,9 @@ function ProductBoxRow() {
             </a>
           </div>
           <div className="row2-bottom-left">
-            <a href="#">
+            <a href="products?search=keyboard">
               <div className="product-box-image-text row2-bottom-left-image-text">
-                <h2>Hello</h2>
+                <h2>Keyboards</h2>
                 <h3>
                   Shop Now
                   <ChevronRight />
@@ -77,9 +77,9 @@ function ProductBoxRow() {
         </Col>
         <Col sm={6} md={6}>
           <div className="product-box-right">
-            <a href="#">
+            <a href="products?category=pc_cases">
               <div className="product-box-image-text row2-right-image-text">
-                <h2>Hello</h2>
+                <h2>PC Cases</h2>
                 <h3>
                   Shop Now
                   <ChevronRight />

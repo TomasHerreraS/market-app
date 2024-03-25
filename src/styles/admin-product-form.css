@@ -1,0 +1,53 @@
+.errors {
+    color: red;
+    font-size: 14px;
+    margin: 4px 0px 4px 15px
+}
+
+.input-buttons {
+    width: 120px;
+}
+
+.selected-options {
+    background-color: rgb(65, 65, 65);
+    color: aliceblue;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 12px;
+    margin: 5px 5px 5px 0px;
+}
+
+.delete-option {
+    color: aliceblue;
+    transition: ease-in-out 0.25s;
+    cursor: pointer;
+}
+
+.delete-option:hover {
+    color: rgb(103, 103, 103);
+    transition: ease-in-out 0.25s;
+}
+
+.add-product-button {
+    margin: 10px auto 5px auto;
+}
+
+.image-error {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.product-form-title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.product-form-dropdown {
+    width: calc(100% - 120px);
+    margin: 36.5px 0px 0px 120px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}

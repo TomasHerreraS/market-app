@@ -24,7 +24,6 @@ export interface Email{
 export interface Products{
   product_id: number;
   name: string;
-  cpu: string;
   price: number;
   category: string[];
   description: string;

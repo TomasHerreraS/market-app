@@ -6,16 +6,6 @@ interface SidebarItem {
 
 export const ClientSidebarData: SidebarItem[] = [
   {
-    title: 'Peripherals',
-    path: '/',
-    cName: 'nav-text'
-  },
-  {
-    title: 'Pc Components',
-    path: '/',
-    cName: 'nav-text'
-  },
-  {
     title: 'Sign in',
     cName: 'nav-text'
   },
@@ -24,11 +14,38 @@ export const ClientSidebarData: SidebarItem[] = [
     cName: 'nav-text'
   },
   {
-    title: 'Messages',
-    path: '/messages',
+    title: 'Peripherals',
+    path: '/',
     cName: 'nav-text'
   },
   {
+    title: 'PC Components',
+    path: '/',
+    cName: 'nav-text'
+  },
+  {
+    title: 'Under $100',
+    path: '/products?price=0-99',
+    cName: 'nav-text'
+  },
+  {
+    title: 'CPU',
+    path: '/products?cpu=13th_Gen%2012th_Gen%2011th_Gen%2010th_Gen%209th_Gen',
+    cName: 'nav-text'
+  },
+  {
+    title: 'Best Sellers',
+    path: '/products?sort=Best_Sellers',
+    cName: 'nav-text'
+  },{
+    title: 'Featured',
+    path: '/products?sort=Featured',
+    cName: 'nav-text'
+  },{
+    title: 'Newest',
+    path: '/products?sort=Newest',
+    cName: 'nav-text'
+  },{
     title: 'About us',
     path: '/about-us',
     cName: 'nav-text'
