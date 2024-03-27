@@ -15,9 +15,7 @@ import { HistoryPage } from './pages/history-page';
 
 const RouteByComponent = () => {
   if (decodedToken) {
-    getRole({email: decodedToken.email}).then((result)=>{
-      console.log(result);
-    });
+    getRole({email: decodedToken.email})
   }
   return (
     <Routes>

@@ -80,7 +80,6 @@ export interface Quantity{
 }
 
 export interface Table {
-  // data: Products[], LLAMAR A PRODUCT CUANDO EL TYPE ESTÉ CORRECTO.
   data: any,
   setGetItemsPerPage: React.Dispatch<React.SetStateAction<number>>,
   setGetCurrentPage: React.Dispatch<React.SetStateAction<number>>,
@@ -88,6 +87,15 @@ export interface Table {
   dataLength: number,
   updateButton: boolean,
   deleteButton: boolean,
+}
+
+export interface CardTable {
+  data: any,
+  setGetItemsPerPage: React.Dispatch<React.SetStateAction<number>>,
+  setGetCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+  setGetIndexOfFirstItem: React.Dispatch<React.SetStateAction<number>>,
+  dataLength: number,
+  card: 'Product' | 'User' | 'Cart',
 }
 
 export interface Role {

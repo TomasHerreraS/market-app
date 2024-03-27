@@ -1,17 +1,11 @@
-import { Row, Col, Image, Button } from "react-bootstrap";
-import { truncateText } from "../../utils/market-functions/truncate-text";
-import { FiMinus, FiPlus } from "react-icons/fi";
-import { FaTrash } from "react-icons/fa";
+import { Row, Col, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { getQuantity, getAllProducts, buyProduct, getProductTable, getProductLength } from "../../provider/product.provider";
+import { getAllProducts, getProductTable, getProductLength } from "../../provider/product.provider";
 import '../../styles/cart.css';
-import { Quantity, ProductData } from "../../utils/type";
-import { socket } from "../../utils/socket";
-import { TransformImage } from "../../utils/market-functions/transform-image";
-import { DataTable } from "../../utils/table/data-table";
+import { ProductData } from "../../utils/type";
+import { CardTable } from "../../utils/table/card-table";
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState<Quantity[]>([]);
   const [getProducts, setGetProducts] = useState<ProductData[]>([]);
   const [price, setPrice] = useState<any>([]);
   const [total, setTotal] = useState<number>(0);
@@ -36,12 +30,6 @@ const Cart = () => {
     })
   }, []);
 
-  useEffect(() => {
-    getQuantity().then((result)=> {
-      setQuantity(result)
-    })
-  },[]);
-
   useEffect(()=>{
     getAllProducts().then((result)=>{
       setGetProducts(result);
@@ -65,88 +53,16 @@ const Cart = () => {
     }, 0))
   }, [price]);
 
-  useEffect(() => {
-    // Escuchar el evento 'quantityUpdated' del servidor
-    socket.on('quantityUpdated', () => {
-      getQuantity().then((result)=> {
-        setQuantity(result);
-      })
-      // Actualizar la cantidad de productos en el estado
-      // Aquí podrías llamar a una función para obtener la nueva cantidad desde el servidor si es necesario
-    });
-
-    // Limpieza del efecto
-    return () => {
-      socket.off('quantityUpdated');
-    };
-  }, []);
-
   return(
     <Row className="g-0">
       <Col md={8}>
-        <div className="div-product-style">
-          <h6 className="products-title">Products</h6>
-          <hr/>
-          {getProducts.length > 0 ?
-            getProducts.map((obj: ProductData, index: any)=>{
-            return (
-              <Row key={index} className="mt-4">
-                <Col className="text-center" md={3}>
-                  <Image
-                    className="img-fluid image-style text-center"
-                    rounded
-                    src={TransformImage(obj.image)}
-                    alt={obj.name}
-                  />
-                  <p className="text-center">{obj.name}</p>
-                </Col>
-                <Col className="text-center mt-3 col-description" md={5}>
-                  {truncateText(obj.description,85)}
-                </Col>
-                <Col className="mt-4 col-amount" md={2}>
-                  <Row className="div-amount">
-                    <Col md={4}>
-                      <FiMinus className="minus pointer" size={20}/>
-                    </Col>
-                    <Col md={4}>
-                      <p className="text-center amount"> 1 </p>
-                    </Col>
-                    <Col md={4}>
-                      <FiPlus className="plus pointer" size={20}/>
-                    </Col>
-                  </Row>
-                  {quantity.map((quantity, secondIndex: number) => {
-                    if (quantity.product_id === obj.product_id) {
-                      return (
-                        <p key={secondIndex} className="available-style text-center">{quantity.quantity} Available</p>
-                      )
-                    } else {
-                      return (null)
-                    }
-                  })}
-                </Col>
-                <Col md={2}>
-                  <div className="mt-4 text-center">
-                    <Button className="ms-2" variant="danger button-style"><FaTrash/></Button>
-                    <p className="mt-1">$ {obj.price}</p>
-                  </div>
-                </Col>
-                <Col>
-                  <Button onClick={() => {
-                    try{
-                      buyProduct({product_id: obj.product_id}).then(()=>{
-                        socket.emit('quantityUpdated')
-                      })
-                    } catch(error) {
-                      console.log(error);
-                    }
-                  }}>Borrar?</Button>
-                </Col>
-              </Row>
-            )
-          }):
-          <p className="ms-3">No hay productos agregados al carro</p>}
-        </div>
+      <CardTable
+        data={data}
+        setGetItemsPerPage={setGetItemsPerPage}
+        setGetCurrentPage={setGetCurrentPage}
+        setGetIndexOfFirstItem={setGetIndexOfFirstItem}
+        dataLength={dataLength}
+        card='Cart'/>
       </Col>
       <Col md={4}>
         <div className="div-total-style">
@@ -181,14 +97,14 @@ const Cart = () => {
           </Row>
         </div>
       </Col>
-      <DataTable 
+      {/* <DataTable 
       data={data}
       setGetItemsPerPage={setGetItemsPerPage}
       setGetCurrentPage={setGetCurrentPage}
       setGetIndexOfFirstItem={setGetIndexOfFirstItem}
       dataLength={dataLength}
       updateButton={true}
-      deleteButton={true}/>
+      deleteButton={true}/> */}
     </Row>
   )
 }
